@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  * Servlet implementation class Login
@@ -41,10 +44,25 @@ public class Login extends HttpServlet {
 		if(request.getParameterMap().containsKey("username"))
 		{
 		
-			String username = request.getParameter( "username" );
+			String username = request.getParameter( "username");
+			
+			/*ObjectMapper mapper = new ObjectMapper();
+
+			try {
+			    // convert user object to json string and return it 
+			    return mapper.writeValueAsString();
+			}
+
+			  // catch various errors
+			  catch (JsonGenerationException e) {
+			    e.printStackTrace();
+			} 
+			  catch (JsonMappingException e) {
+			    e.printStackTrace();
+			}*/
 	
-		    response.setContentType("text/plain");  // Set content type of the response so that jQuery knows what it can expect.
-		    response.setCharacterEncoding("UTF-8"); // You want world domination, huh?
+		    response.setContentType("application/json");
+		    response.setCharacterEncoding("UTF-8");
 		    response.getWriter().write(username);
 		}
 		else
