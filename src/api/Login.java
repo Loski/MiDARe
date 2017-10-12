@@ -1,3 +1,4 @@
+package api;
 
 
 import java.io.IOException;
@@ -8,11 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import modelData.User;
+import tools.JSONConverter;
 
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/login")
+@WebServlet("/auth")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -21,15 +23,13 @@ public class Login extends HttpServlet {
      */
     public Login() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub	
-
+		
 	    response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 	    
 	}
@@ -38,7 +38,6 @@ public class Login extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		
 		if(request.getParameterMap().containsKey("username"))
 		{
