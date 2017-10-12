@@ -14,7 +14,7 @@ public abstract class URLParser {
 			System.out.println(parts[i]);
 		}
 		
-		if(parts.length>0)
+		if(parts.length>1)
 		{
 			String param1 = parts[1];
 			
