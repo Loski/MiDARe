@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 15 oct. 2017 04:58:57 by Hibernate Tools 5.2.5.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sanglier" dynamic-insert="false" dynamic-update="false" mutable="true" name="Encounter" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="encounter">
+        <id name="idEncounter" type="java.lang.Integer">
+            <column name="id_encounter"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="Sport" embed-xml="true" fetch="select" insert="true" name="sport" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="id_sport" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="Team" embed-xml="true" fetch="select" insert="true" name="teamByIdTeam1" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="id_team_1" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="Team" embed-xml="true" fetch="select" insert="true" name="teamByIdTeam2" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="id_team_2" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="scoreTeam1" optimistic-lock="true" type="int" unique="false">
+            <column name="score_team_1" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="scoreTeam2" optimistic-lock="true" type="int" unique="false">
+            <column name="score_team_2" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="stateEncounter" optimistic-lock="true" type="string" unique="false">
+            <column length="7" name="state_encounter"/>
+        </property>
+        <property generated="never" lazy="false" name="dateEncounter" optimistic-lock="true" type="timestamp" unique="false">
+            <column length="19" name="date_encounter"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="bets" optimistic-lock="true" sort="unsorted" table="bet">
+            <key on-delete="noaction">
+                <column name="id_encounter" not-null="true"/>
+            </key>
+            <one-to-many class="Bet" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

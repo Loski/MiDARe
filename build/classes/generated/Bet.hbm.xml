@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 15 oct. 2017 04:58:57 by Hibernate Tools 5.2.5.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="sanglier" dynamic-insert="false" dynamic-update="false" mutable="true" name="Bet" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="bet">
+        <id name="idBet" type="java.lang.Integer">
+            <column name="id_bet"/>
+            <generator class="identity"/>
+        </id>
+        <many-to-one class="Account" embed-xml="true" fetch="select" insert="true" name="accountByIdUser2" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="id_user_2" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="Account" embed-xml="true" fetch="select" insert="true" name="accountByIdUser1" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="id_user_1" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="Encounter" embed-xml="true" fetch="select" insert="true" name="encounter" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="id_encounter" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="Service" embed-xml="true" fetch="select" insert="true" name="serviceByIdService2" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="id_service_2" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="Service" embed-xml="true" fetch="select" insert="true" name="serviceByIdService1" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="id_service_1" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="stateBet" optimistic-lock="true" type="string" unique="false">
+            <column length="7" name="state_bet"/>
+        </property>
+    </class>
+</hibernate-mapping>
