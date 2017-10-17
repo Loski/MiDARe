@@ -29,7 +29,7 @@ public class Login extends Route {
 		}
 		else
 		{
-			 response.sendError(422);
+			 response.sendError(422,"Le paramètre username est manquant");
 		}
 	}
 
