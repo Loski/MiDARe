@@ -1,40 +1,15 @@
 package tools;
 
 public abstract class URLParser {
+
 	
-	private static String[] parseUrlParameters(String url)
+	public static int getParameterOfURL(String url, int index)
 	{
-		String[] parts = url.substring(1).split("/");
-		
-		if(parts.length>0)
-		{
-			return parts;
-		}
-		
-		return null;
+		return Integer.parseInt(parseURL(url, index));
 	}
 	
-	public static boolean isNumeric(String str)
+	public static String parseURL(String url, int index)
 	{
-	  return str.matches("^[1-9]\\d*$");  //match a number with optional '-' and decimal.
-	}
-	
-	public static int idOfElement(String url)
-	{
-		String[] parsedUrl = parseUrlParameters(url);
-		
-		
-		System.out.println("PARSING : "+url);
-		for(int i=0;i<parsedUrl.length;i++)
-		{
-			System.out.println(parsedUrl[i]);
-		}
-		
-		if(parsedUrl!=null && isNumeric(parsedUrl[0]))
-		{
-			return Integer.parseInt(parsedUrl[0]);
-		}
-		
-		return -1;	
+		return url.split("/")[index];
 	}
 }

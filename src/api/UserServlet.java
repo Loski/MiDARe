@@ -12,9 +12,9 @@ import tools.URLParser;
 public class UserServlet extends Route {
 	private static final long serialVersionUID = 1L;
 	
-	private static final String USER_URL="/[1-9][0-9]*";
-	private static final String USER_BETS_URL="/[1-9][0-9]*/bets";
-       
+	private static final String USER_URL="^/[1-9][0-9]*";
+	private static final String USER_BETS_URL="^/[1-9][0-9]*/bets";
+    	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 
@@ -28,7 +28,7 @@ public class UserServlet extends Route {
 		 }
 		 else if(url.matches(USER_URL))
 		 {
-			 int id = URLParser.idOfElement(url);
+			 int id = URLParser.getParameterOfURL(url,1);
 				
 			 if(id!=-1)
 			 {			 
@@ -39,7 +39,7 @@ public class UserServlet extends Route {
 		 }
 		 else if(url.matches(USER_BETS_URL))
 		 {
-			 int id = URLParser.idOfElement(url);
+			 int id = URLParser.getParameterOfURL(url,1);
 				
 			 if(id!=-1)
 			 {			 
