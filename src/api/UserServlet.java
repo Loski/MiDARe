@@ -13,21 +13,25 @@ public class UserServlet extends Route {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String USER_URL="^/[1-9][0-9]*";
-	private static final String USER_BETS_URL="^/[1-9][0-9]*/bets";
+	private static final String USER_BETS_URL= USER_URL + "/bets";
     	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 
 		 String url = request.getPathInfo();
 		
-		 if(url==null || url.isEmpty() || url.equals("/"))
+		 if(url==null || url.isEmpty())
 		 {
+			 //GET : api/user
+			 
 			 response.setContentType("text/plain");
 			 response.setCharacterEncoding("UTF-8");
 			 response.getWriter().write("FETCH LA LIST");
 		 }
 		 else if(url.matches(USER_URL))
 		 {
+			 //GET : api/user/{id}
+			 
 			 int id = URLParser.getParameterOfURL(url,1);
 				
 			 if(id!=-1)
@@ -39,6 +43,8 @@ public class UserServlet extends Route {
 		 }
 		 else if(url.matches(USER_BETS_URL))
 		 {
+			//GET : api/user/{id}/bets
+			 
 			 int id = URLParser.getParameterOfURL(url,1);
 				
 			 if(id!=-1)
