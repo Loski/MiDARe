@@ -11,7 +11,7 @@ import modelData.User;
 import tools.JSONConverter;
 
 @WebServlet("/auth")
-public class Login extends Route {
+public class Login extends Endpoint {
 	private static final long serialVersionUID = 1L;
       
 	@Override

@@ -15,7 +15,7 @@ import tools.JSONConverter;
 import tools.URLParser;
 
 @WebServlet("/user/*")
-public class UserServlet extends Route {
+public class UserServlet extends Endpoint {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String USER_URL="^/[1-9][0-9]*";

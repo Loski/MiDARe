@@ -52,7 +52,7 @@ public abstract class JSONConverter {
 			try {
 				ObjectNode json = (ObjectNode) mapper.readTree(convert(obj));
 				
-				json.set(entry.getKey(),mapper.readTree(convert(obj)));
+				json.set(entry.getKey(),mapper.readTree(convert(entry.getValue())));
 				
 				return json.toString();
 				
