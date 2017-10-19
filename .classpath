@@ -9,11 +9,12 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="jar/servlet-api.jar"/>
-	<classpathentry kind="lib" path="jar/jackson-core-asl-1.9.13.jar"/>
-	<classpathentry kind="lib" path="jar/jackson-mapper-asl-1.9.13.jar"/>
 	<classpathentry kind="lib" path="jar/mysql-connector-java-5.1.44-bin.jar"/>
 	<classpathentry kind="lib" path="jar/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
 	<classpathentry kind="lib" path="jar/javaee-api-8.0.jar"/>
 	<classpathentry kind="lib" path="jar/com.springsource.org.apache.commons.logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="jar/jackson-core-2.9.0.pr2.jar"/>
+	<classpathentry kind="lib" path="jar/jackson-databind-2.9.2.jar"/>
+	<classpathentry kind="lib" path="jar/jackson-annotations-2.9.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

@@ -21,7 +21,8 @@ public class Login extends Route {
 		{
 			String username = request.getParameter( "username");
 			
-			User user = new User(username);
+			User user = new User();
+			user.setUsername(username);
 				
 		    response.setContentType("application/json");
 		    response.setCharacterEncoding("UTF-8");

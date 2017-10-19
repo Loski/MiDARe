@@ -2,10 +2,13 @@
     <wb-module deploy-name="DAR">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <dependent-module archiveName="jackson-core-asl-1.9.13.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/jackson-core-asl-1.9.13.jar">
+        <dependent-module archiveName="jackson-databind-2.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/jackson-databind-2.9.2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="jackson-mapper-asl-1.9.13.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/jackson-mapper-asl-1.9.13.jar">
+        <dependent-module archiveName="jackson-annotations-2.9.2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/jackson-annotations-2.9.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jackson-core-2.9.0.pr2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/jackson-core-2.9.0.pr2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/DAR/build/classes"/>
