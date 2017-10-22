@@ -29,8 +29,8 @@ public class Account implements java.io.Serializable {
 	private Integer zipCode;
 	private String city;
 	private String adress;
-	private Set betsForIdUser2 = new HashSet(0);
-	private Set betsForIdUser1 = new HashSet(0);
+	private Set<Account> betsForIdUser2 = new HashSet<Account>(0);
+	private Set<Account> betsForIdUser1 = new HashSet<Account>(0);
 
 	public Account() {
 	}
@@ -41,7 +41,7 @@ public class Account implements java.io.Serializable {
 	}
 
 	public Account(String pseudo, String password, String mail, Integer zipCode, String city, String adress,
-			Set betsForIdUser2, Set betsForIdUser1) {
+			Set<Account> betsForIdUser2, Set<Account> betsForIdUser1) {
 		this.pseudo = pseudo;
 		this.password = password;
 		this.mail = mail;
@@ -118,21 +118,21 @@ public class Account implements java.io.Serializable {
 		this.adress = adress;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountByIdUser2")
-	public Set getBetsForIdUser2() {
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "betsForIdUser2")
+	public Set<Account> getBetsForIdUser2() {
 		return this.betsForIdUser2;
 	}
 
-	public void setBetsForIdUser2(Set betsForIdUser2) {
+	public void setBetsForIdUser2(Set<Account> betsForIdUser2) {
 		this.betsForIdUser2 = betsForIdUser2;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "accountByIdUser1")
-	public Set getBetsForIdUser1() {
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "betsForIdUser1")
+	public Set<Account> getBetsForIdUser1() {
 		return this.betsForIdUser1;
 	}
 
-	public void setBetsForIdUser1(Set betsForIdUser1) {
+	public void setBetsForIdUser1(Set<Account> betsForIdUser1) {
 		this.betsForIdUser1 = betsForIdUser1;
 	}
 

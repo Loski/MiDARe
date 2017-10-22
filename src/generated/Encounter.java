@@ -139,7 +139,7 @@ public class Encounter implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "encounter")
-	public Set getBets() {
+	public Set<Bet> getBets() {
 		return this.bets;
 	}
 

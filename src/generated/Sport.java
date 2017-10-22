@@ -23,8 +23,8 @@ public class Sport implements java.io.Serializable {
 
 	private Integer idSport;
 	private String nameSport;
-	private Set encounters = new HashSet(0);
-	private Set teams = new HashSet(0);
+	private Set<Encounter> encounters = new HashSet(0);
+	private Set<Team> teams = new HashSet(0);
 
 	public Sport() {
 	}
@@ -57,7 +57,7 @@ public class Sport implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sport")
-	public Set getEncounters() {
+	public Set<Encounter> getEncounters() {
 		return this.encounters;
 	}
 
@@ -66,7 +66,7 @@ public class Sport implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sport")
-	public Set getTeams() {
+	public Set<Team> getTeams() {
 		return this.teams;
 	}
 

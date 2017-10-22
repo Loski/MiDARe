@@ -11,6 +11,60 @@
         <dependent-module archiveName="jackson-core-2.9.0.pr2.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/jackson-core-2.9.0.pr2.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="slf4j-api-1.5.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/slf4j-api-1.5.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="persistence.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/persistence.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="slf4j-simple-1.5.5.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/slf4j-simple-1.5.5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mysql-connector-java-5.1.44-bin.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/mysql-connector-java-5.1.44-bin.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hibernate-commons-annotations.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/hibernate-commons-annotations.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="dom4j-1.6.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/dom4j-1.6.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hibernate-entitymanager.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/hibernate-entitymanager.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javaee-api-8.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/javaee-api-8.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hibernate3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/hibernate3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hibernate-annotations.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/hibernate-annotations.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javassist-3.4.GA.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/javassist-3.4.GA.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hibernate-jpa-2.1-api-1.0.0.Final.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/hibernate-jpa-2.1-api-1.0.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jta-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/jta-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ehcache-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/ehcache-1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hsqldb.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/hsqldb.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="servlet-api.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/servlet-api.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.springsource.org.apache.commons.logging-1.1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/com.springsource.org.apache.commons.logging-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-collections-3.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/commons-collections-3.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/DAR/build/classes"/>
         <property name="context-root" value="DAR"/>
     </wb-module>

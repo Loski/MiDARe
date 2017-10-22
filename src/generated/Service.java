@@ -57,7 +57,7 @@ public class Service implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "serviceByIdService2")
-	public Set getBetsForIdService2() {
+	public Set<Bet> getBetsForIdService2() {
 		return this.betsForIdService2;
 	}
 
@@ -66,7 +66,7 @@ public class Service implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "serviceByIdService1")
-	public Set getBetsForIdService1() {
+	public Set<Bet> getBetsForIdService1() {
 		return this.betsForIdService1;
 	}
 

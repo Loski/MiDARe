@@ -1,3 +1,4 @@
-/tools/
+/META-INF/
 /api/
-/modelData/
+/generated/
+/tests/

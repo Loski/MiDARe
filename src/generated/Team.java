@@ -75,7 +75,7 @@ public class Team implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teamByIdTeam1")
-	public Set getEncountersForIdTeam1() {
+	public Set<Encounter> getEncountersForIdTeam1() {
 		return this.encountersForIdTeam1;
 	}
 
@@ -84,7 +84,7 @@ public class Team implements java.io.Serializable {
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teamByIdTeam2")
-	public Set getEncountersForIdTeam2() {
+	public Set<Encounter> getEncountersForIdTeam2() {
 		return this.encountersForIdTeam2;
 	}
 

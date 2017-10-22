@@ -5,11 +5,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import generated.Account;
+import generated.AccountHome;
 import modelData.User;
 import tools.JSONConverter;
 import tools.URLParser;
@@ -32,6 +37,17 @@ public class UserServlet extends Endpoint {
 		 if(url==null || url.isEmpty())
 		 {
 			 //GET : api/user
+			 
+			 EntityManagerFactory emf = Persistence.createEntityManagerFactory("AccountHome");
+			 EntityManager em = emf.createEntityManager();
+			    AccountHome service = new AccountHome(em);
+
+			    em.getTransaction().begin();
+			    service.persist(new Account("User", "Pass"));
+			    em.getTransaction().commit();
+			    
+			    em.close();
+			    emf.close();
 			 
 			 response.setContentType("text/plain");
 			 response.setCharacterEncoding("UTF-8");

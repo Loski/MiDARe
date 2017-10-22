@@ -22,6 +22,11 @@ public class AccountHome {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	public AccountHome(EntityManager em) {
+		// TODO Auto-generated constructor stub
+		this.entityManager = em;
+	}
+
 	public void persist(Account transientInstance) {
 		log.debug("persisting Account instance");
 		try {
