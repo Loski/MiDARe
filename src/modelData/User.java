@@ -7,6 +7,7 @@ public class User {
 
 	private String username;
 	private int id;
+	private String token;
 		
 	public User()
 	{
@@ -27,6 +28,14 @@ public class User {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public String getToken() {
+		return this.token;
+	}
+	
+	public void setToken(String token) {
+		this.token = token;
 	}
 	
 	

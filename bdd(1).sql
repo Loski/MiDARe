@@ -4,7 +4,7 @@ USE Sanglier;
 CREATE TABLE IF NOT EXISTS Account(
 	id_user INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	pseudo CHAR(20) UNIQUE NOT NULL,
-	password CHAR(20) NOT NULL,
+	password VARCHAR(255) NOT NULL,
 	mail CHAR(50),
 	zip_code INT,
 	city CHAR(50),
