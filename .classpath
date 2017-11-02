@@ -29,5 +29,7 @@
 	<classpathentry kind="lib" path="jar/servlet-api.jar"/>
 	<classpathentry kind="lib" path="jar/slf4j-api-1.5.5.jar"/>
 	<classpathentry kind="lib" path="jar/slf4j-simple-1.5.5.jar"/>
+	<classpathentry kind="lib" path="jar/jjwt-0.6.0.jar"/>
+	<classpathentry kind="lib" path="jar/antlr-2.7.6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
