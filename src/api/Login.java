@@ -29,22 +29,16 @@ public class Login extends Endpoint {
 		if(request.getParameterMap().containsKey("username") && request.getParameterMap().containsKey("password"))
 		{
 			try {
-				EntityManagerFactory emf = Persistence.createEntityManagerFactory("AccountHome");
-				EntityManager em = emf.createEntityManager();
 				
-				em.getTransaction().begin();
-				List<Account> account = em.createQuery("SELECT a FROM Account a WHERE a.pseudo LIKE :inputPseudo")
+				EntityHandler.em.getTransaction().begin();
+				List<Account> account = EntityHandler.em.createQuery("SELECT a FROM Account a WHERE a.pseudo LIKE :inputPseudo")
 						.setParameter("inputPseudo", request.getParameter("username")).getResultList();
-				em.getTransaction().commit();
+				EntityHandler.em.getTransaction().commit();
 				
-				em.close();
-				emf.close();
 				if(!account.isEmpty()) {
 					if(SHA256.sha256(request.getParameter("password")).equals(account.get(0).getPassword())){
-						System.out.println("CORRECT PASSWORD");
+						
 						String token = JWT.createJWT(account.get(0).getIdUser().toString(), 10000);
-						System.out.println(token);
-						System.out.println(JWT.parseJWT(token));
 						
 						String username = request.getParameter( "username");
 						User user = new User();
@@ -56,11 +50,11 @@ public class Login extends Endpoint {
 					    response.getWriter().write(JSONConverter.convert(user));
 					}
 					else{
-						System.out.println("mauvais mdp");
+						response.getWriter().write("Mot de passe incorrect");
 					}
 				}
 				else{
-					System.out.println("utilisateur inconnu");
+					response.getWriter().write("Utilisateur incorrect");
 				}
 				     
 			}
