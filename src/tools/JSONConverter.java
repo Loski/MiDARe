@@ -1,7 +1,10 @@
 package tools;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
@@ -9,6 +12,21 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public abstract class JSONConverter {
 
+	public static void sendAsJson(
+			HttpServletResponse response, 
+			Object obj) throws IOException {
+			
+			response.setContentType("application/json");
+			
+			String res = JSONConverter.convert(obj);
+			     
+			PrintWriter out = response.getWriter();
+			  
+			out.print(res);
+			out.flush();
+	}
+	
+	
 	/** Conversion direct des attributs de l'objet*/
 	public static String convert(Object obj)
 	{

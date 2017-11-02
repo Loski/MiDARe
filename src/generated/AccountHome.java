@@ -1,5 +1,7 @@
 package generated;
 
+import java.util.List;
+
 // default package
 // Generated 15 oct. 2017 04:59:00 by Hibernate Tools 5.2.5.Final
 
@@ -23,7 +25,6 @@ public class AccountHome {
 	private EntityManager entityManager;
 
 	public AccountHome(EntityManager em) {
-		// TODO Auto-generated constructor stub
 		this.entityManager = em;
 	}
 
@@ -65,6 +66,17 @@ public class AccountHome {
 		log.debug("getting Account instance with id: " + id);
 		try {
 			Account instance = entityManager.find(Account.class, id);
+			log.debug("get successful");
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	public List<Account> getAll() {
+		try {
+			List<Account> instance = entityManager.createQuery("SELECT a FROM Account a", Account.class).getResultList();
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

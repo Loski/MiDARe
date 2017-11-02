@@ -22,6 +22,10 @@ public class EncounterHome {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	public EncounterHome(EntityManager em) {
+		this.entityManager = em;
+	}
+	
 	public void persist(Encounter transientInstance) {
 		log.debug("persisting Encounter instance");
 		try {

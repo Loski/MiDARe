@@ -22,6 +22,9 @@ public class BetHome {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	public BetHome(EntityManager em) {
+		this.entityManager = em;
+	}
 	public void persist(Bet transientInstance) {
 		log.debug("persisting Bet instance");
 		try {
