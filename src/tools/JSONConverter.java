@@ -1,18 +1,19 @@
 package tools;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public abstract class JSONConverter {
 
+	/** Conversion direct des attributs de l'objet*/
 	public static String convert(Object obj)
 	{
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		//mapper.setVisibility(JsonMethod.FIELD, Visibility.ANY);	
 		
 		try {
@@ -26,9 +27,11 @@ public abstract class JSONConverter {
 		}
 	}
 	
+	/** Conversion avec une règle*/
 	public static String convertWithMixin(Object obj,Class<?> mixin)
 	{
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		mapper.addMixIn(obj.getClass(),mixin);
 		
 		try {
@@ -42,9 +45,14 @@ public abstract class JSONConverter {
 		}
 	}
 	
+	/** Conversion direct avec des champs dynamiques en param*/
 	public static String convert(Object obj, Map<String, Object> newFields)
 	{
+		if(obj==null)
+			return "{}";
+		
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		//mapper.setVisibility(JsonMethod.FIELD, Visibility.ANY);	
 		
 		for(Map.Entry<String, Object> entry : newFields.entrySet())
@@ -65,4 +73,59 @@ public abstract class JSONConverter {
 		return "{}";
 	}
 	
+	/** Conversion en JSON en gardant le format JSON*/
+	public static ObjectNode convertKeepJSONFormat(Object obj)
+	{
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		
+		try {
+			
+			if(obj==null)
+				return (ObjectNode) mapper.readTree("{}");
+			
+			ObjectNode json = (ObjectNode) mapper.readTree(convert(obj));
+			
+			return json;
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		    return null;
+		}
+	}
+	
+	/** Conversion en JSON en gardant le format JSON + champs dynamiques*/
+	public static ObjectNode convertKeepJSONFormat(Object obj, Map<String, Object> newFields)
+	{		
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		
+		try
+		{
+			if(obj==null)
+				return (ObjectNode) mapper.readTree("{}");
+	
+			for(Map.Entry<String, Object> entry : newFields.entrySet())
+			{
+				try {
+					ObjectNode json = (ObjectNode) mapper.readTree(convert(obj));
+					
+					json.set(entry.getKey(),mapper.readTree(convert(entry.getValue())));
+					
+					return json;
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			return (ObjectNode) mapper.readTree("{}");
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
 }
