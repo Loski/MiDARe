@@ -28,15 +28,13 @@ public class UserServlet extends Endpoint {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 
 		 String url = request.getPathInfo();
-		 System.out.println("im in");
-		 EntityManagerFactory emf = Persistence.createEntityManagerFactory("Manager");
-		 EntityManager em = emf.createEntityManager();
+
 		
 		 if(url==null || url.isEmpty())
 		 {
 			 //GET : api/user
 
-			 AccountHome service = new AccountHome(em);
+			AccountHome service = new AccountHome(EntityHandler.em);
 		    JSONConverter.sendObjectAsJson(response, service.getAll());
 		    return;
 		 }
@@ -48,7 +46,7 @@ public class UserServlet extends Endpoint {
 				
 			 if(id > -1)
 			 {	
-				 AccountHome service = new AccountHome(em);
+				 AccountHome service = new AccountHome(EntityHandler.em);
 				 JSONConverter.sendObjectAsJson(response, service.findById(id));
 			 }
 			 else

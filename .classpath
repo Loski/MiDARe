@@ -25,11 +25,11 @@
 	<classpathentry kind="lib" path="jar/javassist-3.4.GA.jar"/>
 	<classpathentry kind="lib" path="jar/jta-1.1.jar"/>
 	<classpathentry kind="lib" path="jar/mysql-connector-java-5.1.44-bin.jar"/>
-	<classpathentry kind="lib" path="jar/persistence.jar"/>
 	<classpathentry kind="lib" path="jar/servlet-api.jar"/>
 	<classpathentry kind="lib" path="jar/slf4j-api-1.5.5.jar"/>
 	<classpathentry kind="lib" path="jar/slf4j-simple-1.5.5.jar"/>
 	<classpathentry kind="lib" path="jar/jjwt-0.6.0.jar"/>
 	<classpathentry kind="lib" path="jar/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="jar/persistence.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
