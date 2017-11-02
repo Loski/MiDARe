@@ -12,16 +12,13 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public abstract class JSONConverter {
 
-	public static void sendAsJson(
+	public static void sendObjectAsJson(
 			HttpServletResponse response, 
 			Object obj) throws IOException {
-			
 			response.setContentType("application/json");
-			
-			String res = JSONConverter.convert(obj);
-			     
+			response.setCharacterEncoding("UTF-8");
+			String res = JSONConverter.convert(obj);  
 			PrintWriter out = response.getWriter();
-			  
 			out.print(res);
 			out.flush();
 	}
