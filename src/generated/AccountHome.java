@@ -74,9 +74,10 @@ public class AccountHome {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Account> getAll() {
 		try {
-			List<Account> instance = entityManager.createQuery("SELECT a FROM Account a", Account.class).getResultList();
+			List<Account> instance = (List<Account>) entityManager.createQuery("SELECT a FROM Account a").getResultList();
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

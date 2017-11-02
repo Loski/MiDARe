@@ -28,7 +28,7 @@ public class Users extends Endpoint{
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("AccountHome");
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Manager");
 		EntityManager em = emf.createEntityManager();
 		ObjectMapper mapper = new ObjectMapper();
 	    AccountHome service = new AccountHome(em);
