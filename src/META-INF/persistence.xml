@@ -1,7 +1,7 @@
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/persistence" version="1.0">
-	<persistence-unit name="AccountHome" transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="Manager" transaction-type="RESOURCE_LOCAL">
 			<properties>
 			<property name="hibernate.connection.driver_class">org.gjt.mm.mysql.Driver</property>
 		  <property name="hibernate.connection.password">midare</property>

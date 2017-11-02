@@ -1,5 +1,7 @@
 package generated;
 
+import java.util.List;
+
 // default package
 // Generated 15 oct. 2017 04:59:00 by Hibernate Tools 5.2.5.Final
 
@@ -21,6 +23,11 @@ public class BetHome {
 
 	@PersistenceContext
 	private EntityManager entityManager;
+
+	public BetHome(EntityManager em) {
+		// TODO Auto-generated constructor stub
+		this.entityManager=em;
+	}
 
 	public void persist(Bet transientInstance) {
 		log.debug("persisting Bet instance");
@@ -67,4 +74,16 @@ public class BetHome {
 			throw re;
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Bet> getAll() {
+        try {
+            List<Bet> instance = (List<Bet>) entityManager.createQuery("SELECT a FROM Bet a").getResultList();
+            log.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    }
 }
