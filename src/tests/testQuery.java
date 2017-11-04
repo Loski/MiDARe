@@ -15,7 +15,7 @@ public class testQuery {
 	public static void main(String[] args)
 	{		
 		System.out.println(EntityHandler.teamService.findById((1)).getNameTeam());
-		System.out.println(EntityHandler.teamService.getEncounters(1));
-
+		System.out.println(EntityHandler.teamService.getAllBySport(1));
+		
 	}
 }

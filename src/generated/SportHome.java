@@ -1,5 +1,7 @@
 package generated;
 
+import java.util.List;
+
 // default package
 // Generated 15 oct. 2017 04:59:00 by Hibernate Tools 5.2.5.Final
 
@@ -71,4 +73,15 @@ public class SportHome {
 			throw re;
 		}
 	}
+
+	public List<Sport> getAll() {
+        try {
+            List<Sport> instance = (List<Sport>) entityManager.createQuery("SELECT a FROM Sport a").getResultList();
+            log.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    }
 }

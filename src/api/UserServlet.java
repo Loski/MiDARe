@@ -33,8 +33,9 @@ public class UserServlet extends Endpoint {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 
 		 String url = request.getPathInfo();
+		 System.out.println("mu url is:" + url);
 		 EntityManager em = EntityHandler.em;
-		 if(url==null || url.isEmpty())
+		 if(url==null || url.isEmpty() || url.equals("/"))
 		 {
 			 //GET : api/users
 

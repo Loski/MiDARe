@@ -26,8 +26,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Team implements java.io.Serializable {
 
 	private Integer idTeam;
+	
+	@ManyToOne
 	private Sport sport;
+	
 	private String nameTeam;
+	
 	@JsonIgnore
 	private Set encountersForIdTeam1 = new HashSet(0);
 	@JsonIgnore
@@ -94,6 +98,11 @@ public class Team implements java.io.Serializable {
 
 	public void setEncountersForIdTeam2(Set encountersForIdTeam2) {
 		this.encountersForIdTeam2 = encountersForIdTeam2;
+	}
+
+	@Override
+	public String toString() {
+		return "Team [idTeam=" + idTeam + ", sport=" + sport.getNameSport() + ", nameTeam=" + nameTeam;
 	}
 
 }
