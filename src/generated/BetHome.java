@@ -90,8 +90,9 @@ public class BetHome {
 	@SuppressWarnings("unchecked")
 	public List<Bet> getAllByUser(Integer idUSer) {
         try {
-            List<Bet> instance = (List<Bet>) entityManager.createQuery("SELECT a FROM Bet a WHERE a.id = :idUser")
-            		.setParameter("idUser", idUSer)
+            List<Bet> instance = (List<Bet>) entityManager.createQuery("SELECT a FROM Bet a WHERE a.user_1 = :idUser1 OR a.user_2 = :idUser2")
+            		.setParameter("idUser1", idUSer)
+            		.setParameter("idUser2", idUSer)
             		.getResultList();
             log.debug("get successful");
             return instance;
