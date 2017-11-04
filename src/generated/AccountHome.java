@@ -11,6 +11,8 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import api.EntityHandler;
+
 /**
  * Home object for domain model class Account.
  * @see .Account
@@ -78,6 +80,19 @@ public class AccountHome {
 	public List<Account> getAll() {
 		try {
 			List<Account> instance = (List<Account>) entityManager.createQuery("SELECT a FROM Account a").getResultList();
+			log.debug("get successful");
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Account> getAccountWithPseudo(String pseudo) {
+		try {
+			List<Account> instance = (List<Account>) entityManager.createQuery("SELECT a FROM Account a WHERE a.pseudo LIKE :inputPseudo")
+					.setParameter("inputPseudo", pseudo).getResultList();
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

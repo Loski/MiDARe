@@ -62,7 +62,7 @@ public class Bet implements java.io.Serializable {
 		this.idBet = idBet;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_user_2", nullable = false)
 	public Account getAccountByIdUser2() {
 		return this.accountByIdUser2;
@@ -72,7 +72,7 @@ public class Bet implements java.io.Serializable {
 		this.accountByIdUser2 = accountByIdUser2;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_user_1", nullable = false)
 	public Account getAccountByIdUser1() {
 		return this.accountByIdUser1;
@@ -82,7 +82,7 @@ public class Bet implements java.io.Serializable {
 		this.accountByIdUser1 = accountByIdUser1;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_encounter", nullable = false)
 	public Encounter getEncounter() {
 		return this.encounter;
@@ -92,7 +92,7 @@ public class Bet implements java.io.Serializable {
 		this.encounter = encounter;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_service_2", nullable = false)
 	public Service getServiceByIdService2() {
 		return this.serviceByIdService2;
@@ -102,7 +102,7 @@ public class Bet implements java.io.Serializable {
 		this.serviceByIdService2 = serviceByIdService2;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_service_1", nullable = false)
 	public Service getServiceByIdService1() {
 		return this.serviceByIdService1;

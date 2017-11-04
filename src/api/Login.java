@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import generated.Account;
+import generated.AccountHome;
 import modelData.User;
 import tools.JSONConverter;
 import tools.JWT;
@@ -30,10 +31,8 @@ public class Login extends Endpoint {
 		{
 			try {
 				
-				EntityHandler.em.getTransaction().begin();
-				List<Account> account = EntityHandler.em.createQuery("SELECT a FROM Account a WHERE a.pseudo LIKE :inputPseudo")
-						.setParameter("inputPseudo", request.getParameter("username")).getResultList();
-				EntityHandler.em.getTransaction().commit();
+				
+				List<Account> account = EntityHandler.AccountService.getAccountWithPseudo(request.getParameter("username"));
 				
 				if(!account.isEmpty()) {
 					if(SHA256.sha256(request.getParameter("password")).equals(account.get(0).getPassword())){

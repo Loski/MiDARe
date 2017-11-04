@@ -18,7 +18,7 @@ public abstract class JSONConverter {
 			PrintWriter out = response.getWriter();
 
 			if(obj == null) {
-				response.sendError(404, "L'objet n'a pas été trouvé.");
+				response.sendError(404, "L'objet n'a pas Ã©tÃ© trouvÃ©.");
 			}else {
 				
 				response.setContentType("application/json");
@@ -39,6 +39,7 @@ public abstract class JSONConverter {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		//mapper.setVisibility(JsonMethod.FIELD, Visibility.ANY);	
 		
 		try {
@@ -57,6 +58,7 @@ public abstract class JSONConverter {
 	{
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		mapper.addMixIn(obj.getClass(),mixin);
 		
 		try {
@@ -78,6 +80,7 @@ public abstract class JSONConverter {
 		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		//mapper.setVisibility(JsonMethod.FIELD, Visibility.ANY);	
 		
 		for(Map.Entry<String, Object> entry : newFields.entrySet())
@@ -103,6 +106,7 @@ public abstract class JSONConverter {
 	{
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		
 		try {
 			
@@ -125,6 +129,7 @@ public abstract class JSONConverter {
 	{		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		
 		try
 		{

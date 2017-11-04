@@ -1,5 +1,6 @@
 package generated;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // default package
@@ -8,6 +9,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -78,6 +80,24 @@ public class TeamHome {
 	public List<Team> getAll() {
 		try {
 			List<Team> instance = (List<Team>) entityManager.createQuery("SELECT a FROM Team a").getResultList();
+			log.debug("get successful");
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	public List<Encounter> getEncounters(int id)
+	{
+		try {		
+			List<Encounter> instance = new ArrayList<Encounter>();
+			Team t = findById(id);
+			if(t!=null)
+			{
+				instance.addAll(t.getEncountersForIdTeam1());
+				instance.addAll(t.getEncountersForIdTeam2());
+			}
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

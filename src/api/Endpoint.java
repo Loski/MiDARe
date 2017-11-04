@@ -15,7 +15,10 @@ public abstract class Endpoint extends HttpServlet{
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
 		
-		response.getWriter().write(message);
+		if(message.equals("{}") || message.equals(null))
+			response.sendError(404);
+		else
+			response.getWriter().write(message);
 	}
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
