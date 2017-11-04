@@ -31,8 +31,8 @@ public class Login extends Endpoint {
 		{
 			try {
 				
-				AccountHome service = new AccountHome(EntityHandler.em);
-				List<Account> account = service.getAccountWithPseudo(request.getParameter("username"));
+				
+				List<Account> account = EntityHandler.AccountService.getAccountWithPseudo(request.getParameter("username"));
 				
 				if(!account.isEmpty()) {
 					if(SHA256.sha256(request.getParameter("password")).equals(account.get(0).getPassword())){
