@@ -25,7 +25,7 @@ public class UserServlet extends Endpoint {
 	private static final String ID ="^/[1-9][0-9]*";
 	private static final String USER_URL= ID;
 	private static final String USER_BETS_URL = USER_URL + "/bets";
-	private static final String USER_THIS_BET_URL = USER_URL + "/bets/"+ ID;
+	private static final String USER_THIS_BET_URL = USER_BETS_URL + ID;
 
 	
 	
@@ -34,7 +34,6 @@ public class UserServlet extends Endpoint {
 		 
 		 String url = request.getPathInfo();
 		 EntityManager em = EntityHandler.em;
-		
 		 if(url==null || url.isEmpty())
 		 {
 			 //GET : api/users
@@ -43,8 +42,7 @@ public class UserServlet extends Endpoint {
 		    JSONConverter.sendObjectAsJson(response, service.getAll());
 		    return;
 		 }
-		 else {
-			 
+		 else { 
 			 int id = URLParser.getParameterOfURL(url,1);
 			 if(id > 0)
 			 {

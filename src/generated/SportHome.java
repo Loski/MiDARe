@@ -22,6 +22,10 @@ public class SportHome {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	public SportHome(EntityManager em) {
+		this.entityManager = em;
+	}
+
 	public void persist(Sport transientInstance) {
 		log.debug("persisting Sport instance");
 		try {
