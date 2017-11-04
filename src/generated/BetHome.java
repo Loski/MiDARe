@@ -86,4 +86,18 @@ public class BetHome {
             throw re;
         }
     }
+	
+	@SuppressWarnings("unchecked")
+	public List<Bet> getAllByUser(Integer idUSer) {
+        try {
+            List<Bet> instance = (List<Bet>) entityManager.createQuery("SELECT a FROM Bet a WHERE a.id = :idUser")
+            		.setParameter("idUser", idUSer)
+            		.getResultList();
+            log.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    }
 }

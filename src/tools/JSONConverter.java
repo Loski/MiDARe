@@ -15,12 +15,19 @@ public abstract class JSONConverter {
 	public static void sendObjectAsJson(
 			HttpServletResponse response, 
 			Object obj) throws IOException {
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			String res = JSONConverter.convert(obj);  
 			PrintWriter out = response.getWriter();
-			out.print(res);
+
+			if(obj == null) {
+				response.sendError(404, "L'objet n'a pas été trouvé.");
+			}else {
+				
+				response.setContentType("application/json");
+				response.setCharacterEncoding("UTF-8");
+				String res = JSONConverter.convert(obj);  
+				out.print(res);
+			}
 			out.flush();
+			
 	}
 	
 	
