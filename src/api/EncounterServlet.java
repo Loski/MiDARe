@@ -29,6 +29,8 @@ public class EncounterServlet extends Endpoint{
 			//GET : api/encounters
 			response.getWriter().write(JSONConverter.convert(service.getAll()));
 			
+			System.out.println(service.getAll());
+		   super.sendJSON(response, JSONConverter.convert(service.getAll()));			
 		}else{
 			response.sendError(404,"MAFORMATED URL");
 		}

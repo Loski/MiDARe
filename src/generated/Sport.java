@@ -74,4 +74,10 @@ public class Sport implements java.io.Serializable {
 		this.teams = teams;
 	}
 
+	@Override
+	public String toString() {
+		return "Sport [idSport=" + idSport + ", nameSport=" + nameSport + ", encounters=" + encounters + ", teams="
+				+ teams + "]";
+	}
+
 }
