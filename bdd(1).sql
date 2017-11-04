@@ -34,7 +34,8 @@ CREATE TABLE IF NOT EXISTS Encounter(
 	date_encounter DATETIME,
 	FOREIGN KEY (id_sport) REFERENCES Sport(id_sport),
 	FOREIGN KEY (id_team_1) REFERENCES Team(id_team),
-	FOREIGN KEY (id_team_2) REFERENCES Team(id_team)
+	FOREIGN KEY (id_team_2) REFERENCES Team(id_team),
+	CHECK (id_team_1!=id_team_2)
 );
 
 CREATE TABLE IF NOT EXISTS Service(
@@ -54,6 +55,7 @@ CREATE TABLE IF NOT EXISTS Bet(
 	FOREIGN KEY (id_service_1) REFERENCES Service(id_service),
 	FOREIGN KEY (id_service_2) REFERENCES Service(id_service),
 	FOREIGN KEY (id_user_1) REFERENCES Account(id_user),
-	FOREIGN KEY (id_user_2) REFERENCES Account(id_user)
+	FOREIGN KEY (id_user_2) REFERENCES Account(id_user),
+	CHECK (id_user_1!=id_user_2)
 
 );
