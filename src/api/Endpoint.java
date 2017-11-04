@@ -10,7 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 public abstract class Endpoint extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 
-	
+	public void sendJSON(HttpServletResponse response, String message) throws IOException
+	{
+		response.setContentType("application/json");
+		response.setCharacterEncoding("UTF-8");
+		
+		response.getWriter().write(message);
+	}
+
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	    response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
