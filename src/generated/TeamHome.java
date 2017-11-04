@@ -1,5 +1,7 @@
 package generated;
 
+import java.util.List;
+
 // default package
 // Generated 15 oct. 2017 04:59:00 by Hibernate Tools 5.2.5.Final
 
@@ -21,6 +23,10 @@ public class TeamHome {
 
 	@PersistenceContext
 	private EntityManager entityManager;
+
+	public TeamHome(EntityManager em) {
+		this.entityManager = em;
+	}
 
 	public void persist(Team transientInstance) {
 		log.debug("persisting Team instance");
@@ -60,6 +66,18 @@ public class TeamHome {
 		log.debug("getting Team instance with id: " + id);
 		try {
 			Team instance = entityManager.find(Team.class, id);
+			log.debug("get successful");
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Team> getAll() {
+		try {
+			List<Team> instance = (List<Team>) entityManager.createQuery("SELECT a FROM Team a").getResultList();
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

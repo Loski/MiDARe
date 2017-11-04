@@ -27,6 +27,9 @@ public abstract class JSONConverter {
 	/** Conversion direct des attributs de l'objet*/
 	public static String convert(Object obj)
 	{
+		if(obj==null)
+			return "{}";
+		
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.enable(SerializationFeature.INDENT_OUTPUT);
 		//mapper.setVisibility(JsonMethod.FIELD, Visibility.ANY);	
