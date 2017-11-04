@@ -1,5 +1,7 @@
 package generated;
 
+import java.util.List;
+
 // default package
 // Generated 15 oct. 2017 04:59:00 by Hibernate Tools 5.2.5.Final
 
@@ -71,4 +73,18 @@ public class EncounterHome {
 			throw re;
 		}
 	}
+	
+	/** get all no matter state_encounter */
+	@SuppressWarnings("unchecked")
+	public List<Encounter> getAll() {
+        try {
+            List<Encounter> instance = (List<Encounter>) entityManager.createQuery("SELECT a FROM Encounter a").getResultList();
+            log.debug("get successful");
+            return instance;
+        } catch (RuntimeException re) {
+            log.error("get failed", re);
+            throw re;
+        }
+    }
+
 }
