@@ -1,9 +1,12 @@
 package generated;
 
 
+import java.util.ArrayList;
+
 // Generated 15 oct. 2017 04:58:57 by Hibernate Tools 5.2.5.Final
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -103,6 +107,17 @@ public class Team implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "Team [idTeam=" + idTeam + ", sport=" + sport.getNameSport() + ", nameTeam=" + nameTeam;
+	}
+	
+	@JsonIgnore
+	@Transient
+	public List<Encounter> getEncounters()
+	{
+		List<Encounter> list = new ArrayList<Encounter>();
+		list.addAll(this.getEncountersForIdTeam1());
+		list.addAll(this.getEncountersForIdTeam2());
+		
+		return list;
 	}
 
 }

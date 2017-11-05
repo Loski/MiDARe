@@ -87,29 +87,11 @@ public class TeamHome {
 			throw re;
 		}
 	}
-	
-	public List<Encounter> getEncounters(int id)
-	{
-		try {		
-			List<Encounter> instance = new ArrayList<Encounter>();
-			Team t = findById(id);
-			if(t!=null)
-			{
-				instance.addAll(t.getEncountersForIdTeam1());
-				instance.addAll(t.getEncountersForIdTeam2());
-			}
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
 
 	@SuppressWarnings("unchecked")
 	public List<Team> getAllBySport(Integer id) {
 		
-		//TODO ajouter sécurité faille sur le setParameter
+		//TODO ajouter sÃ©curitÃ© faille sur le setParameter
 		try {		
 			List<Team> instance = (List<Team>) entityManager.createQuery("SELECT a FROM Team a WHERE a.sport=" + id)
 			//		.setParameter("id_sport", id)

@@ -74,6 +74,7 @@ public class SportHome {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Sport> getAll() {
         try {
             List<Sport> instance = (List<Sport>) entityManager.createQuery("SELECT a FROM Sport a").getResultList();
