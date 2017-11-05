@@ -12,7 +12,7 @@ import generated.Team;
 import tools.JSONConverter;
 import tools.URLParser;
 
-@WebServlet("/service/*")
+@WebServlet("/services/*")
 public class ServiceServlet extends Endpoint{
 
 	private static final long serialVersionUID = 1L;

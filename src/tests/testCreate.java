@@ -16,9 +16,7 @@ public class testCreate {
 		 	EntityManager em = EntityHandler.em;
 		    AccountHome service = new AccountHome(em);
 
-		    em.getTransaction().begin();
 		    service.persist(new Account("User", "Pass"));
-		    em.getTransaction().commit();
 
 	}
 }
