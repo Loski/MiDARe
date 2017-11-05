@@ -37,12 +37,12 @@ public class SportServlet extends Endpoint{
 					 String res = JSONConverter.convert(EntityHandler.sportService.findById(id));
 					 sendJSON(response, res);
 				 }else if(url.matches(TEAM_URL)) {
-					 String res = JSONConverter.convert(EntityHandler.teamService.getAllBySport(id));
+					 String res = JSONConverter.convert(EntityHandler.sportService.findById(id).getTeams());
 					 sendJSON(response, res);
 				 }
 				 else
 				 {
-					 response.sendError(404,"MAFORMATED URL");
+					 response.sendError(404,"MALFORMATED URL");
 				 }
 		}
 		}catch(Exception e)

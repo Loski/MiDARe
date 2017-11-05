@@ -105,20 +105,4 @@ public class TeamHome {
 			throw re;
 		}
 	}
-
-	@SuppressWarnings("unchecked")
-	public List<Team> getAllBySport(Integer id) {
-		
-		//TODO ajouter sécurité faille sur le setParameter
-		try {		
-			List<Team> instance = (List<Team>) entityManager.createQuery("SELECT a FROM Team a WHERE a.sport=" + id)
-			//		.setParameter("id_sport", id)
-					.getResultList();
-			log.debug("get successful");
-			return instance;
-		} catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
-	}
 }

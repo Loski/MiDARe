@@ -35,7 +35,7 @@ public class UserServlet extends Endpoint {
 		 String url = request.getPathInfo();
 		 System.out.println("mu url is:" + url);
 		 EntityManager em = EntityHandler.em;
-		 if(url==null || url.isEmpty() || url.equals("/"))
+		 if(url==null || url.isEmpty())
 		 {
 			 //GET : api/users
 
