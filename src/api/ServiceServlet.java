@@ -12,29 +12,32 @@ import generated.Team;
 import tools.JSONConverter;
 import tools.URLParser;
 
-@WebServlet("/service/*")
+@WebServlet("/services/*")
 public class ServiceServlet extends Endpoint{
 
 	private static final long serialVersionUID = 1L;
 	
+	private static final String ID ="^/[1-9][0-9]*";
+	private static final String SERVICE_URL = ID;
+	private static final String BETS_URL = "/bets";
+	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		String url = request.getPathInfo();
+		String url = URLParser.parseOnToken(request.getPathInfo(),0);
 
 		try
 		{
 			 if(url==null || url.isEmpty())
 			 {
-				 //GET : api/teams
+				 //GET : api/services
 				 
 				 String res = JSONConverter.convert(EntityHandler.serviceService.getAll());
 				 sendJSON(response, res);
+				 return;
 			 }
-			 else
-			 {
-				 response.sendError(404,"MAFORMATED URL");
-			 }
+			 
+			 response.sendError(404);
 	 
 		}catch(Exception e)
 		{

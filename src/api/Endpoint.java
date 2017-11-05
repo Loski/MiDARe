@@ -21,24 +21,28 @@ public abstract class Endpoint extends HttpServlet{
 			response.getWriter().write(message);
 	}
 
+	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	    response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 	    
 	}
 	
+	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	    response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 	
 	}
 	
+	@Override
 	public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	    response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
 	
 	}
 	
+	@Override
 	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	    response.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);

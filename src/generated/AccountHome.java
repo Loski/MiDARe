@@ -33,9 +33,12 @@ public class AccountHome {
 	public void persist(Account transientInstance) {
 		log.debug("persisting Account instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
 			log.debug("persist successful");
+			entityManager.getTransaction().commit();
 		} catch (RuntimeException re) {
+			entityManager.getTransaction().rollback();
 			log.error("persist failed", re);
 			throw re;
 		}

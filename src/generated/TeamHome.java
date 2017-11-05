@@ -86,8 +86,7 @@ public class TeamHome {
 			log.error("get failed", re);
 			throw re;
 		}
-	}
-	
+	}	
 	public List<Encounter> getEncounters(int id)
 	{
 		try {		
@@ -98,9 +97,9 @@ public class TeamHome {
 				instance.addAll(t.getEncountersForIdTeam1());
 				instance.addAll(t.getEncountersForIdTeam2());
 			}
-			log.debug("get successful");
 			return instance;
-		} catch (RuntimeException re) {
+
+		}catch (RuntimeException re) {
 			log.error("get failed", re);
 			throw re;
 		}

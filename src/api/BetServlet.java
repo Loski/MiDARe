@@ -7,44 +7,38 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import generated.AccountHome;
 import generated.Bet;
 import generated.BetHome;
 import tools.JSONConverter;
+import tools.URLParser;
 
 @WebServlet("/bets/*")
 public class BetServlet extends Endpoint{
 
 	private static final long serialVersionUID = 1L;
-	private BetHome service = new BetHome(EntityHandler.em);
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String url = request.getPathInfo();
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
+		String url = URLParser.parseOnToken(request.getPathInfo(),0);
 		
-		if(url==null || url.isEmpty())
-		 {
-			 //GET : api/bets
-			response.getWriter().write(JSONConverter.convert(service.getAll()));
-		 }
-	}
-	
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String url = request.getPathInfo();
-		
-		if(url==null || url.isEmpty())
-		 {
-			 //POST : api/bets
-			Bet bet = new Bet();
+		try
+		{
+			if(url==null || url.isEmpty())
+			{
+				 //GET : api/bets
+				
+				sendJSON(response, JSONConverter.convert(EntityHandler.betService.getAll()));
+				return;
+			}
 			
-			//bet.set...
-			
-			service.persist(bet);
-		 }
+			response.sendError(404);
+	 
+		}catch(Exception e)
+		{
+			response.sendError(500,e.getMessage());
+		}
 	}
 	
 }

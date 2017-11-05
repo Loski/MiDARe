@@ -21,7 +21,7 @@ import tools.JWT;
 import tools.SHA256;
 
 @WebServlet("/auth")
-public class Login extends Endpoint {
+public class AuthServlet extends Endpoint {
 	private static final long serialVersionUID = 1L;
       
 	@Override
@@ -32,7 +32,7 @@ public class Login extends Endpoint {
 			try {
 				
 				
-				List<Account> account = EntityHandler.AccountService.getAccountWithPseudo(request.getParameter("username"));
+				List<Account> account = EntityHandler.accountService.getAccountWithPseudo(request.getParameter("username"));
 				
 				if(!account.isEmpty()) {
 					if(SHA256.sha256(request.getParameter("password")).equals(account.get(0).getPassword())){
