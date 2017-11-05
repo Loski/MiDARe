@@ -24,10 +24,7 @@ public class UserServlet extends Endpoint {
 	
 	private static final String ID ="^/[1-9][0-9]*";
 	private static final String USER_URL= ID;
-	private static final String USER_BETS_URL = USER_URL + "/bets";
-	private static final String USER_THIS_BET_URL = USER_BETS_URL + ID;
-
-	
+	private static final String USER_BETS_URL = USER_URL + "/bets";	
 	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +32,7 @@ public class UserServlet extends Endpoint {
 		 String url = request.getPathInfo();
 		 System.out.println("mu url is:" + url);
 		 EntityManager em = EntityHandler.em;
-		 if(url==null || url.isEmpty() || url.equals("/"))
+		 if(url==null || url.isEmpty())
 		 {
 			 //GET : api/users
 
@@ -53,10 +50,6 @@ public class UserServlet extends Endpoint {
 				 }else if(url.matches(USER_BETS_URL)) {
 					 BetHome service = new BetHome(em);
 					 JSONConverter.sendObjectAsJson(response, service.getAllByUser(id));
-				 }else if(url.matches(USER_THIS_BET_URL)){
-					 BetHome service = new BetHome(em);
-					 int id_bet = URLParser.getParameterOfURL(url,3);
-					 JSONConverter.sendObjectAsJson(response, service.findById(id_bet));
 				 }
 			 }
 			 else

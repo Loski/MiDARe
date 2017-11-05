@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import generated.AccountHome;
+import generated.BetHome;
 import generated.ServiceHome;
 import generated.SportHome;
 import generated.TeamHome;
@@ -17,4 +18,5 @@ public abstract class EntityHandler {
 	public static TeamHome teamService = new TeamHome(em);
 	public static SportHome sportService = new SportHome(em);
 	public static ServiceHome serviceService = new ServiceHome(em);
+	public static BetHome betService = new BetHome(em);
 }
