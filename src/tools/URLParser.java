@@ -17,7 +17,7 @@ public abstract class URLParser {
 	
 	public static String parseURL(String url, int index)
 	{
-		return parseOnToken(url.split("/")[index],0);
+		return url.split("/")[index];
 	}
 	
 	public static String parseOnToken(String str, int index)
