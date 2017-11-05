@@ -16,6 +16,10 @@ import tools.URLParser;
 public class TeamServlet extends Endpoint{
 
 	private static final long serialVersionUID = 1L;
+	
+	
+	//TODO : A bouger dans SportServlet !!!
+	
 	private static final String ID = "^/[1-9][0-9]*";
 	private static final String TEAM_URL= ID;
 	private static final String TEAM_ENCOUNTERS_URL= TEAM_URL + "/encounters";

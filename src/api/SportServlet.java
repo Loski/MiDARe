@@ -16,8 +16,16 @@ public class SportServlet extends Endpoint{
 	
 	private static final String ID ="^/[1-9][0-9]*";
 	private static final String SPORT_URL = ID;
+	private static final String BETS_URL = "/bets";
+	private static final String THIS_BETS_URL = BETS_URL + ID;
+	private static final String ENCOUNTERS_URL = "/encounters";
+	private static final String THIS_ENCOUNTERS_URL = ENCOUNTERS_URL +ID;
 	private static final String TEAM_URL = SPORT_URL + "/teams";
 	private static final String THIS_TEAM_URL = TEAM_URL + ID;
+	private static final String TEAM_ENCOUNTERS_URL = THIS_TEAM_URL + "/encounters";
+	private static final String TEAM_THIS_ENCOUNTER_URL = TEAM_ENCOUNTERS_URL + ID;
+	private static final String TEAM_ENCOUNTER_BETS_URL = TEAM_THIS_ENCOUNTER_URL + "/bets";
+	private static final String TEAM_ENCOUNTER_THIS_BETS_URL = TEAM_ENCOUNTER_BETS_URL + ID;
 
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

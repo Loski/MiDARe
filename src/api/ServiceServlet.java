@@ -17,6 +17,10 @@ public class ServiceServlet extends Endpoint{
 
 	private static final long serialVersionUID = 1L;
 	
+	private static final String ID ="^/[1-9][0-9]*";
+	private static final String SERVICE_URL = ID;
+	private static final String BETS_URL = "/bets";
+	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
