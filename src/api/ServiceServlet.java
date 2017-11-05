@@ -20,21 +20,20 @@ public class ServiceServlet extends Endpoint{
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		String url = request.getPathInfo();
+		String url = URLParser.parseOnToken(request.getPathInfo(),0);
 
 		try
 		{
 			 if(url==null || url.isEmpty())
 			 {
-				 //GET : api/teams
+				 //GET : api/services
 				 
 				 String res = JSONConverter.convert(EntityHandler.serviceService.getAll());
 				 sendJSON(response, res);
+				 return;
 			 }
-			 else
-			 {
-				 response.sendError(404,"MAFORMATED URL");
-			 }
+			 
+			 response.sendError(404);
 	 
 		}catch(Exception e)
 		{

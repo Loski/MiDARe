@@ -18,45 +18,27 @@ public class BetServlet extends Endpoint{
 
 	private static final long serialVersionUID = 1L;
 	
-	private static final String ID ="^/[1-9][0-9]*";
-	private static final String BETS_URL= ID;
-	
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String url = URLParser.parseOnToken(request.getPathInfo(),0);
 		
-		if(url==null || url.isEmpty())
+		try
 		{
-			 //GET : api/bets
+			if(url==null || url.isEmpty())
+			{
+				 //GET : api/bets
+				
+				sendJSON(response, JSONConverter.convert(EntityHandler.betService.getAll()));
+				return;
+			}
 			
-			sendJSON(response, JSONConverter.convert(EntityHandler.betService.getAll()));
-		}
-		else
+			response.sendError(404);
+	 
+		}catch(Exception e)
 		{
-			 int id = URLParser.getParameterOfURL(url,1);
-			 if(id > 0)
-			 {
-				 if(url.matches(BETS_URL)) {
-					 sendJSON(response, JSONConverter.convert(EntityHandler.betService.findById(id)));
-				 }
-			 }
-			 else
-			 {
-				 response.sendError(404);
-			 }
+			response.sendError(500,e.getMessage());
 		}
-	}
-	
-	@Override
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String url = request.getPathInfo();
-		
-		if(url==null || url.isEmpty())
-		 {
-			 //POST : api/bets
-		 }
 	}
 	
 }
