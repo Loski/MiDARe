@@ -1,5 +1,7 @@
 package generated;
 
+import java.util.List;
+
 // default package
 // Generated 15 oct. 2017 04:59:00 by Hibernate Tools 5.2.5.Final
 
@@ -21,6 +23,11 @@ public class ServiceHome {
 
 	@PersistenceContext
 	private EntityManager entityManager;
+
+	public ServiceHome(EntityManager em) {
+		// TODO Auto-generated constructor stub
+		this.entityManager=em;
+	}
 
 	public void persist(Service transientInstance) {
 		log.debug("persisting Service instance");
@@ -60,6 +67,18 @@ public class ServiceHome {
 		log.debug("getting Service instance with id: " + id);
 		try {
 			Service instance = entityManager.find(Service.class, id);
+			log.debug("get successful");
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Service> getAll() {
+		try {
+			List<Service> instance = (List<Service>) entityManager.createQuery("SELECT a FROM Service a").getResultList();
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {
