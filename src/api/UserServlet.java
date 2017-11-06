@@ -2,6 +2,7 @@ package api;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.jdbc.authentication.Sha256PasswordPlugin;
+
 import generated.Account;
 import generated.AccountHome;
 import generated.Bet;
@@ -18,6 +21,8 @@ import generated.BetHome;
 import generated.Team;
 import modelData.User;
 import tools.JSONConverter;
+import tools.JWT;
+import tools.SHA256;
 import tools.URLParser;
 
 @WebServlet("/users/*")
@@ -34,8 +39,8 @@ public class UserServlet extends Endpoint {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 
 		 String url = URLParser.parseOnToken(request.getPathInfo(),0);
-		 System.out.println("mu url is:" + url);
-		 EntityManager em = EntityHandler.em;
+		 System.out.println("my url is:" + url);
+		 
 		 if(url==null || url.isEmpty())
 		 {
 			 //GET : api/users
@@ -87,6 +92,40 @@ public class UserServlet extends Endpoint {
 		 
 		 response.sendError(404);
 			
+	}
+	
+	@Override
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(!request.getParameterMap().containsKey("pseudo") || !request.getParameterMap().containsKey("password") ||
+		!request.getParameterMap().containsKey("mail") || !request.getParameterMap().containsKey("zipcode") ||
+		!request.getParameterMap().containsKey("city") || !request.getParameterMap().containsKey("adress")){
+			response.sendError(422, "un paramètre est manquant");
+		}
+		else{
+			if(!EntityHandler.accountService.getAccountWithPseudo(request.getParameter("pseudo")).isEmpty()){
+				response.sendError(422, "pseudo déja utilisé");
+			}
+			else if(request.getParameter("pseudo").length()>20){
+				response.sendError(422, "pseudo trop long (moins de 20 caractères)");
+				
+			}
+			else if(request.getParameter("mail").length()>50) {
+				response.sendError(422, "mail trop long (moins de 50 caractères)");
+			}
+			else if(request.getParameter("adress").length()>50) {
+				response.sendError(422, "adress trop long (moins de 50 caractères)");
+			}
+			else if(request.getParameter("city").length()>50) {
+				response.sendError(422, "city trop long (moins de 50 caractères)");
+			}
+			else {
+				Account a = new Account(request.getParameter("pseudo"), SHA256.sha256(request.getParameter("password")),
+						request.getParameter("mail"), Integer.parseInt(request.getParameter("zipcode")), 
+						request.getParameter("city"), request.getParameter("adress"), null, null);
+				EntityHandler.accountService.persist(a);
+				response.getWriter().write("Création du compte réussi");
+			}	
+		}
 	}
 }
 			 

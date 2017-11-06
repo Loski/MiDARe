@@ -27,19 +27,19 @@ public class AuthServlet extends Endpoint {
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		if(request.getParameterMap().containsKey("username") && request.getParameterMap().containsKey("password"))
+		if(request.getParameterMap().containsKey("pseudo") && request.getParameterMap().containsKey("password"))
 		{
 			try {
 				
 				
-				List<Account> account = EntityHandler.accountService.getAccountWithPseudo(request.getParameter("username"));
+				List<Account> account = EntityHandler.accountService.getAccountWithPseudo(request.getParameter("pseudo"));
 				
 				if(!account.isEmpty()) {
 					if(SHA256.sha256(request.getParameter("password")).equals(account.get(0).getPassword())){
 						
 						String token = JWT.createJWT(account.get(0).getIdUser().toString(), 10000);
 						
-						String username = request.getParameter( "username");
+						String username = request.getParameter( "pseudo");
 						User user = new User();
 						user.setUsername(username);
 						user.setToken(token);
@@ -49,11 +49,11 @@ public class AuthServlet extends Endpoint {
 					    response.getWriter().write(JSONConverter.convert(user));
 					}
 					else{
-						response.getWriter().write("Mot de passe incorrect");
+						response.getWriter().write("Utilisateur ou Mot de passe incorrect");
 					}
 				}
 				else{
-					response.getWriter().write("Utilisateur incorrect");
+					response.getWriter().write("Utilisateur ou Mot de passe incorrect");
 				}
 				     
 			}
