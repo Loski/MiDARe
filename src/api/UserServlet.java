@@ -1,27 +1,15 @@
 package api;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mysql.jdbc.authentication.Sha256PasswordPlugin;
-
 import generated.Account;
-import generated.AccountHome;
 import generated.Bet;
-import generated.BetHome;
-import generated.Team;
-import modelData.User;
 import tools.JSONConverter;
-import tools.JWT;
 import tools.SHA256;
 import tools.URLParser;
 
