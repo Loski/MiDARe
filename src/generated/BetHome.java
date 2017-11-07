@@ -30,11 +30,14 @@ public class BetHome {
 
 
 	public void persist(Bet transientInstance) {
-		log.debug("persisting Bet instance");
+		log.debug("persisting Account instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
 			log.debug("persist successful");
+			entityManager.getTransaction().commit();
 		} catch (RuntimeException re) {
+			entityManager.getTransaction().rollback();
 			log.error("persist failed", re);
 			throw re;
 		}

@@ -30,11 +30,14 @@ public class ServiceHome {
 	}
 
 	public void persist(Service transientInstance) {
-		log.debug("persisting Service instance");
+		log.debug("persisting Account instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
 			log.debug("persist successful");
+			entityManager.getTransaction().commit();
 		} catch (RuntimeException re) {
+			entityManager.getTransaction().rollback();
 			log.error("persist failed", re);
 			throw re;
 		}

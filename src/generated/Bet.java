@@ -63,7 +63,7 @@ public class Bet implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_user_2", nullable = false)
+	@JoinColumn(name = "id_user_2", nullable = true)
 	public Account getAccountByIdUser2() {
 		return this.accountByIdUser2;
 	}
@@ -93,7 +93,7 @@ public class Bet implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_service_2", nullable = false)
+	@JoinColumn(name = "id_service_2", nullable = true)
 	public Service getServiceByIdService2() {
 		return this.serviceByIdService2;
 	}
