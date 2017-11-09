@@ -1,61 +1,94 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import 'rxjs/add/operator/toPromise';
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
+import { catchError, map, tap } from 'rxjs/operators';
 
 import { User } from './user';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Injectable()
 export class UserService {
 
-  private headers = new Headers({ 'Content-Type': 'application/json' });
-  private usersUrl = 'localhost:8080/DAR/api/users';  // URL to web api
+  private usersURL = 'http://localhost:8080/DAR/api/users';  // URL to web api
 
-  constructor(private http: Http) { }
+  constructor(
+    private http: HttpClient
+    ){}
+  /** GET users from the server */
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.usersURL)
+      .pipe(
+      catchError(this.handleError('getUsers', []))
+      );
+  }
 
-  getUsers(): Promise<User[]> {
-    return this.http.get(this.usersUrl)
-      .toPromise()
-      .then(response => response.json().data as User[])
-      .catch(this.handleError);
+  /** GET user by id. Return `undefined` when id not found */
+  getUserNo404<Data>(id: number): Observable<User> {
+    const url = `${this.usersURL}/?id=${id}`;
+    return this.http.get<User[]>(url)
+      .pipe(
+      map(users => users[0]), // returns a {0|1} element array
+      tap(h => {
+        const outcome = h ? `fetched` : `did not find`;
+      }),
+      catchError(this.handleError<User>(`getUser id=${id}`))
+      );
+  }
+
+  /** GET user by id. Will 404 if id not found */
+  getUser(id: number): Observable<User> {
+    const url = `${this.usersURL}/${id}`;
+    return this.http.get<User>(url).pipe(
+      catchError(this.handleError<User>(`getUser id=${id}`))
+    );
   }
 
 
-  getUser(id: number): Promise<User> {
-    const url = `${this.usersUrl}/${id}`;
-    return this.http.get(url)
-      .toPromise()
-      .then(response => response.json().data as User)
-      .catch(this.handleError);
+  //////// Save methods //////////
+
+  /** POST: add a new user to the server */
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(this.usersURL, user, httpOptions).pipe(
+      catchError(this.handleError<User>('addUser'))
+    );
   }
 
-  delete(id: number): Promise<void> {
-    const url = `${this.usersUrl}/${id}`;
-    return this.http.delete(url, { headers: this.headers })
-      .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
+  /** DELETE: delete the user from the server */
+  deleteUser(user: User | number): Observable<User> {
+    const id = typeof user === 'number' ? user : user.id;
+    const url = `${this.usersURL}/${id}`;
+
+    return this.http.delete<User>(url, httpOptions).pipe(
+      catchError(this.handleError<User>('deleteUser'))
+    );
   }
 
-  create(name: string): Promise<User> {
-    return this.http
-      .post(this.usersUrl, JSON.stringify({ name: name }), { headers: this.headers })
-      .toPromise()
-      .then(res => res.json().data as User)
-      .catch(this.handleError);
+  /** PUT: update the user on the server */
+  updateUser(user: User): Observable<any> {
+    return this.http.put(this.usersURL, user, httpOptions).pipe(
+      catchError(this.handleError<any>('updateUser'))
+    );
   }
 
-  update(user: User): Promise<User> {
-    const url = `${this.usersUrl}/${user.id}`;
-    return this.http
-      .put(url, JSON.stringify(user), { headers: this.headers })
-      .toPromise()
-      .then(() => user)
-      .catch(this.handleError);
-  }
+  /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
 
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 }
