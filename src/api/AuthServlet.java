@@ -9,8 +9,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import examples.User;
 import generated.Account;
-import modelData.User;
 import tools.JSONConverter;
 import tools.JWT;
 import tools.SHA256;
@@ -52,7 +52,7 @@ public class AuthServlet extends Endpoint {
 				}
 				     
 			}
-			catch (Exception e) {System.out.println(e);}
+			catch (Exception e) {System.out.println(e);response.sendError(500,e.getMessage());}
 			
 		}
 		else{

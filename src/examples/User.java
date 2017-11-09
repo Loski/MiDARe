@@ -1,4 +1,4 @@
-package modelData;
+package examples;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 

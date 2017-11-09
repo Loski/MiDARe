@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import generated.Account;
 import generated.Bet;
+import generated.Encounter;
+import generated.Service;
 import tools.JSONConverter;
 import tools.SHA256;
 import tools.URLParser;
@@ -29,6 +31,8 @@ public class UserServlet extends Endpoint {
 		 String url = URLParser.parseOnToken(request.getPathInfo(),0);
 		 System.out.println("my url is:" + url);
 		 
+		 try
+		{
 		 if(url==null || url.isEmpty())
 		 {
 			 //GET : api/users
@@ -79,17 +83,57 @@ public class UserServlet extends Endpoint {
 			 }
 		 
 		 response.sendError(404);
+		 
+		}catch(Exception e)
+		{
+			response.sendError(500,e.getMessage());
+		}
 			
 	}
 	
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String url = URLParser.parseOnToken(request.getPathInfo(),0);
+		
+		try
+		{
+			if(url==null || url.isEmpty())
+			 {
+				 //POST : api/users
+			    
+				createUser(request, response);
+			    return;
+			 }
+			else
+			{
+				//POST : api/users/{id}/bets
+				if(url.matches(USER_BETS_URL))
+				{
+					//if(user existe + si j'ai les droits)
+					
+					createBet(request, response);
+				}
+			}
+		}catch(Exception e)
+		{
+			response.sendError(500,e.getMessage());
+		}
+			
+	}
+	
+	private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		
+		//TODO :Changer moi ça en JSON jeunes gens !!!
 		if(!request.getParameterMap().containsKey("pseudo") || !request.getParameterMap().containsKey("password") ||
 		!request.getParameterMap().containsKey("mail") || !request.getParameterMap().containsKey("zipcode") ||
 		!request.getParameterMap().containsKey("city") || !request.getParameterMap().containsKey("adress")){
 			response.sendError(422, "un paramètre est manquant");
 		}
 		else{
+			//TODO :Check si c'est vraiment du 422 l'erreur
+			
 			if(!EntityHandler.accountService.getAccountWithPseudo(request.getParameter("pseudo")).isEmpty()){
 				response.sendError(422, "pseudo déja utilisé");
 			}
@@ -113,6 +157,35 @@ public class UserServlet extends Endpoint {
 				EntityHandler.accountService.persist(a);
 				response.getWriter().write("Création du compte réussi");
 			}	
+		}
+	}
+	
+	private void createBet(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		//TODO :Changer moi ça en JSON jeunes gens !!!
+		
+		if(!request.getParameterMap().containsKey("id_encounter")
+				|| !request.getParameterMap().containsKey("id_user_1") || !request.getParameterMap().containsKey("name_service")){
+			
+			response.sendError(422, "un param�tre est manquant");
+			
+		}else if(request.getParameter("name_service").length()>20){
+			response.sendError(422, "nom du service exc�dant 20 caract�res");
+		
+		}else{
+			
+
+			Account a1 = EntityHandler.accountService.findById(Integer.parseInt(request.getParameter("id_user_1")));
+			Encounter e1 = EntityHandler.encounterService.findById(Integer.parseInt(request.getParameter("id_encounter")));
+
+			Service serv = new Service(request.getParameter("name_service"), null, null);
+			
+			EntityHandler.serviceService.persist(serv);
+						
+			Bet bet = new Bet(null, a1, e1, null, serv, "BEGIN");
+			EntityHandler.betService.persist(bet);
+			
+			response.getWriter().write("Cr�ation du pari r�ussi");
 		}
 	}
 }
