@@ -121,7 +121,7 @@ public class UserServlet extends Endpoint {
 					modifyBet(request, response, id_bet);
 
 				}else{
-					response.sendError(422,"le paramètre accept est manquant.");
+					response.sendError(422,"paramètre manquant");
 				}
 			}
 
