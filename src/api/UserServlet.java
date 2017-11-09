@@ -15,7 +15,7 @@ import tools.JSONConverter;
 import tools.SHA256;
 import tools.URLParser;
 
-@WebServlet("/users/*")
+@WebServlet("/api/users/*")
 public class UserServlet extends Endpoint {
 	private static final long serialVersionUID = 1L;
 	
@@ -28,6 +28,7 @@ public class UserServlet extends Endpoint {
 	@Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 
+		
 		 String url = URLParser.parseOnToken(request.getPathInfo(),0);
 		 System.out.println("my url is:" + url);
 		 

@@ -23,6 +23,8 @@ public abstract class URLParser {
 	public static String parseOnToken(String str, int index)
 	{
 		//A changer selon la façon dont on envoie le token
+		if(str == null)
+			return "";
 		return str.split("\\?token=")[index];
 	}
 }
