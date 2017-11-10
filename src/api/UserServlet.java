@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import generated.Account;
 import generated.Bet;
 import generated.Encounter;
-import generated.Service;
+
 import tools.JSONConverter;
 import tools.SHA256;
 import tools.URLParser;
@@ -136,10 +136,35 @@ public class UserServlet extends Endpoint {
 
 	@Override
 	public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String url = URLParser.parseOnToken(request.getPathInfo(),0);
 
 		try
 		{
+
+			//PUT : api/users/{id}/bets/{id}
+			if(url.matches(USER_THIS_BET_URL))
+			{
+				
+				if(!request.getParameterMap().containsKey("true"))
+					System.out.println("erreur");
+				if(request.getParameter("accept")==null || request.getParameter("accept").equals(""))
+					System.out.println("erreur 2");
+				
+				if(request.getParameter("accept").equals("true")){
+					int id_bet = URLParser.getParameterOfURL(url,3);
+					System.out.println(id_bet);
+					acceptBet(request, response, id_bet);
+					
+				}else if(request.getParameter("accept").equals("false")){
+					response.sendError(422,"le paramètre accept est faux.");
+					
+				}else
+					response.sendError(422,"le paramètre accept n'est pas correctement rempli.");
+				
+			}else
+				response.sendError(422, "paramètre dans l'url manquant");
+
 			if(url==null || url.isEmpty())
 			{
 				//POST : api/users
@@ -161,8 +186,10 @@ public class UserServlet extends Endpoint {
 				}
 			}
 
+
 		}catch(Exception e)
 		{
+			
 			response.sendError(500,e.getMessage());
 		}
 
@@ -253,7 +280,7 @@ public class UserServlet extends Endpoint {
 
 			Bet bet = EntityHandler.betService.findById(id_bet);
 			bet.setAccountByIdUser2(a1);
-			bet.setServiceByIdService2(serv);
+
 			bet.setStateBet("WAITING");
 
 			EntityHandler.betService.persist(bet);
