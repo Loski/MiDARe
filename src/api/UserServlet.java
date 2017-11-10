@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import generated.Account;
 import generated.Bet;
 import generated.Encounter;
-import generated.Service;
+
 import tools.JSONConverter;
 import tools.SHA256;
 import tools.URLParser;
@@ -19,9 +19,8 @@ import tools.URLParser;
 public class UserServlet extends Endpoint {
 	private static final long serialVersionUID = 1L;
 
-	private static final String ID_BEGIN_LINE ="^/[1-9][0-9]*";
 	private static final String ID ="/[1-9][0-9]*";
-	private static final String USER_URL= ID_BEGIN_LINE;
+	private static final String USER_URL= ID;
 	private static final String USER_BETS_URL = USER_URL + "/bets";	
 	private static final String USER_THIS_BET_URL = USER_BETS_URL + ID;
 
@@ -62,7 +61,7 @@ public class UserServlet extends Endpoint {
 					JSONConverter.sendObjectAsJson(response,user);
 					return;
 				}else if(url.matches(USER_BETS_URL)) {
-					//JSONConverter.sendObjectAsJson(response,EntityHandler.betService.getAllByUser(id));
+					JSONConverter.sendObjectAsJson(response,EntityHandler.betService.getAllByUser(id));
 					return;
 				}else if(url.matches(USER_THIS_BET_URL)){
 					int id_bet = URLParser.getParameterOfURL(url,3);
@@ -119,19 +118,21 @@ public class UserServlet extends Endpoint {
 				}else if(url.matches(USER_THIS_BET_URL)){
 
 					int id_bet = URLParser.getParameterOfURL(url,3);
-					int id_user = URLParser.getParameterOfURL(url, 1);
-					
-					modifyBet(request, response, id_bet, id_user);
+					modifyBet(request, response, id_bet);
 
-				}else
+				}else{
 					response.sendError(422,"paramètre manquant");
+				}
 			}
+
 		}catch(Exception e)
 		{
 			response.sendError(500,e.getMessage());
 		}
 
 	}
+
+
 
 	@Override
 	public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -140,6 +141,7 @@ public class UserServlet extends Endpoint {
 
 		try
 		{
+
 			//PUT : api/users/{id}/bets/{id}
 			if(url.matches(USER_THIS_BET_URL))
 			{
@@ -162,6 +164,28 @@ public class UserServlet extends Endpoint {
 				
 			}else
 				response.sendError(422, "paramètre dans l'url manquant");
+
+			if(url==null || url.isEmpty())
+			{
+				//POST : api/users
+
+				createUser(request, response);
+				return;
+			}
+			else
+			{
+				//POST : api/users/{id}/bets
+				if(url.matches(USER_BETS_URL))
+				{
+					if(request.getParameter("accept").equals("true")){
+						int id_bet = URLParser.getParameterOfURL(url,3);
+						acceptBet(request, response, id_bet);
+					}else{
+						response.sendError(422,"le paramètre accept est faux.");
+					}
+				}
+			}
+
 
 		}catch(Exception e)
 		{
@@ -239,27 +263,24 @@ public class UserServlet extends Endpoint {
 	}
 
 	//another user proposes his service
-	private void modifyBet(HttpServletRequest request, HttpServletResponse response, int id_bet, int id_user) throws IOException{
+	private void modifyBet(HttpServletRequest request, HttpServletResponse response, int id_bet) throws IOException{
 
 		//TODO: changer en json
 
-		if(!request.getParameterMap().containsKey("name_service")){
-			response.sendError(422, "nom du service manquant");
-			
+		if(!request.getParameterMap().containsKey("id_user_2") || !request.getParameterMap().containsKey("name_service")){
+
+			response.sendError(422, "un paramètre est manquant");
 		}else if(request.getParameter("name_service").length()>20){
-			response.sendError(422, "nom du service excédant 20 caractères");
+			response.sendError(422, "nom du service exc�dant 20 caract�res");
 
 		}else if(EntityHandler.betService.findById(id_bet).getStateBet().equals("BEGIN")){
 
 
-			Account a1 = EntityHandler.accountService.findById(id_user);
-			Service serv = new Service(request.getParameter("name_service"), null, null);
-
-			EntityHandler.serviceService.persist(serv);
+			Account a1 = EntityHandler.accountService.findById(Integer.parseInt(request.getParameter("id_user_2")));
 
 			Bet bet = EntityHandler.betService.findById(id_bet);
 			bet.setAccountByIdUser2(a1);
-			bet.setServiceByIdService2(serv);
+
 			bet.setStateBet("WAITING");
 
 			EntityHandler.betService.persist(bet);

@@ -14,7 +14,6 @@ import generated.AccountHome;
 import generated.Bet;
 import generated.BetHome;
 import generated.Encounter;
-import generated.Service;
 import tools.JSONConverter;
 import tools.URLParser;
 
