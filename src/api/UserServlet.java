@@ -135,25 +135,37 @@ public class UserServlet extends Endpoint {
 
 	@Override
 	public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String url = URLParser.parseOnToken(request.getPathInfo(),0);
 
 		try
 		{
-
-			//POST : api/users/{id}/bets
-			if(url.matches(USER_BETS_URL))
+			//PUT : api/users/{id}/bets/{id}
+			if(url.matches(USER_THIS_BET_URL))
 			{
+				
+				if(!request.getParameterMap().containsKey("true"))
+					System.out.println("erreur");
+				if(request.getParameter("accept")==null || request.getParameter("accept").equals(""))
+					System.out.println("erreur 2");
+				
 				if(request.getParameter("accept").equals("true")){
 					int id_bet = URLParser.getParameterOfURL(url,3);
-					
+					System.out.println(id_bet);
 					acceptBet(request, response, id_bet);
-				}else{
+					
+				}else if(request.getParameter("accept").equals("false")){
 					response.sendError(422,"le paramètre accept est faux.");
-				}
-			}
+					
+				}else
+					response.sendError(422,"le paramètre accept n'est pas correctement rempli.");
+				
+			}else
+				response.sendError(422, "paramètre dans l'url manquant");
 
 		}catch(Exception e)
 		{
+			
 			response.sendError(500,e.getMessage());
 		}
 
