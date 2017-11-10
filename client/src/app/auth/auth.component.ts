@@ -8,19 +8,21 @@ import { UserService } from '../user/user.service';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
-   
-  users: User[];
+
   constructor(private userService: UserService) { }
 
   ngOnInit() {
   }
-	
-  message = " ";
 
   createAccount() {
+  	this.userService.addUser(new User( '', pseudo, password, mail, zipCode, city, adress));
+  }
+  
+  login() {
     console.log('It works here');
-  	/*this.userService.addUser(new User( '', pseudo, password, mail, zipCode, city, adress);*/
-    this.userService.getUsers().subscribe(users => this.users = users);
   }
 
+  foo() {
+    console.log('test');
+  }
 }
