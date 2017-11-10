@@ -21,25 +21,16 @@ import javax.persistence.Table;
 public class Bet implements java.io.Serializable {
 
 	private Integer idBet;
-	private Account accountByIdUser2;
-	private Account accountByIdUser1;
+	private Account creator;
+	private Account opponent;
+	private Card opponentCard;
+	private Card creatorCard;
 	private Encounter encounter;
+	private String serviceCreator;
+	private String serviceOpponent;
 	private String stateBet;
 
 	public Bet() {
-	}
-
-	public Bet(Account accountByIdUser2, Account accountByIdUser1, Encounter encounter) {
-		this.accountByIdUser2 = accountByIdUser2;
-		this.accountByIdUser1 = accountByIdUser1;
-		this.encounter = encounter;
-	}
-
-	public Bet(Account accountByIdUser2, Account accountByIdUser1, Encounter encounter, String stateBet) {
-		this.accountByIdUser2 = accountByIdUser2;
-		this.accountByIdUser1 = accountByIdUser1;
-		this.encounter = encounter;
-		this.stateBet = stateBet;
 	}
 
 	@Id
@@ -55,23 +46,23 @@ public class Bet implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_user_2", nullable = true)
-	public Account getAccountByIdUser2() {
-		return this.accountByIdUser2;
+	@JoinColumn(name = "id_creator", nullable = true)
+	public Account getCreator() {
+		return this.creator;
 	}
 
-	public void setAccountByIdUser2(Account accountByIdUser2) {
-		this.accountByIdUser2 = accountByIdUser2;
+	public void setCreator(Account account) {
+		this.creator = account;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_user_1", nullable = false)
-	public Account getAccountByIdUser1() {
-		return this.accountByIdUser1;
+	@JoinColumn(name = "id_opponent", nullable = false)
+	public Account getOpponent() {
+		return this.opponent;
 	}
 
-	public void setAccountByIdUser1(Account accountByIdUser1) {
-		this.accountByIdUser1 = accountByIdUser1;
+	public void setOpponent(Account account) {
+		this.opponent = account;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -91,6 +82,44 @@ public class Bet implements java.io.Serializable {
 
 	public void setStateBet(String stateBet) {
 		this.stateBet = stateBet;
+	}
+	
+	@Column(name = "service_creator", length = 100)
+	public String getServiceCreator() {
+		return this.serviceCreator;
+	}
+
+	public void setServiceCreator(String serviceCreator) {
+		this.serviceCreator = serviceCreator;
+	}
+
+	@Column(name = "service_opponent", length = 100)
+	public String getServiceOpponent() {
+		return this.serviceOpponent;
+	}
+
+	public void setServiceOpponent(String serviceOpponent) {
+		this.serviceOpponent = serviceOpponent;
+	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_card_opponent")
+	public Card getOpponentCard() {
+		return this.opponentCard;
+	}
+
+	public void setOpponentCard(Card card) {
+		this.opponentCard = card;
+	}
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_card_creator")
+	public Card getCreatorCard() {
+		return this.creatorCard;
+	}
+
+	public void setCreatorCard(Card card) {
+		this.creatorCard = card;
 	}
 
 }

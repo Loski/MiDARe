@@ -33,9 +33,9 @@ public class Account implements java.io.Serializable {
 	private String city;
 	private String adress;
 	@JsonIgnore
-	private Set<Bet> betsForIdUser2 = new HashSet<Bet>(0);
+	private Set<Bet> betsForCreator = new HashSet<Bet>(0);
 	@JsonIgnore
-	private Set<Bet> betsForIdUser1 = new HashSet<Bet>(0);
+	private Set<Bet> betsForOpponent = new HashSet<Bet>(0);
 
 	public Account() {
 	}
@@ -46,15 +46,15 @@ public class Account implements java.io.Serializable {
 	}
 
 	public Account(String pseudo, String password, String mail, Integer zipCode, String city, String adress,
-			Set<Bet> betsForIdUser2, Set<Bet> betsForIdUser1) {
+			Set<Bet> betsForCreator, Set<Bet> betsForOpponent) {
 		this.pseudo = pseudo;
 		this.password = password;
 		this.mail = mail;
 		this.zipCode = zipCode;
 		this.city = city;
 		this.adress = adress;
-		this.betsForIdUser2 = betsForIdUser2;
-		this.betsForIdUser1 = betsForIdUser1;
+		this.betsForCreator = betsForCreator;
+		this.betsForOpponent = betsForOpponent;
 	}
 
 	@Id
@@ -123,22 +123,22 @@ public class Account implements java.io.Serializable {
 		this.adress = adress;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "accountByIdUser2")
-	public Set<Bet> getBetsForIdUser2() {
-		return this.betsForIdUser2;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "creator")
+	public Set<Bet> getBetsForCreator() {
+		return this.betsForCreator;
 	}
 
-	public void setBetsForIdUser2(Set<Bet> betsForIdUser2) {
-		this.betsForIdUser2 = betsForIdUser2;
+	public void setBetsForCreator(Set<Bet> bets) {
+		this.betsForCreator = bets;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "accountByIdUser1")
-	public Set<Bet> getBetsForIdUser1() {
-		return this.betsForIdUser1;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "opponent")
+	public Set<Bet> getBetsForOpponent() {
+		return this.betsForOpponent;
 	}
 
-	public void setBetsForIdUser1(Set<Bet> betsForIdUser1) {
-		this.betsForIdUser1 = betsForIdUser1;
+	public void setBetsForOpponent(Set<Bet> bets) {
+		this.betsForOpponent = bets;
 	}
 
 }

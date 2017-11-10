@@ -86,22 +86,5 @@ public class TeamHome {
 			log.error("get failed", re);
 			throw re;
 		}
-	}	
-	public List<Encounter> getEncounters(int id)
-	{
-		try {		
-			List<Encounter> instance = new ArrayList<Encounter>();
-			Team t = findById(id);
-			if(t!=null)
-			{
-				instance.addAll(t.getEncountersForIdTeam1());
-				instance.addAll(t.getEncountersForIdTeam2());
-			}
-			return instance;
-
-		}catch (RuntimeException re) {
-			log.error("get failed", re);
-			throw re;
-		}
 	}
 }

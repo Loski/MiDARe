@@ -47,10 +47,13 @@ public class AccountHome {
 	public void remove(Account persistentInstance) {
 		log.debug("removing Account instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.remove(persistentInstance);
+			entityManager.getTransaction().commit();
 			log.debug("remove successful");
 		} catch (RuntimeException re) {
 			log.error("remove failed", re);
+			entityManager.getTransaction().rollback();
 			throw re;
 		}
 	}
@@ -58,11 +61,14 @@ public class AccountHome {
 	public Account merge(Account detachedInstance) {
 		log.debug("merging Account instance");
 		try {
+			entityManager.getTransaction().begin();
 			Account result = entityManager.merge(detachedInstance);
+			entityManager.getTransaction().commit();
 			log.debug("merge successful");
 			return result;
 		} catch (RuntimeException re) {
 			log.error("merge failed", re);
+			entityManager.getTransaction().rollback();
 			throw re;
 		}
 	}
