@@ -19,8 +19,9 @@ import tools.URLParser;
 public class UserServlet extends Endpoint {
 	private static final long serialVersionUID = 1L;
 
-	private static final String ID ="^/[1-9][0-9]*";
-	private static final String USER_URL= ID;
+	private static final String ID_BEGIN_LINE ="^/[1-9][0-9]*";
+	private static final String ID ="/[1-9][0-9]*";
+	private static final String USER_URL= ID_BEGIN_LINE;
 	private static final String USER_BETS_URL = USER_URL + "/bets";	
 	private static final String USER_THIS_BET_URL = USER_BETS_URL + ID;
 
@@ -118,13 +119,13 @@ public class UserServlet extends Endpoint {
 				}else if(url.matches(USER_THIS_BET_URL)){
 
 					int id_bet = URLParser.getParameterOfURL(url,3);
-					modifyBet(request, response, id_bet);
+					int id_user = URLParser.getParameterOfURL(url, 1);
+					
+					modifyBet(request, response, id_bet, id_user);
 
-				}else{
+				}else
 					response.sendError(422,"paramètre manquant");
-				}
 			}
-
 		}catch(Exception e)
 		{
 			response.sendError(500,e.getMessage());
@@ -132,32 +133,22 @@ public class UserServlet extends Endpoint {
 
 	}
 
-
-
 	@Override
 	public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = URLParser.parseOnToken(request.getPathInfo(),0);
 
 		try
 		{
-			if(url==null || url.isEmpty())
-			{
-				//POST : api/users
 
-				createUser(request, response);
-				return;
-			}
-			else
+			//POST : api/users/{id}/bets
+			if(url.matches(USER_BETS_URL))
 			{
-				//POST : api/users/{id}/bets
-				if(url.matches(USER_BETS_URL))
-				{
-					if(request.getParameter("accept").equals("true")){
-						int id_bet = URLParser.getParameterOfURL(url,3);
-						acceptBet(request, response, id_bet);
-					}else{
-						response.sendError(422,"le paramètre accept est faux.");
-					}
+				if(request.getParameter("accept").equals("true")){
+					int id_bet = URLParser.getParameterOfURL(url,3);
+					
+					acceptBet(request, response, id_bet);
+				}else{
+					response.sendError(422,"le paramètre accept est faux.");
 				}
 			}
 
@@ -236,20 +227,20 @@ public class UserServlet extends Endpoint {
 	}
 
 	//another user proposes his service
-	private void modifyBet(HttpServletRequest request, HttpServletResponse response, int id_bet) throws IOException{
+	private void modifyBet(HttpServletRequest request, HttpServletResponse response, int id_bet, int id_user) throws IOException{
 
 		//TODO: changer en json
 
-		if(!request.getParameterMap().containsKey("id_user_2") || !request.getParameterMap().containsKey("name_service")){
-
-			response.sendError(422, "un paramètre est manquant");
+		if(!request.getParameterMap().containsKey("name_service")){
+			response.sendError(422, "nom du service manquant");
+			
 		}else if(request.getParameter("name_service").length()>20){
-			response.sendError(422, "nom du service exc�dant 20 caract�res");
+			response.sendError(422, "nom du service excédant 20 caractères");
 
 		}else if(EntityHandler.betService.findById(id_bet).getStateBet().equals("BEGIN")){
 
 
-			Account a1 = EntityHandler.accountService.findById(Integer.parseInt(request.getParameter("id_user_2")));
+			Account a1 = EntityHandler.accountService.findById(id_user);
 			Service serv = new Service(request.getParameter("name_service"), null, null);
 
 			EntityHandler.serviceService.persist(serv);
