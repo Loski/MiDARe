@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User }    from './user';
 
 @Component({
   selector: 'app-auth',
@@ -10,6 +11,10 @@ export class AuthComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+  
+  onSubmit() {
+  	this.userService.addUser({ '', pseudo, password, mail, zipCode, city, adress} as User);
   }
 
 }

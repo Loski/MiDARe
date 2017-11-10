@@ -1,9 +1,11 @@
-<p>LOGIN</p>
-<div ng-app="authApp" ng-controller="AuthController" >
-	<form ng-submit="login()">
-	    <label>Pseudo</label><input type="text" ng-model="pseudo"> 
-	    <label>Mot de passe</label><input type="password" ng-model="password">
-	    <button type="submit">Login</button>
-	</form>
-</div>
-<p>Message from servlet: {{message}}</p>
+<h1>Création d'un compte</h1>
+<form>
+		<label for="pseudo">Pseudo</label><input type="text">
+		<label for="password">Mot de passe</label><input type="password">
+		<label for="mail">Mail</label><input type="text">
+		<label for="city">Ville</label><input type="text">
+		<label for="address">Adresse</label><input type="text">
+		<label for="zipCode">Code postal</label><input type="text">
+	<br>
+	<button type="submit">Submit</button>
+</form>
