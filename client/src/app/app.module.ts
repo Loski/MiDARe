@@ -9,13 +9,15 @@ import { UserComponent } from './user/user.component';
 import { UserService } from './user/user.service';
 import { AppRoutingModule } from './/app-routing.module';
 import { AuthComponent } from './auth/auth.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
-    AuthComponent
+    AuthComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

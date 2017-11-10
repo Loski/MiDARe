@@ -49,7 +49,7 @@ public class DatabaseUpdater implements Runnable{
 		
 		for(LinkedHashMap<?,?> node : json)
 		{
-			System.out.println(node.get("realName_fr"));
+			//System.out.println(node.get("realName_fr"));
 		}
 		
 		//print result
