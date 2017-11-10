@@ -19,7 +19,7 @@ import tools.URLParser;
 public class UserServlet extends Endpoint {
 	private static final long serialVersionUID = 1L;
 
-	private static final String ID ="^/[1-9][0-9]*";
+	private static final String ID ="/[1-9][0-9]*";
 	private static final String USER_URL= ID;
 	private static final String USER_BETS_URL = USER_URL + "/bets";	
 	private static final String USER_THIS_BET_URL = USER_BETS_URL + ID;
@@ -250,9 +250,6 @@ public class UserServlet extends Endpoint {
 
 
 			Account a1 = EntityHandler.accountService.findById(Integer.parseInt(request.getParameter("id_user_2")));
-			Service serv = new Service(request.getParameter("name_service"), null, null);
-
-			EntityHandler.serviceService.persist(serv);
 
 			Bet bet = EntityHandler.betService.findById(id_bet);
 			bet.setAccountByIdUser2(a1);

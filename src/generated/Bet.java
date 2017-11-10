@@ -24,29 +24,21 @@ public class Bet implements java.io.Serializable {
 	private Account accountByIdUser2;
 	private Account accountByIdUser1;
 	private Encounter encounter;
-	private Service serviceByIdService2;
-	private Service serviceByIdService1;
 	private String stateBet;
 
 	public Bet() {
 	}
 
-	public Bet(Account accountByIdUser2, Account accountByIdUser1, Encounter encounter, Service serviceByIdService2,
-			Service serviceByIdService1) {
+	public Bet(Account accountByIdUser2, Account accountByIdUser1, Encounter encounter) {
 		this.accountByIdUser2 = accountByIdUser2;
 		this.accountByIdUser1 = accountByIdUser1;
 		this.encounter = encounter;
-		this.serviceByIdService2 = serviceByIdService2;
-		this.serviceByIdService1 = serviceByIdService1;
 	}
 
-	public Bet(Account accountByIdUser2, Account accountByIdUser1, Encounter encounter, Service serviceByIdService2,
-			Service serviceByIdService1, String stateBet) {
+	public Bet(Account accountByIdUser2, Account accountByIdUser1, Encounter encounter, String stateBet) {
 		this.accountByIdUser2 = accountByIdUser2;
 		this.accountByIdUser1 = accountByIdUser1;
 		this.encounter = encounter;
-		this.serviceByIdService2 = serviceByIdService2;
-		this.serviceByIdService1 = serviceByIdService1;
 		this.stateBet = stateBet;
 	}
 
@@ -90,26 +82,6 @@ public class Bet implements java.io.Serializable {
 
 	public void setEncounter(Encounter encounter) {
 		this.encounter = encounter;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_service_2", nullable = true)
-	public Service getServiceByIdService2() {
-		return this.serviceByIdService2;
-	}
-
-	public void setServiceByIdService2(Service serviceByIdService2) {
-		this.serviceByIdService2 = serviceByIdService2;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_service_1", nullable = false)
-	public Service getServiceByIdService1() {
-		return this.serviceByIdService1;
-	}
-
-	public void setServiceByIdService1(Service serviceByIdService1) {
-		this.serviceByIdService1 = serviceByIdService1;
 	}
 
 	@Column(name = "state_bet", length = 7)
