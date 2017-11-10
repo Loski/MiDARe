@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { User } from './user';
+import { Bet } from './bet';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -14,13 +14,12 @@ const httpOptions = {
 @Injectable()
 export class UserService {
 
-  private usersURL = 'http://localhost:8080/MiDARe/api/users';  // URL to web api
-  private authURL = 'http://localhost:8080/MiDARe/auth';  // URL to auth
+  private usersURL = 'http://localhost:8080/DAR/api/users';  // URL to web api
+  private authURL = 'http://localhost:8080/DAR/auth';  // URL to auth
 
   constructor(
     private http: HttpClient
-    ){}
-    
+  ) { }
   /** GET users from the server */
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.usersURL)
@@ -49,7 +48,7 @@ export class UserService {
       catchError(this.handleError<User>(`getUser id=${id}`))
     );
   }
-  
+
   //////// Save methods //////////
 
   /** POST: add a new user to the server */

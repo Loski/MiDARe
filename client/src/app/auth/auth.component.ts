@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { User } from '../user/user';
-import { userService } from '../user/user.service';
+import { UserService } from '../user/user.service';
 
 @Component({
   selector: 'app-auth',
@@ -9,18 +9,20 @@ import { userService } from '../user/user.service';
 })
 export class AuthComponent implements OnInit {
 
-  users: User[];
   constructor(private userService: UserService) { }
 
   ngOnInit() {
   }
-	
-  message = " ";
 
   createAccount() {
+  	this.userService.addUser(new User( '', pseudo, password, mail, zipCode, city, adress));
+  }
+  
+  login() {
     console.log('It works here');
-  	/*this.userService.addUser(new User( '', pseudo, password, mail, zipCode, city, adress);*/
-  	this.users = userService.getUsers().subscribe(users => this.users = users);
   }
 
+  foo() {
+    console.log('test');
+  }
 }
