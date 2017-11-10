@@ -4,11 +4,11 @@ USE Sanglier;
 CREATE TABLE IF NOT EXISTS Account(
 	id_user INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	pseudo CHAR(20) UNIQUE NOT NULL,
-	password VARCHAR(255) NOT NULL
-	/*mail CHAR(50),
+	password VARCHAR(255) NOT NULL,
+	mail CHAR(50),
 	zip_code INT,
 	city CHAR(50),
-	adress CHAR(50)*/
+	adress CHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS Card(
@@ -17,14 +17,7 @@ CREATE TABLE IF NOT EXISTS Card(
 	card_description CHAR(150)
 );
 
-CREATE TABLE IF NOT EXISTS Inventory
-(
-	id_user INT NOT NULL,
-	id_item INT NOT NULL,
-	FOREIGN KEY (id_user) REFERENCES User(id_user),
-	FOREIGN KEY (id_item) REFERENCES Card(id_item),
-	PRIMARY KEY(id_user,id_item)
-);
+
 
 CREATE TABLE IF NOT EXISTS Sport(
 	id_sport INT NOT NULL PRIMARY KEY AUTO_INCREMENT,

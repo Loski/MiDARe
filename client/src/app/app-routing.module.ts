@@ -5,18 +5,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/users/self', pathMatch: 'full' },
-  { path: 'users/:id', component: UserComponent },
   { path: 'users/:id', component: DashboardComponent }
-
 ];
 
 
 @NgModule({
-  imports: [
-  ],
-  declarations: [],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -62,7 +62,7 @@ public class UserServlet extends Endpoint {
 					JSONConverter.sendObjectAsJson(response,user);
 					return;
 				}else if(url.matches(USER_BETS_URL)) {
-					JSONConverter.sendObjectAsJson(response,EntityHandler.betService.getAllByUser(id));
+					//JSONConverter.sendObjectAsJson(response,EntityHandler.betService.getAllByUser(id));
 					return;
 				}else if(url.matches(USER_THIS_BET_URL)){
 					int id_bet = URLParser.getParameterOfURL(url,3);
