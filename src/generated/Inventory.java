@@ -51,7 +51,7 @@ public class Inventory implements java.io.Serializable {
 		this.id = id;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_user", nullable = false, insertable = false, updatable = false)
 	public Account getAccount() {
 		return this.account;
@@ -61,7 +61,7 @@ public class Inventory implements java.io.Serializable {
 		this.account = account;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_card", nullable = false, insertable = false, updatable = false)
 	public Card getCard() {
 		return this.card;

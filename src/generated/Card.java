@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -29,10 +31,13 @@ public class Card implements java.io.Serializable {
 	private String cardName;
 	private String cardDescription;
 	private Integer number;
+	private Deck deck;
 	@JsonIgnore
 	private Set<Bet> betsForIdCardCreator = new HashSet(0);
 	@JsonIgnore
 	private Set<Bet> betsForIdCardOppenent = new HashSet(0);
+	@JsonIgnore
+	private Set<Inventory> inventories = new HashSet(0);
 
 	public Card() {
 	}
@@ -42,11 +47,12 @@ public class Card implements java.io.Serializable {
 	}
 
 	public Card(String cardName, String cardDescription, Set<Bet> betOnWinsForIdCardCreator,
-			Set<Bet> betOnWinsForIdCardOppenent) {
+			Set<Bet> betOnWinsForIdCardOppenent, Set<Inventory> inventories) {
 		this.cardName = cardName;
 		this.cardDescription = cardDescription;
 		this.betsForIdCardCreator = betOnWinsForIdCardCreator;
 		this.betsForIdCardOppenent = betOnWinsForIdCardOppenent;
+		this.inventories = inventories;
 	}
 
 	@Id
@@ -68,6 +74,16 @@ public class Card implements java.io.Serializable {
 
 	public void setCardName(String cardName) {
 		this.cardName = cardName;
+	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_deck")
+	public Deck getDeck() {
+		return this.deck;
+	}
+
+	public void setDeck(Deck deck) {
+		this.deck = deck;
 	}
 
 	@Column(name = "card_description", length = 150)
@@ -106,6 +122,15 @@ public class Card implements java.io.Serializable {
 	public void setNumber(Integer number)
 	{
 		this.number = number;
+	}
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "card")
+	public Set<Inventory> getInventories() {
+		return this.inventories;
+	}
+
+	public void setInventories(Set<Inventory> inventories) {
+		this.inventories = inventories;
 	}
 	
 	@Transient
