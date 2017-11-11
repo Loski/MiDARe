@@ -13,12 +13,11 @@ export interface DeckInterface {
   cards: deckFields.cards;
 }
 
-
+ 
 export class Deck implements DeckInterface {
   idDeck: number;
   name: string;
   cards: Card[];
-
   constructor(idDeck: number, name: string, cards: Card[]) {
     this.idDeck = idDeck;
     this.name = name;

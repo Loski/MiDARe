@@ -21,7 +21,8 @@ public class UserServlet extends Endpoint {
 
 	private static final String ID ="/[1-9][0-9]*";
 	private static final String USER_URL= ID;
-	private static final String USER_BETS_URL = USER_URL + "/bets";	
+	private static final String USER_BETS_URL = USER_URL + "/bets";
+	private static final String USER_DECK_URL = USER_URL + "/deck";	
 	private static final String USER_THIS_BET_URL = USER_BETS_URL + ID;
 
 
@@ -80,6 +81,8 @@ public class UserServlet extends Endpoint {
 					}
 
 					return;
+				}else if(url.matches(USER_DECK_URL)) {
+					JSONConverter.sendObjectAsJson(response, user.getInventories());
 				}
 			}
 
