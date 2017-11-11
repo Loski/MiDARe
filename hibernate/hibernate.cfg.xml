@@ -11,11 +11,6 @@
   <property name="hibernate.default_entity_mode">pojo</property>
   <property name="hibernate.show_sql">true</property>
 
-  <!-- mapping files -->
-  <mapping resource="generated/Account.hbm.xml"/>
-  <mapping resource="generated/Bet.hbm.xml"/>
-  <mapping resource="generated/Team.hbm.xml"/>
-  <mapping resource="generated/Sport.hbm.xml"/>
 
  </session-factory>
 </hibernate-configuration>

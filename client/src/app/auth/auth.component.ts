@@ -15,7 +15,7 @@ export class AuthComponent implements OnInit {
   }
 
   createAccount() {
-  	this.userService.addUser(new User( '', pseudo, password, mail, zipCode, city, adress));
+  	//this.userService.addUser(new User( '', pseudo, password, mail, zipCode, city, adress));
   }
   
   login() {
