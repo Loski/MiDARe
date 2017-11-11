@@ -1,0 +1,39 @@
+<!--Register form-->
+<form (ngSubmit)="onSubmitCreateAccount()">
+  <p class="h5 text-center mb-4">Sign up</p>
+
+  <div class="md-form">
+    <i class="fa fa-user prefix grey-text"></i>
+    <input type="text" [(ngModel)]="user.pseudo" name="pseudo"  id="orangeForm-name" class="form-control" mdbActive>
+    <label for="orangeForm-name">Nom d'utilisateur</label>
+  </div>
+
+  <div class="md-form">
+    <i class="fa fa-envelope prefix grey-text"></i>
+    <input type="text" id="orangeForm-email" [(ngModel)]="user.mail" name="mail" class="form-control" mdbActive>
+    <label for="orangeForm-email">Email</label>
+  </div>
+
+  <div class="md-form">
+    <i class="fa fa-lock prefix grey-text"></i>
+    <input type="password" id="orangeForm-pass" [(ngModel)]="user.password" name="password" class="form-control" mdbActive>
+    <label for="orangeForm-pass">Mot de passe</label>
+  </div>
+
+  <div class="md-form">
+    <i class="fa fa-lock prefix grey-text"></i>
+    <input type="text" id="orangeForm-pass" [(ngModel)]="user.city" name="city" class="form-control" mdbActive>
+    <label for="orangeForm-pass">Ville</label>
+  </div>
+
+  <div class="md-form">
+    <i class="fa fa-lock prefix grey-text"></i>
+    <input type="text" id="orangeForm-pass" [(ngModel)]="user.codePostal" name="codePostal" class="form-control" mdbActive>
+    <label for="orangeForm-pass">Code postal</label>
+  </div>
+
+  <div class="text-center">
+    <button class="btn btn-deep-orange waves-light" mdbRippleRadius>Sign up</button>
+  </div>
+</form>
+<!--/Register form-->

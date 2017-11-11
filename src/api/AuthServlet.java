@@ -21,6 +21,7 @@ public class AuthServlet extends Endpoint {
       
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("request");
 		
 		if(request.getParameterMap().containsKey("pseudo") && request.getParameterMap().containsKey("password"))
 		{

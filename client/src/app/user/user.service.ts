@@ -58,6 +58,12 @@ export class UserService {
     );
   }
 
+  connexionUser(user: User): Observable<User> {
+    console.log("je test l'envoi");
+    return this.http.post<User>(this.authURL, user, httpOptions).pipe(
+      catchError(this.handleError<User>('connexionUser'))
+    );
+  }
   /** DELETE: delete the user from the server */
   deleteUser(user: User | number): Observable<User> {
     const id = typeof user === 'number' ? user : user.id;
@@ -74,6 +80,7 @@ export class UserService {
       catchError(this.handleError<any>('updateUser'))
     );
   }
+
 
   /**
    * Handle Http operation that failed.
@@ -92,3 +99,4 @@ export class UserService {
     };
   }
 }
+
