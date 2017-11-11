@@ -1,29 +1,26 @@
 package examples;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-@JsonPropertyOrder(alphabetic=true)
 public class User2 {
 	
 	private String pseudo;
 	private String password;
 	private String mail;
 	private String city;
-	private int zipCode;
+	private int codePostal;
 	
-	public User2(String pseudo, String password, String mail, String city, int zipCode) {
+	public User2(String pseudo, String password, String mail, String city, int codePostal) {
 		super();
 		this.pseudo = pseudo;
 		this.password = password;
 		this.mail = mail;
 		this.city = city;
-		this.zipCode = zipCode;
+		this.codePostal = codePostal;
 	}
 	
 	@Override
 	public String toString() {
 		return "User2 [pseudo=" + pseudo + ", password=" + password + ", mail=" + mail + ", city=" + city
-				+ ", zipCode=" + zipCode + "]";
+				+ ", codePostal=" + codePostal + "]";
 	}
 
 	public String getPseudo() {
@@ -51,10 +48,11 @@ public class User2 {
 		this.city = city;
 	}
 	public int getCodePostal() {
-		return zipCode;
+		return codePostal;
 	}
 	public void setCodePostal(int codePostal) {
-		this.zipCode = codePostal;
+		this.codePostal = codePostal;
 	}
 
 }
+

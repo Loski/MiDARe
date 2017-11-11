@@ -29,6 +29,7 @@ import { CardService } from "./deck/card/card.service";
     UserDetailComponent,
     NavComponent,
     CardComponent,
+    DeckComponent,
     SignupComponent,
   ],
   imports: [

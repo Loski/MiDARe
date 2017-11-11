@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="deck!=undefined">
   <div *ngFor="let card of deck.cards" class="form-row">
     <app-card [card]="card"></app-card>
   </div>
