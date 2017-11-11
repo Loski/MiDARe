@@ -12,7 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import examples.User2;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import generated.Account;
 import generated.AccountHome;
 import generated.Bet;
@@ -217,21 +218,10 @@ public class UserServlet extends Endpoint {
 
 	private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		User2 user = JSONConverter.convertJSONToObject(request);
+		Account user = JSONConverter.deserialize(request.getInputStream(),Account.class);
 		System.out.println(user);
-		
-		//TODO :Changer moi ça en JSON jeunes gens !!!
-		if(!request.getParameterMap().containsKey("pseudo") || !request.getParameterMap().containsKey("password") ||
-				!request.getParameterMap().containsKey("mail") || !request.getParameterMap().containsKey("zipcode") ||
-				!request.getParameterMap().containsKey("city") || !request.getParameterMap().containsKey("adress")){
 
-			System.out.println("TEST");
-			response.sendError(422, "un paramètre est manquant");
-		}
-		else{
-			//TODO :Check si c'est vraiment du 422 l'erreur
-
-			if(!EntityHandler.accountService.getAccountWithPseudo(request.getParameter("pseudo")).isEmpty()){
+			/*if(!EntityHandler.accountService.getAccountWithPseudo(request.getParameter("pseudo")).isEmpty()){
 				response.sendError(422, "pseudo déja utilisé");
 			}
 			else if(request.getParameter("pseudo").length()>20){
@@ -247,14 +237,12 @@ public class UserServlet extends Endpoint {
 			else if(request.getParameter("city").length()>50) {
 				response.sendError(422, "city trop long (moins de 50 caractères)");
 			}
-			else {
-				Account a = new Account(request.getParameter("pseudo"), SHA256.sha256(request.getParameter("password")),
-						request.getParameter("mail"), Integer.parseInt(request.getParameter("zipcode")), 
-						request.getParameter("city"), request.getParameter("adress"), null, null, null);
-				EntityHandler.accountService.persist(a);
-				response.getWriter().write("Création du compte réussi");
-			}	
-		}
+			else {*/
+			user.setIdUser(null);
+		
+			EntityHandler.accountService.persist(user);
+			response.setStatus(HttpServletResponse.SC_SEE_OTHER);
+			response.setHeader("Location", "http://localhost:8080/DAR/api/users/"+user.getIdUser());
 	}
 
 	private void createBet(HttpServletRequest request, HttpServletResponse response) throws IOException

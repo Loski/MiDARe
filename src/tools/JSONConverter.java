@@ -2,20 +2,17 @@ package tools;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import examples.User2;
 
 public abstract class JSONConverter {
 
@@ -35,6 +32,30 @@ public abstract class JSONConverter {
 			}
 			out.flush();
 			
+	}
+	
+	public static <T> T deserialize(InputStream stream, Class<T> genericClass)
+	{
+		if(stream==null)
+			return null;
+		
+		try {
+		BufferedReader br = new BufferedReader(new  InputStreamReader(stream));
+	    String json = "";
+	    if(br != null){
+	        json = br.readLine();
+	    }
+
+	    ObjectMapper mapper = new ObjectMapper();
+	    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+	    mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+
+	    return mapper.readValue(json, genericClass);
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	
@@ -164,23 +185,5 @@ public abstract class JSONConverter {
 			e.printStackTrace();
 			return null;
 		}
-	}
-	
-	public static User2 convertJSONToObject(HttpServletRequest request)
-	{
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			return mapper.readValue(request.getParameter("user"), User2.class);
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return null;
 	}
 }
