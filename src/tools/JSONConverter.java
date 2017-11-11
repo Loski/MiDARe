@@ -1,14 +1,13 @@
 package tools;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -166,6 +165,7 @@ public abstract class JSONConverter {
 		}
 	}
 	
+	@JsonIgnore
 	public static User2 convertJSONToObject(HttpServletRequest request)
 	{
 		ObjectMapper mapper = new ObjectMapper();

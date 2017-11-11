@@ -9,21 +9,21 @@ public class User2 {
 	private String password;
 	private String mail;
 	private String city;
-	private int codePostal;
+	private int zipCode;
 	
-	public User2(String pseudo, String password, String mail, String city, int codePostal) {
+	public User2(String pseudo, String password, String mail, String city, int zipCode) {
 		super();
 		this.pseudo = pseudo;
 		this.password = password;
 		this.mail = mail;
 		this.city = city;
-		this.codePostal = codePostal;
+		this.zipCode = zipCode;
 	}
 	
 	@Override
 	public String toString() {
 		return "User2 [pseudo=" + pseudo + ", password=" + password + ", mail=" + mail + ", city=" + city
-				+ ", codePostal=" + codePostal + "]";
+				+ ", zipCode=" + zipCode + "]";
 	}
 
 	public String getPseudo() {
@@ -51,10 +51,10 @@ public class User2 {
 		this.city = city;
 	}
 	public int getCodePostal() {
-		return codePostal;
+		return zipCode;
 	}
 	public void setCodePostal(int codePostal) {
-		this.codePostal = codePostal;
+		this.zipCode = codePostal;
 	}
 
 }
