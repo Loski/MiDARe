@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class DeckService {
 
-  private decksURL = 'http://localhost:8080/DAR/users';  // URL to web api
+  private decksURL = 'http://localhost:8080/DAR/api/users';  // URL to web api
 
   constructor(
     private http: HttpClient

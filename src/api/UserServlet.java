@@ -9,7 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import generated.Account;
+import generated.AccountHome;
 import generated.Bet;
 import generated.Encounter;
 
@@ -24,8 +28,9 @@ public class UserServlet extends Endpoint {
 	private static final String ID ="/[1-9][0-9]*";
 	private static final String USER_URL= ID;
 	private static final String USER_BETS_URL = USER_URL + "/bets";
-	private static final String USER_DECK_URL = USER_URL + "/deck";	
+	private static final String USER_DECK_URL = USER_URL + "/decks";	
 	private static final String USER_THIS_BET_URL = USER_BETS_URL + ID;
+	private static final Log log = LogFactory.getLog(UserServlet.class);
 
 
 	@Override
@@ -41,6 +46,7 @@ public class UserServlet extends Endpoint {
 			{
 				//GET : api/users
 				JSONConverter.sendObjectAsJson(response, EntityHandler.accountService.getAll());
+				log.info("api/users");
 				return;
 			}
 			else { 
@@ -57,18 +63,21 @@ public class UserServlet extends Endpoint {
 				if(user==null)
 				{
 					response.sendError(404);
+					log.info("user not found");
 					return;
 				}
 
 				if(url.matches(USER_URL)) {
 					JSONConverter.sendObjectAsJson(response,user);
+					log.info(USER_URL);
 					return;
 				}else if(url.matches(USER_BETS_URL)) {
+					log.info(USER_BETS_URL);
 					JSONConverter.sendObjectAsJson(response,EntityHandler.betService.getAllByUser(id));
 					return;
 				}else if(url.matches(USER_THIS_BET_URL)){
+					log.info(USER_THIS_BET_URL);
 					int id_bet = URLParser.getParameterOfURL(url,3);
-
 					if(id_bet < 1)
 					{
 						response.sendError(404);
@@ -81,12 +90,14 @@ public class UserServlet extends Endpoint {
 						JSONConverter.sendObjectAsJson(response, EntityHandler.betService.findById(id_bet));
 						return;
 					}
-
 					return;
 				}else if(url.matches(USER_DECK_URL)) {
+					log.info(USER_DECK_URL);
 					JSONConverter.sendObjectAsJson(response, user.getInventories());
+					return;
 				}
 			}
+			log.info("Route not found");
 
 			response.sendError(404);
 
