@@ -16,7 +16,7 @@ export class UserService {
 
   private usersURL = 'http://localhost:8080/DAR/api/users';  // URL to web api
   private authURL = 'http://localhost:8080/DAR/auth';  // URL to auth
-
+  
   constructor(
     private http: HttpClient
   ) { }

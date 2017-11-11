@@ -27,7 +27,6 @@ import { SignupComponent } from './user/signup/signup.component';
     UserDetailComponent,
     NavComponent,
     CardComponent,
-    DeckComponent,
     SignupComponent,
   ],
   imports: [

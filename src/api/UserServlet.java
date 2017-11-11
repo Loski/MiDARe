@@ -7,6 +7,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import examples.User2;
 import generated.Account;
 import generated.Bet;
 import generated.Encounter;
@@ -197,11 +198,15 @@ public class UserServlet extends Endpoint {
 
 	private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-
+		User2 user = JSONConverter.convertJSONToObject(request);
+		System.out.println(user);
+		
 		//TODO :Changer moi ça en JSON jeunes gens !!!
 		if(!request.getParameterMap().containsKey("pseudo") || !request.getParameterMap().containsKey("password") ||
 				!request.getParameterMap().containsKey("mail") || !request.getParameterMap().containsKey("zipcode") ||
 				!request.getParameterMap().containsKey("city") || !request.getParameterMap().containsKey("adress")){
+
+			System.out.println("TEST");
 			response.sendError(422, "un paramètre est manquant");
 		}
 		else{
