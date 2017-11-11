@@ -73,7 +73,7 @@ public class UserServlet extends Endpoint {
 					}
 
 					Bet bet = EntityHandler.betService.findById(id_bet);
-					if(bet.getAccountByIdUser1().getIdUser()==id || bet.getAccountByIdUser2().getIdUser()==id)
+					if(bet.getCreator().getIdUser()==id || bet.getOpponent().getIdUser()==id)
 					{
 						JSONConverter.sendObjectAsJson(response, EntityHandler.betService.findById(id_bet));
 						return;
@@ -251,14 +251,12 @@ public class UserServlet extends Endpoint {
 			Account a1 = EntityHandler.accountService.findById(Integer.parseInt(request.getParameter("id_user_1")));
 			Encounter e1 = EntityHandler.encounterService.findById(Integer.parseInt(request.getParameter("id_encounter")));
 
-			Service serv = new Service(request.getParameter("name_service"), null, null);
+			String service = request.getParameter("name_service");
 
-			EntityHandler.serviceService.persist(serv);
-
-			Bet bet = new Bet(null, a1, e1, null, serv, "BEGIN");
+			Bet bet = new Bet(a1, null,null,null,e1, null,null, "BEGIN");
 			EntityHandler.betService.persist(bet);
 
-			response.getWriter().write("Cr�ation du pari r�ussi");
+			response.getWriter().write("Création du pari réussi");
 		}
 	}
 
@@ -279,7 +277,7 @@ public class UserServlet extends Endpoint {
 			Account a1 = EntityHandler.accountService.findById(Integer.parseInt(request.getParameter("id_user_2")));
 
 			Bet bet = EntityHandler.betService.findById(id_bet);
-			bet.setAccountByIdUser2(a1);
+			bet.setOpponent(a1);
 
 			bet.setStateBet("WAITING");
 

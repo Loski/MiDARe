@@ -33,6 +33,24 @@ public class Bet implements java.io.Serializable {
 	public Bet() {
 	}
 
+	public Bet(Account creator, Encounter encounter) {
+		this.creator = creator;
+		this.encounter = encounter;
+	}
+
+	public Bet(Account accountByIdCreator, Account accountByIdOppenent, Card cardByIdCardCreator,
+			Card cardByIdCardOppenent, Encounter encounter, String serviceCreator, String serviceOppenent,
+			String stateBet) {
+		this.creator = accountByIdCreator;
+		this.opponent = accountByIdOppenent;
+		this.creatorCard = cardByIdCardCreator;
+		this.opponentCard = cardByIdCardOppenent;
+		this.encounter = encounter;
+		this.serviceCreator = serviceCreator;
+		this.serviceOpponent = serviceOppenent;
+		this.stateBet = stateBet;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 

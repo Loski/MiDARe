@@ -4,9 +4,9 @@
 	<persistence-unit name="Manager" transaction-type="RESOURCE_LOCAL">
 			<properties>
 			<property name="hibernate.connection.driver_class">org.gjt.mm.mysql.Driver</property>
-		  <property name="hibernate.connection.password">test</property>
+		  <property name="hibernate.connection.password">midare</property>
 		  <property name="hibernate.connection.url">jdbc:mysql://localhost/sanglier</property>
-		  <property name="hibernate.connection.username">root</property>
+		  <property name="hibernate.connection.username">user</property>
 		  <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
 		  <property name="hibernate.default_entity_mode">pojo</property>
 		  <property name="hibernate.show_sql">true</property>
