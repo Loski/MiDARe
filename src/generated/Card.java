@@ -46,13 +46,14 @@ public class Card implements java.io.Serializable {
 		this.cardName = cardName;
 	}
 
-	public Card(String cardName, String cardDescription, Set<Bet> betOnWinsForIdCardCreator,
+	public Card(Deck deck,String cardName, String cardDescription, Set<Bet> betOnWinsForIdCardCreator,
 			Set<Bet> betOnWinsForIdCardOppenent, Set<Inventory> inventories) {
 		this.cardName = cardName;
 		this.cardDescription = cardDescription;
 		this.betsForIdCardCreator = betOnWinsForIdCardCreator;
 		this.betsForIdCardOppenent = betOnWinsForIdCardOppenent;
 		this.inventories = inventories;
+		this.deck = deck;
 	}
 
 	@Id

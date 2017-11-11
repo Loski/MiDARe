@@ -10,6 +10,8 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import api.EntityHandler;
@@ -73,6 +75,7 @@ public class DatabaseTriadCardUpdater implements Runnable{
 			c.setNumber((Integer)node.get("number"));
 			//c.setCardDescription((String) node.get("realDescription_fr"));
 			c.setCardName((String) node.get("realName_fr"));
+			c.setDeck(EntityHandler.deckService.findById(1));
 			
 			System.out.println(c);
 			

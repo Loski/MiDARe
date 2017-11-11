@@ -20,6 +20,10 @@ public class DeckHome {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	public DeckHome(EntityManager em) {
+		this.entityManager=em;
+	}
+
 	public void persist(Deck transientInstance) {
 		log.debug("persisting Deck instance");
 		try {
