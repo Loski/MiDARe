@@ -15,7 +15,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import api.EntityHandler;
 import generated.Card;
 
-public class DatabaseUpdater implements Runnable{
+public class DatabaseTriadCardUpdater implements Runnable{
 
 	public static final String TRIPLE_TRIAD_CARDS_URL = "http://ffxivtriad.com/api/cards";
 	public static final String TRIPLE_TRIAD_THIS_CARD_URL = "http://ffxivtriad.com/api/cards/:id";

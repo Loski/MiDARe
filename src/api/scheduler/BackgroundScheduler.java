@@ -15,7 +15,7 @@ public class BackgroundScheduler implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent event) {
         /*scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(new DatabaseUpdater(), 0, 15, TimeUnit.MINUTES);*/
+        scheduler.scheduleAtFixedRate(new DatabaseTriadCardUpdater(), 0, 15, TimeUnit.MINUTES);*/
     }
 
     @Override
