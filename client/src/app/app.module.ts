@@ -3,15 +3,19 @@ import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
+
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
 import { UserService } from './user/user.service';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthComponent } from './auth/auth.component';
+import { AuthComponent } from './user/auth/auth.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserDetailComponent } from './user/user-detail/user-detail.component';
 import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { NavComponent } from './nav/nav.component';
+import { CardComponent } from './deck/card/card.component';
+import { DeckComponent } from './deck/deck.component';
+import { SignupComponent } from './user/signup/signup.component';
 
 
 @NgModule({
@@ -21,7 +25,10 @@ import { NavComponent } from './nav/nav.component';
     AuthComponent,
     DashboardComponent,
     UserDetailComponent,
-    NavComponent
+    NavComponent,
+    CardComponent,
+    DeckComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,8 @@ import javax.persistence.Persistence;
 
 import generated.AccountHome;
 import generated.BetHome;
+import generated.CardHome;
+import generated.DeckHome;
 import generated.EncounterHome;
 import generated.SportHome;
 import generated.TeamHome;
@@ -19,6 +21,8 @@ public class EntityHandler {
 	public static SportHome sportService = new SportHome(em);
 	public static BetHome betService = new BetHome(em);
 	public static EncounterHome encounterService = new EncounterHome(em);
+	public static CardHome cardService = new CardHome(em);
+	public static DeckHome deckService = new DeckHome(em);
 	
 	/*Singleton ?*/
 	

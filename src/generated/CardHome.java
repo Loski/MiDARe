@@ -1,6 +1,8 @@
 package generated;
 // Generated 10 nov. 2017 23:49:32 by Hibernate Tools 5.2.6.Final
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,12 +22,20 @@ public class CardHome {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	public CardHome(EntityManager em) {
+		this.entityManager=em;
+	}
+
 	public void persist(Card transientInstance) {
 		log.debug("persisting Card instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
+			entityManager.flush();
+			entityManager.getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
+			entityManager.getTransaction().rollback();
 			log.error("persist failed", re);
 			throw re;
 		}
@@ -58,6 +68,18 @@ public class CardHome {
 		log.debug("getting Card instance with id: " + id);
 		try {
 			Card instance = entityManager.find(Card.class, id);
+			log.debug("get successful");
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Account> getAll() {
+		try {
+			List<Account> instance = (List<Account>) entityManager.createQuery("SELECT a FROM Card a").getResultList();
 			log.debug("get successful");
 			return instance;
 		} catch (RuntimeException re) {

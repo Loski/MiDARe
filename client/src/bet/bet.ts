@@ -3,7 +3,7 @@ export type enum_state_encounter = 'Soon' | 'Current' | 'Over';
 
 
 export namespace betFields {
-  export type id_bet = number;
+  export type idBet = number;
   export type id_encounter = number;
   export type id_service_1 = number;
   export type id_service_2 = number;
@@ -13,7 +13,7 @@ export namespace betFields {
 }
 
 export interface bet {
-  id_bet: betFields.id_bet;
+  idBet: betFields.idBet;
   id_encounter: betFields.id_encounter;
   id_service_1: betFields.id_service_1;
   id_service_2: betFields.id_service_2;

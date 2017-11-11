@@ -1,9 +1,12 @@
 package generated;
 
+import java.util.ArrayList;
+
 // default package
 // Generated 15 oct. 2017 04:58:57 by Hibernate Tools 5.2.5.Final
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +16,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -36,6 +40,8 @@ public class Account implements java.io.Serializable {
 	private Set<Bet> betsForCreator = new HashSet<Bet>(0);
 	@JsonIgnore
 	private Set<Bet> betsForOpponent = new HashSet<Bet>(0);
+	@JsonIgnore
+	private Set<Inventory> inventories = new HashSet(0);
 
 	public Account() {
 	}
@@ -46,7 +52,7 @@ public class Account implements java.io.Serializable {
 	}
 
 	public Account(String pseudo, String password, String mail, Integer zipCode, String city, String adress,
-			Set<Bet> betsForCreator, Set<Bet> betsForOpponent) {
+			Set<Bet> betsForCreator, Set<Bet> betsForOpponent, Set<Inventory> invetories) {
 		this.pseudo = pseudo;
 		this.password = password;
 		this.mail = mail;
@@ -55,6 +61,7 @@ public class Account implements java.io.Serializable {
 		this.adress = adress;
 		this.betsForCreator = betsForCreator;
 		this.betsForOpponent = betsForOpponent;
+		this.inventories = inventories;
 	}
 
 	@Id
@@ -139,6 +146,28 @@ public class Account implements java.io.Serializable {
 
 	public void setBetsForOpponent(Set<Bet> bets) {
 		this.betsForOpponent = bets;
+	}
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
+	public Set<Inventory> getInventories() {
+		return this.inventories;
+	}
+
+	public void setInventories(Set<Inventory> inventories) {
+		this.inventories = inventories;
+	}
+	
+	@Transient
+	public List<Card> getCards()
+	{
+		List<Card> cards = new ArrayList<Card>();
+		
+		for(Inventory inv : inventories)
+		{
+			cards.add(inv.getCard());
+		}
+		
+		return cards;
 	}
 
 }

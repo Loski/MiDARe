@@ -5,82 +5,74 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
-import { User } from './user';
+import { Card } from './card';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable()
-export class UserService {
+export class CardService {
 
-  private usersURL = 'http://localhost:8080/DAR/api/users';  // URL to web api
-  private authURL = 'http://localhost:8080/DAR/auth';  // URL to auth
+  private cardsURL = 'http://localhost:8080/DAR/cards';  // URL to web api
 
   constructor(
     private http: HttpClient
   ) { }
   /** GET users from the server */
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersURL)
+  getCards(): Observable<Card[]> {
+    return this.http.get<Card[]>(this.cardsURL)
       .pipe(
-      catchError(this.handleError('getUsers', []))
+      catchError(this.handleError('getCards', []))
       );
   }
 
   /** GET user by id. Return `undefined` when id not found */
-  getUserNo404<Data>(id: number): Observable<User> {
-    const url = `${this.usersURL}/?id=${id}`;
-    return this.http.get<User[]>(url)
+  getCardNo404<Data>(id: number): Observable<Card> {
+    const url = `${this.cardsURL}/?id=${id}`;
+    return this.http.get<Card[]>(url)
       .pipe(
       map(users => users[0]), // returns a {0|1} element array
       tap(h => {
         const outcome = h ? `fetched` : `did not find`;
       }),
-      catchError(this.handleError<User>(`getUser id=${id}`))
+      catchError(this.handleError<Card>(`getCard id=${id}`))
       );
   }
 
   /** GET user by id. Will 404 if id not found */
-  getUser(id: number): Observable<User> {
-    const url = `${this.usersURL}/${id}`;
-    return this.http.get<User>(url).pipe(
-      catchError(this.handleError<User>(`getUser id=${id}`))
+  getCard(id: number): Observable<Card> {
+    const url = `${this.cardsURL}/${id}`;
+    return this.http.get<Card>(url).pipe(
+      catchError(this.handleError<Card>(`getCard id=${id}`))
     );
   }
 
   //////// Save methods //////////
 
   /** POST: add a new user to the server */
-  addUser(user: User): Observable<User> {
-    return this.http.post<User>(this.usersURL, user, httpOptions).pipe(
-      catchError(this.handleError<User>('addUser'))
+  addCard(user: Card): Observable<Card> {
+    return this.http.post<Card>(this.cardsURL, user, httpOptions).pipe(
+      catchError(this.handleError<Card>('addCard'))
     );
   }
 
-  connexionUser(user: User): Observable<User> {
-    console.log("je test l'envoi");
-    return this.http.post<User>(this.authURL, user, httpOptions).pipe(
-      catchError(this.handleError<User>('connexionUser'))
-    );
-  }
   /** DELETE: delete the user from the server */
-  deleteUser(user: User | number): Observable<User> {
+  deleteCard(user: Card | number): Observable<Card> {
     const id = typeof user === 'number' ? user : user.id;
-    const url = `${this.usersURL}/${id}`;
+    const url = `${this.cardsURL}/${id}`;
 
-    return this.http.delete<User>(url, httpOptions).pipe(
-      catchError(this.handleError<User>('deleteUser'))
+    return this.http.delete<Card>(url, httpOptions).pipe(
+      catchError(this.handleError<Card>('deleteCard'))
     );
   }
 
   /** PUT: update the user on the server */
-  updateUser(user: User): Observable<any> {
-    return this.http.put(this.usersURL, user, httpOptions).pipe(
-      catchError(this.handleError<any>('updateUser'))
+  updateCard(user: Card): Observable<any> {
+    return this.http.put(this.cardsURL, user, httpOptions).pipe(
+      catchError(this.handleError<any>('updateCard'))
     );
   }
-
 
   /**
    * Handle Http operation that failed.
@@ -99,4 +91,3 @@ export class UserService {
     };
   }
 }
-

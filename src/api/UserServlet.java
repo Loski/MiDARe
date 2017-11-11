@@ -231,7 +231,7 @@ public class UserServlet extends Endpoint {
 			else {
 				Account a = new Account(request.getParameter("pseudo"), SHA256.sha256(request.getParameter("password")),
 						request.getParameter("mail"), Integer.parseInt(request.getParameter("zipcode")), 
-						request.getParameter("city"), request.getParameter("adress"), null, null);
+						request.getParameter("city"), request.getParameter("adress"), null, null, null);
 				EntityHandler.accountService.persist(a);
 				response.getWriter().write("Création du compte réussi");
 			}	
