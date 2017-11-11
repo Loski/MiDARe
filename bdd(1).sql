@@ -42,6 +42,9 @@ CREATE TABLE IF NOT EXISTS Sport(
 	name_sport char(20)
 );
 
+/**
+ * Ajout id team de l'api
+ */
 CREATE TABLE IF NOT EXISTS Team (
 	id_team INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	id_sport INT NOT NULL,
@@ -49,6 +52,11 @@ CREATE TABLE IF NOT EXISTS Team (
 	FOREIGN KEY (id_sport) REFERENCES Sport(id_sport)
 );
 
+
+/**
+ * ajout id du match de l'api
+ * Modifier state_encounter -> SCHEDULE ou CLOSE (info api)
+ */
 CREATE TABLE IF NOT EXISTS Encounter(
 	id_encounter INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	id_sport INT NOT NULL,
@@ -111,3 +119,4 @@ AS BEGIN(
 ) END 
 
 ALTER TABLE Bet_On_Win ADD CONSTRAINT InventoryConstraint CHECK (checkInventory());*/
+
