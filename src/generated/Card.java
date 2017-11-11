@@ -11,6 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,9 +22,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Table(name = "card", catalog = "sanglier")
 public class Card implements java.io.Serializable {
 
+	public static final String URL = "http://ffxivtriad.com/assets/images/cards/{id}_t.png";
+	public static final String BIG_URL = "http://ffxivtriad.com/assets/images/cards/{id}.png";
+	
 	private Integer idCard;
 	private String cardName;
 	private String cardDescription;
+	private Integer number;
 	@JsonIgnore
 	private Set<Bet> betsForIdCardCreator = new HashSet(0);
 	@JsonIgnore
@@ -90,6 +95,55 @@ public class Card implements java.io.Serializable {
 
 	public void setBetsForIdCardOppenent(Set<Bet> betsForIdCardOppenent) {
 		this.betsForIdCardOppenent = betsForIdCardOppenent;
+	}
+	
+	@Column(name = "number")
+	public Integer getNumber()
+	{
+		return this.number;
+	}
+	
+	public void setNumber(Integer number)
+	{
+		this.number = number;
+	}
+	
+	@Transient
+	public String getURL()
+	{
+		String id = "";
+		
+		if(this.idCard<100)
+			id+="0";
+		
+		if(this.idCard<10)
+			id+="0";
+		
+		id+=this.idCard;
+		
+		return URL.replace("{id}", id);
+	}
+	
+	@Transient
+	public String getURLBig()
+	{
+		String id = "";
+		
+		if(this.idCard<100)
+			id+="0";
+		
+		if(this.idCard<10)
+			id+="0";
+		
+		id+=this.idCard;
+		
+		return BIG_URL.replace("{id}", id);
+	}
+
+	@Override
+	public String toString() {
+		return "Card [idCard=" + idCard + ", cardName=" + cardName +", betsForIdCardCreator=" + betsForIdCardCreator + ", betsForIdCardOppenent=" + betsForIdCardOppenent
+				+ "]";
 	}
 
 }
