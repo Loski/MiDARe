@@ -18,7 +18,6 @@ export class SignupComponent implements OnInit {
   }
 
   onSubmitCreateAccount() {
-    console.log("coucouLogin activate !");
     this.userService.addUser(this.user).subscribe();
   }
 }

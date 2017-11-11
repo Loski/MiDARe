@@ -1,35 +1,38 @@
+<br/>
+<br/>
+<br/>
 <!--Register form-->
 <form (ngSubmit)="onSubmitCreateAccount()">
   <p class="h5 text-center mb-4">Sign up</p>
 
   <div class="md-form">
     <i class="fa fa-user prefix grey-text"></i>
-    <input type="text" [(ngModel)]="user.pseudo" name="pseudo"  id="orangeForm-name" class="form-control" mdbActive>
-    <label for="orangeForm-name">Nom d'utilisateur</label>
+    <input type="text" required [(ngModel)]="user.pseudo" name="pseudo"  id="orangeForm-name" class="form-control" mdbActive>
+    <label for="orangeForm-name">&nbsp;&nbsp;Nom d'utilisateur</label>
   </div>
 
   <div class="md-form">
     <i class="fa fa-envelope prefix grey-text"></i>
-    <input type="text" id="orangeForm-email" [(ngModel)]="user.mail" name="mail" class="form-control" mdbActive>
-    <label for="orangeForm-email">Email</label>
+    <input type="text" id="orangeForm-email" required [(ngModel)]="user.mail" name="mail" class="form-control" mdbActive>
+    <label for="orangeForm-email">&nbsp;&nbsp;Email</label>
   </div>
 
   <div class="md-form">
     <i class="fa fa-lock prefix grey-text"></i>
-    <input type="password" id="orangeForm-pass" [(ngModel)]="user.password" name="password" class="form-control" mdbActive>
-    <label for="orangeForm-pass">Mot de passe</label>
+    <input type="password" id="orangeForm-pass" required [(ngModel)]="user.password" name="password" class="form-control" mdbActive>
+    <label for="orangeForm-pass">&nbsp;&nbsp;Mot de passe</label>
   </div>
 
   <div class="md-form">
-    <i class="fa fa-lock prefix grey-text"></i>
-    <input type="text" id="orangeForm-pass" [(ngModel)]="user.city" name="city" class="form-control" mdbActive>
-    <label for="orangeForm-pass">Ville</label>
+    <i class="fa fa-building-o prefix grey-text"></i>
+    <input type="text" id="orangeForm-pass" required [(ngModel)]="user.city" name="city" class="form-control" mdbActive>
+    <label for="orangeForm-pass">&nbsp;&nbsp;Ville</label>
   </div>
 
   <div class="md-form">
-    <i class="fa fa-lock prefix grey-text"></i>
-    <input type="text" id="orangeForm-pass" [(ngModel)]="user.zipCode" name="codePostal" class="form-control" mdbActive>
-    <label for="orangeForm-pass">Code postal</label>
+    <i class="fa fa-map prefix grey-text"></i>
+    <input type="text" id="orangeForm-pass" required [(ngModel)]="user.zipCode" name="codePostal" class="form-control" mdbActive>
+    <label for="orangeForm-pass">&nbsp;&nbsp;Code postal</label>
   </div>
 
   <div class="text-center">

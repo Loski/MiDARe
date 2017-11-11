@@ -1,14 +1,21 @@
 package tools;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import examples.User2;
 
 public abstract class JSONConverter {
 
@@ -157,5 +164,23 @@ public abstract class JSONConverter {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static User2 convertJSONToObject(HttpServletRequest request)
+	{
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			return mapper.readValue(request.getParameter("user"), User2.class);
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
