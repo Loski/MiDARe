@@ -1,6 +1,8 @@
 package api;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,7 +24,8 @@ public class UserServlet extends Endpoint {
 
 	private static final String ID ="/[1-9][0-9]*";
 	private static final String USER_URL= ID;
-	private static final String USER_BETS_URL = USER_URL + "/bets";	
+	private static final String USER_BETS_URL = USER_URL + "/bets";
+	private static final String USER_DECK_URL = USER_URL + "/deck";	
 	private static final String USER_THIS_BET_URL = USER_BETS_URL + ID;
 
 
@@ -81,6 +84,8 @@ public class UserServlet extends Endpoint {
 					}
 
 					return;
+				}else if(url.matches(USER_DECK_URL)) {
+					JSONConverter.sendObjectAsJson(response, user.getInventories());
 				}
 			}
 
@@ -146,22 +151,25 @@ public class UserServlet extends Endpoint {
 			//PUT : api/users/{id}/bets/{id}
 			if(url.matches(USER_THIS_BET_URL))
 			{
+				BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+				String data = br.readLine();
 				
-				if(!request.getParameterMap().containsKey("true"))
-					System.out.println("erreur");
-				if(request.getParameter("accept")==null || request.getParameter("accept").equals(""))
-					System.out.println("erreur 2");
-				
-				if(request.getParameter("accept").equals("true")){
+				if(data.split("=")[0].equals("accept")){
 					int id_bet = URLParser.getParameterOfURL(url,3);
-					System.out.println(id_bet);
-					acceptBet(request, response, id_bet);
 					
-				}else if(request.getParameter("accept").equals("false")){
-					response.sendError(422,"le paramètre accept est faux.");
+					if(data.split("=")[1].equals("true")){
+						
+						acceptBet(request, response, id_bet);
+					
+					}else if(data.split("=")[1].equals("false")){
+						
+						refuseBet(request, response, id_bet);
+					
+					}else
+						response.sendError(422,"le paramètre accept est mal rempli.");
 					
 				}else
-					response.sendError(422,"le paramètre accept n'est pas correctement rempli.");
+					response.sendError(422,"le paramètre accept n'est pas transmis.");
 				
 			}else
 				response.sendError(422, "paramètre dans l'url manquant");
@@ -274,7 +282,7 @@ public class UserServlet extends Endpoint {
 
 			response.sendError(422, "un paramètre est manquant");
 		}else if(request.getParameter("name_service").length()>20){
-			response.sendError(422, "nom du service exc�dant 20 caract�res");
+			response.sendError(422, "nom du service excédant 20 caract�res");
 
 		}else if(EntityHandler.betService.findById(id_bet).getStateBet().equals("BEGIN")){
 
@@ -295,13 +303,32 @@ public class UserServlet extends Endpoint {
 		}
 	}
 
-	//the user confirms the bet
+	//the creator confirms the bet
 	private void acceptBet(HttpServletRequest request, HttpServletResponse response, int id_bet) throws IOException{
 
 		if(EntityHandler.betService.findById(id_bet).getStateBet().equals("WAITING")){
 
 			Bet bet = EntityHandler.betService.findById(id_bet);
 			bet.setStateBet("VALID");
+
+			EntityHandler.betService.persist(bet);
+
+			response.getWriter().write("Pari accepté");
+
+		}else{
+			response.sendError(422, "status du bet n'est pas dans l'état WAITING");
+		}
+	}
+	
+	//the creator refuses the bet
+	//TO COMPLETE
+	private void refuseBet(HttpServletRequest request, HttpServletResponse response, int id_bet) throws IOException{
+		
+		if(EntityHandler.betService.findById(id_bet).getStateBet().equals("WAITING")){
+
+			Bet bet = EntityHandler.betService.findById(id_bet);
+			bet.setStateBet("BEGIN");
+			bet.setOpponent(null);
 
 			EntityHandler.betService.persist(bet);
 
