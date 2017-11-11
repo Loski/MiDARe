@@ -16,6 +16,8 @@ import { NavComponent } from './nav/nav.component';
 import { CardComponent } from './deck/card/card.component';
 import { DeckComponent } from './deck/deck.component';
 import { SignupComponent } from './user/signup/signup.component';
+import { DeckService } from "./deck/deck.service";
+import { CardService } from "./deck/card/card.service";
 
 
 @NgModule({
@@ -39,7 +41,9 @@ import { SignupComponent } from './user/signup/signup.component';
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
-    UserService
+    UserService,
+    DeckService,
+    CardService
   ],
   bootstrap: [AppComponent]
 })
