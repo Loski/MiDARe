@@ -90,4 +90,17 @@ public class TeamHome {
 			throw re;
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Team> findByIdApi(String id){
+		try {
+			List<Team> instance = (List<Team>) entityManager.createQuery("SELECT a FROM Team a where id_team_api = :id").setParameter("id", id).getResultList();
+			log.debug("get successful");
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
+	
 }

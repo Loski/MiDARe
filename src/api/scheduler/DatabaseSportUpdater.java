@@ -4,13 +4,20 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import api.EntityHandler;
+import generated.Encounter;
+import generated.Sport;
+import generated.Team;
 
 public class DatabaseSportUpdater implements Runnable{
 
@@ -53,10 +60,14 @@ public class DatabaseSportUpdater implements Runnable{
 		LinkedHashMap<?,?> json = (LinkedHashMap<?,?>) mapper.readValue(response.toString(), LinkedHashMap.class);
 		//String indented = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(json);
 
+		String date="", id_encounter_api="", state_encounter="";
+		int score_team_1=0, score_team_2=0;
+		Team team1=null, team2=null;
+
 		for(Map.Entry<?, ?> node : json.entrySet())
 		{
 			if(node.getKey().equals("date"))
-				System.out.println(node.getValue());
+				date=(String) node.getValue();
 
 			if(node.getKey().equals("games")){
 
@@ -69,39 +80,76 @@ public class DatabaseSportUpdater implements Runnable{
 
 						if(values.getKey().equals("id")){
 							System.out.println(line);
-							line=(String) values.getValue()+"|";
-
+							id_encounter_api=(String) values.getValue();
+							System.out.println("ID ENCOUNTER API:"+id_encounter_api);
 							continue;
 						}
 
 						if(values.getKey().equals("status")){
-							line+=values.getValue()+"|";
+							state_encounter=(String) values.getValue();
 							continue;
 						}
 
 						if(values.getKey().equals("home_points")){
-							line+=values.getValue()+"|";
+							score_team_1=(Integer) values.getValue();
 							continue;
 						}
 
 						if(values.getKey().equals("away_points")){
-							line+=values.getValue()+"|";
+							score_team_2=(Integer) values.getValue();
 							continue;
 						}
 
 						if(values.getKey().equals("home")){
 
 							LinkedHashMap<?,?> dataHome = (LinkedHashMap<?,?>) values.getValue();
-							line+=dataHome.get("name")+"|";
-							line+=dataHome.get("id")+"|";
+
+							if(EntityHandler.teamService.findByIdApi((String)dataHome.get("id")).size() == 0){							
+								team1 = new Team(EntityHandler.sportService.findById(1), (String)dataHome.get("name"), (String)dataHome.get("id")); 
+								EntityHandler.teamService.persist(team1);
+							}else
+								team1= EntityHandler.teamService.findByIdApi((String)dataHome.get("id")).get(0);
 							continue;
 						}
 
 						if(values.getKey().equals("away")){
 
 							LinkedHashMap<?,?> dataHome = (LinkedHashMap<?,?>) values.getValue();
-							line+=dataHome.get("name")+"|";
-							line+=dataHome.get("id")+"|";
+							if(EntityHandler.teamService.findByIdApi((String)dataHome.get("id")).size() == 0){
+								team2 = new Team(EntityHandler.sportService.findById(1), (String)dataHome.get("name"), (String)dataHome.get("id"));
+								EntityHandler.teamService.persist(team2);
+							}else
+								team2= EntityHandler.teamService.findByIdApi((String)dataHome.get("id")).get(0);
+						}
+
+						if(team1!=null && team2!=null && state_encounter!=null && !state_encounter.equals("")){
+							DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+							Date dateEncounter = format.parse(date);
+							
+							
+							
+							if(EntityHandler.encounterService.findByIdApi(id_encounter_api, 1).size() == 0){
+
+								Encounter encounter = new Encounter(EntityHandler.sportService.findById(1), 
+										team1, team2, id_encounter_api, 
+										score_team_1, score_team_2, state_encounter, dateEncounter, null);
+								EntityHandler.encounterService.persist(encounter);
+							}else{
+								Encounter encounter = EntityHandler.encounterService.findByIdApi(id_encounter_api, 1).get(0);
+								
+								if(!encounter.getStateEncounter().equals(state_encounter)){
+									encounter.setStateEncounter(state_encounter);
+									encounter.setScoreTeam1(score_team_1);
+									encounter.setScoreTeam2(score_team_2);
+									
+									EntityHandler.encounterService.persist(encounter);
+								}
+							}
+
+							team1=null;
+							team2=null;
+							state_encounter="";
+							
 						}
 					}
 				}
@@ -119,7 +167,8 @@ public class DatabaseSportUpdater implements Runnable{
 			String urlDateDeVeille = NBA_SCHEDULE.replace("date", dateDeVeille);
 			updateSportsNBA(urlDateDeVeille);
 
-			
+			Thread.sleep(2000);
+
 			String dateDuJour = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
 			String urlDateDuJour = NBA_SCHEDULE.replace("date", dateDuJour);
 			updateSportsNBA(urlDateDuJour);

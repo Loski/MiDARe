@@ -89,5 +89,18 @@ public class EncounterHome {
             throw re;
         }
     }
+	
+	@SuppressWarnings("unchecked")
+	public List<Encounter> findByIdApi(String id, int idsport){
+		try {
+			List<Encounter> instance = (List<Encounter>) entityManager.createQuery("SELECT a FROM Encounter a where id_encounter_api = :id and id_sport = :idsport")
+					.setParameter("id", id).setParameter("idsport", idsport).getResultList();
+			log.debug("get successful");
+			return instance;
+		} catch (RuntimeException re) {
+			log.error("get failed", re);
+			throw re;
+		}
+	}
 
 }

@@ -44,19 +44,21 @@ public class Encounter implements java.io.Serializable {
 	public Encounter() {
 	}
 
-	public Encounter(Sport sport, Team teamByIdTeam1, Team teamByIdTeam2, int scoreTeam1, int scoreTeam2) {
+	public Encounter(Sport sport, Team teamByIdTeam1, Team teamByIdTeam2, int scoreTeam1, int scoreTeam2, String idEncounterApi) {
 		this.sport = sport;
 		this.teamByIdTeam1 = teamByIdTeam1;
 		this.teamByIdTeam2 = teamByIdTeam2;
 		this.scoreTeam1 = scoreTeam1;
 		this.scoreTeam2 = scoreTeam2;
+		this.idEncounterApi = idEncounterApi;
 	}
 
-	public Encounter(Sport sport, Team teamByIdTeam1, Team teamByIdTeam2, int scoreTeam1, int scoreTeam2,
+	public Encounter(Sport sport, Team teamByIdTeam1, Team teamByIdTeam2, String idEncounterApi, int scoreTeam1, int scoreTeam2,
 			String stateEncounter, Date dateEncounter, Set bets) {
 		this.sport = sport;
 		this.teamByIdTeam1 = teamByIdTeam1;
 		this.teamByIdTeam2 = teamByIdTeam2;
+		this.idEncounterApi = idEncounterApi;
 		this.scoreTeam1 = scoreTeam1;
 		this.scoreTeam2 = scoreTeam2;
 		this.stateEncounter = stateEncounter;

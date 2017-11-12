@@ -46,14 +46,16 @@ public class Team implements java.io.Serializable {
 	public Team() {
 	}
 
-	public Team(Sport sport, String name) {
+	public Team(Sport sport, String name, String idTeamApi) {
 		this.sport = sport;
 		this.nameTeam=name;
+		this.idTeamApi=idTeamApi;
 	}
 
-	public Team(Sport sport, String nameTeam, Set encountersForIdTeam1, Set encountersForIdTeam2) {
+	public Team(Sport sport, String nameTeam, String idTeamApi, Set encountersForIdTeam1, Set encountersForIdTeam2) {
 		this.sport = sport;
 		this.nameTeam = nameTeam;
+		this.idTeamApi=idTeamApi;
 		this.encountersForIdTeam1 = encountersForIdTeam1;
 		this.encountersForIdTeam2 = encountersForIdTeam2;
 	}
