@@ -163,9 +163,14 @@ public class UserServlet extends Endpoint {
 		{	
 			if(url==null || url.isEmpty())
 			{
-				//PUt : api/users
-				createUser(request, response);
+				//PUT : api/users
+				response.sendError(404);
 				return;
+			}
+			else if(url.matches(USER_URL))
+			{
+				int id = URLParser.getParameterOfURL(url,1);
+				modifyUser(request, response, id);
 			}
 			//PUT : api/users/{id}/bets/{id}
 			else if(url.matches(USER_THIS_BET_URL))
@@ -296,7 +301,19 @@ public class UserServlet extends Endpoint {
 	{
 		Account user = JSONConverter.deserialize(request.getInputStream(),Account.class);
 		user.setIdUser(id);
-		user.setPassword(SHA256.sha256(user.getPassword()));
+		String pass = SHA256.sha256(user.getPassword());
+		
+		Account userBefore = EntityHandler.accountService.findById(id);
+		
+		if(!pass.equals(userBefore.getPassword()))
+		{
+			user.setPassword(pass);
+		}
+		else
+		{
+			user.setPassword(userBefore.getPassword());
+		}
+		
 		EntityHandler.accountService.merge(user);
 	}
 
