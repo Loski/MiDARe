@@ -47,24 +47,22 @@ CREATE TABLE IF NOT EXISTS Sport(
  */
 CREATE TABLE IF NOT EXISTS Team (
 	id_team INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id_team_api CHAR(50),
 	id_sport INT NOT NULL,
 	name_team CHAR(20),
 	FOREIGN KEY (id_sport) REFERENCES Sport(id_sport)
 );
 
 
-/**
- * ajout id du match de l'api
- * Modifier state_encounter -> SCHEDULE ou CLOSE (info api)
- */
 CREATE TABLE IF NOT EXISTS Encounter(
 	id_encounter INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id_encounter_api CHAR(50),
 	id_sport INT NOT NULL,
 	id_team_1 INT NOT NULL,
 	id_team_2 INT NOT NULL,
 	score_team_1 INT NOT NULL,
 	score_team_2 INT NOT NULL,
-	state_encounter ENUM('Soon','Current', 'Over'),
+	state_encounter ENUM('SCHEDULE','CLOSE'),
 	date_encounter DATETIME,
 	FOREIGN KEY (id_sport) REFERENCES Sport(id_sport),
 	FOREIGN KEY (id_team_1) REFERENCES Team(id_team),
