@@ -291,6 +291,14 @@ public class UserServlet extends Endpoint {
 			map.put("token", token);
 			sendJSON(response, JSONConverter.convert(user, map));
 	}
+	
+	private void modifyUser(HttpServletRequest request, HttpServletResponse response, int id) throws IOException
+	{
+		Account user = JSONConverter.deserialize(request.getInputStream(),Account.class);
+		user.setIdUser(id);
+		user.setPassword(SHA256.sha256(user.getPassword()));
+		EntityHandler.accountService.merge(user);
+	}
 
 	private void createBet(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
