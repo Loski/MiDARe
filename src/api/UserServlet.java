@@ -201,6 +201,66 @@ public class UserServlet extends Endpoint {
 		}
 
 	}
+	
+	@Override
+	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String url = URLParser.parseOnToken(request.getPathInfo(),0);
+
+		try
+		{
+			if(url==null || url.isEmpty())
+			{
+				//DELETE : api/users/
+
+				response.sendError(404);
+				return;
+			}
+			else
+			{
+				//DELETE : api/users/{id}/
+				if(url.matches(USER_URL))
+				{
+					//if(user existe + si j'ai les droits)
+
+					int id = URLParser.getParameterOfURL(url,1);
+					deleteUser(request, response, id);
+					return;
+
+				}else if(url.matches(USER_THIS_BET_URL)){
+
+				}
+			}
+
+		}catch(Exception e)
+		{
+			response.sendError(500,e.getMessage());
+		}
+		
+		response.sendError(404);
+
+	}
+
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response, int id) throws Exception {
+		
+		if(id <0)
+		{
+			response.sendError(404);
+			return;
+		}
+
+		Account user = EntityHandler.accountService.findById(id);
+
+		if(user==null)
+		{
+			response.sendError(404);
+			log.info("user not found");
+			return;
+		}
+		
+		EntityHandler.accountService.remove(user);
+
+	}
 
 	private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{

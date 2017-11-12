@@ -23,11 +23,11 @@ public class TestSampleDatabase {
 		
 		Sport sport = new Sport("Pétanque");
 		EntityHandler.sportService.persist(sport);
-		Team team1 = new Team(sport,"Team Cancer", null);
-		Team team2 = new Team(sport,"Team PLS",null);
+		Team team1 = new Team(sport,"Team Cancer", "ID");
+		Team team2 = new Team(sport,"Team PLS","ID");
 		EntityHandler.teamService.persist(team1);
 		EntityHandler.teamService.persist(team2);
-		Encounter enc = new Encounter(sport, team1, team2, 0, 0,null); //Rajouter state + date
+		Encounter enc = new Encounter(sport, team1, team2, 0, 0,"ID"); //Rajouter state + date
 		EntityHandler.encounterService.persist(enc);
 		
 		//TO BE CONTINUED
