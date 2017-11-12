@@ -69,4 +69,29 @@ public class Deck implements java.io.Serializable {
 		this.cards = cards;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idDeck == null) ? 0 : idDeck.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Deck other = (Deck) obj;
+		if (idDeck == null) {
+			if (other.idDeck != null)
+				return false;
+		} else if (!idDeck.equals(other.idDeck))
+			return false;
+		return true;
+	}
+
 }

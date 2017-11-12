@@ -1,6 +1,7 @@
 package generated;
 
 import java.util.List;
+import java.util.Map;
 
 // default package
 // Generated 15 oct. 2017 04:59:00 by Hibernate Tools 5.2.5.Final
