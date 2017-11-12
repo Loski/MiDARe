@@ -2,7 +2,9 @@ package api;
 
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,12 +23,10 @@ public class AuthServlet extends Endpoint {
       
 	@Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("request");
-		
+				
 		if(request.getParameterMap().containsKey("pseudo") && request.getParameterMap().containsKey("password"))
 		{
 			try {
-				
 				
 				List<Account> account = EntityHandler.accountService.getAccountWithPseudo(request.getParameter("pseudo"));
 				
@@ -34,22 +34,22 @@ public class AuthServlet extends Endpoint {
 					if(SHA256.sha256(request.getParameter("password")).equals(account.get(0).getPassword())){
 						
 						String token = JWT.createJWT(account.get(0).getIdUser().toString(), 10000);
-						
-						String username = request.getParameter( "pseudo");
-						User user = new User();
-						user.setUsername(username);
-						user.setToken(token);
 							
-					    response.setContentType("application/json");
-					    response.setCharacterEncoding("UTF-8");
-					    response.getWriter().write(JSONConverter.convert(user));
+						Map<String, Object> map = new HashMap<String,Object>();
+						map.put("token", token);
+						
+						sendJSON(response, JSONConverter.convert(account.get(0), map));
+						
+					    return;
 					}
 					else{
-						response.getWriter().write("Utilisateur ou Mot de passe incorrect");
+						response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+						//response.getWriter().write("Utilisateur ou Mot de passe incorrect");
 					}
 				}
 				else{
-					response.getWriter().write("Utilisateur ou Mot de passe incorrect");
+					response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+					//response.getWriter().write("Utilisateur ou Mot de passe incorrect");
 				}
 				     
 			}

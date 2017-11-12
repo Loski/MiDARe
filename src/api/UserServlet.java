@@ -3,6 +3,8 @@ package api;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,6 +22,7 @@ import generated.Bet;
 import generated.Encounter;
 
 import tools.JSONConverter;
+import tools.JWT;
 import tools.SHA256;
 import tools.URLParser;
 
@@ -239,10 +242,15 @@ public class UserServlet extends Endpoint {
 			}
 			else {*/
 			user.setIdUser(null);
+			user.setPassword(SHA256.sha256(user.getPassword()));
 		
 			EntityHandler.accountService.persist(user);
-			response.setStatus(HttpServletResponse.SC_SEE_OTHER);
-			response.setHeader("Location", "http://localhost:8080/DAR/api/users/"+user.getIdUser());
+			String token = JWT.createJWT(user.getIdUser().toString(), 10000);
+			
+			Map<String, Object> map = new HashMap<String,Object>();
+			map.put("token", token);
+			
+			sendJSON(response, JSONConverter.convert(user, map));
 	}
 
 	private void createBet(HttpServletRequest request, HttpServletResponse response) throws IOException
