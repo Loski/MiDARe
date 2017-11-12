@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, NO_ERRORS_SCHEMA  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { UserComponent } from './user/user.component';
@@ -43,7 +43,8 @@ import { CardService } from "./deck/card/card.service";
   providers: [
     UserService,
     DeckService,
-    CardService
+    CardService,
+    CookieService 
   ],
   bootstrap: [AppComponent]
 })

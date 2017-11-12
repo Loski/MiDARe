@@ -60,7 +60,10 @@ export class UserService {
 
   connexionUser(user: User): Observable<User> {
     console.log("je test l'envoi");
-    return this.http.post<User>(this.authURL, user, httpOptions).pipe(
+    const httpOptionsConnexion = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/x-www-form-urlencoded' })
+    };
+    return this.http.post<User>(this.authURL, "pseudo=" + user.pseudo + "&password=" + user.password, httpOptionsConnexion).pipe(
       catchError(this.handleError<User>('connexionUser'))
     );
   }

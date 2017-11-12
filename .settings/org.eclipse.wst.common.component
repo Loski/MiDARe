@@ -68,6 +68,9 @@
         <dependent-module archiveName="antlr-2.7.6.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/antlr-2.7.6.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="jjwt-0.6.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/MiDARe/jar/jjwt-0.6.0.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="java-output-path" value="/DAR/build/classes"/>
         <property name="context-root" value="DAR"/>
     </wb-module>
