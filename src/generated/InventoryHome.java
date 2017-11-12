@@ -20,12 +20,19 @@ public class InventoryHome {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	public InventoryHome(EntityManager em) {
+		this.entityManager=em;
+	}
+
 	public void persist(Inventory transientInstance) {
 		log.debug("persisting Inventory instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
+			entityManager.getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
+			entityManager.getTransaction().rollback();
 			log.error("persist failed", re);
 			throw re;
 		}

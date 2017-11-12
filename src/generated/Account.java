@@ -60,6 +60,15 @@ public class Account implements java.io.Serializable {
 		this.pseudo = pseudo;
 		this.password = password;
 	}
+	
+	public Account(String pseudo, String password, String mail, Integer zipCode, String city, String adress) {
+		this.pseudo = pseudo;
+		this.password = password;
+		this.mail = mail;
+		this.zipCode = zipCode;
+		this.city = city;
+		this.adress = adress;
+	}
 
 	public Account(String pseudo, String password, String mail, Integer zipCode, String city, String adress,
 			Set<Bet> betsForCreator, Set<Bet> betsForOpponent, Set<Inventory> inventories) {
