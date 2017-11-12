@@ -36,6 +36,7 @@ public class Encounter implements java.io.Serializable {
 	private int scoreTeam2;
 	private String stateEncounter;
 	private Date dateEncounter;
+	private String idEncounterApi;
 	
 	@JsonIgnore
 	private Set bets = new HashSet(0);
@@ -123,7 +124,7 @@ public class Encounter implements java.io.Serializable {
 		this.scoreTeam2 = scoreTeam2;
 	}
 
-	@Column(name = "state_encounter", length = 7)
+	@Column(name = "state_encounter", length = 15)
 	public String getStateEncounter() {
 		return this.stateEncounter;
 	}
@@ -156,6 +157,15 @@ public class Encounter implements java.io.Serializable {
 		return "Encounter [idEncounter=" + idEncounter + ",, teamByIdTeam1=" + teamByIdTeam1
 				+ ", teamByIdTeam2=" + teamByIdTeam2 + ", scoreTeam1=" + scoreTeam1 + ", scoreTeam2=" + scoreTeam2
 				+ ", stateEncounter=" + stateEncounter + ", dateEncounter=" + dateEncounter + ", ]";
+	}
+	
+	@Column(name = "id_encounter_api", length = 50, unique = true, nullable = false)
+	public String getIdEncounterApi() {
+		return idEncounterApi;
+	}
+
+	public void setIdEncounterApi(String idEncounterApi) {
+		this.idEncounterApi = idEncounterApi;
 	}
 
 }

@@ -209,6 +209,4 @@ public class Account implements java.io.Serializable {
 				+ ", zipCode=" + zipCode + ", city=" + city + ", adress=" + adress + "]";
 	}
 	
-	
-
 }

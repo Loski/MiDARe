@@ -36,6 +36,8 @@ public class Team implements java.io.Serializable {
 	
 	private String nameTeam;
 	
+	private String idTeamApi;
+	
 	@JsonIgnore
 	private Set encountersForIdTeam1 = new HashSet(0);
 	@JsonIgnore
@@ -77,7 +79,7 @@ public class Team implements java.io.Serializable {
 		this.sport = sport;
 	}
 
-	@Column(name = "name_team", length = 20)
+	@Column(name = "name_team", length = 70)
 	public String getNameTeam() {
 		return this.nameTeam;
 	}
@@ -118,6 +120,15 @@ public class Team implements java.io.Serializable {
 		list.addAll(this.getEncountersForIdTeam2());
 		
 		return list;
+	}
+
+	@Column(name = "id_team_api", length = 50, unique = true, nullable = false)
+	public String getIdTeamApi() {
+		return idTeamApi;
+	}
+
+	public void setIdTeamApi(String idTeamApi) {
+		this.idTeamApi = idTeamApi;
 	}
 
 }
