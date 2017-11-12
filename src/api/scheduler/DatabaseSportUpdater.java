@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -23,12 +22,9 @@ public class DatabaseSportUpdater implements Runnable{
 
 	//TODO precise the date
 	@SuppressWarnings("unchecked")
-	private void updateSportsNBA() throws Exception{
+	private void updateSportsNBA(String urlDate) throws Exception{
 
-		String dateDuJour = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
-		String urlDate = NBA_SCHEDULE.replace("date", dateDuJour);
-		
-		
+
 		URL obj = new URL(urlDate);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
@@ -59,20 +55,22 @@ public class DatabaseSportUpdater implements Runnable{
 
 		for(Map.Entry<?, ?> node : json.entrySet())
 		{
+			if(node.getKey().equals("date"))
+				System.out.println(node.getValue());
+
 			if(node.getKey().equals("games")){
 
 				ArrayList<LinkedHashMap<?,?>> datagames =  (ArrayList<LinkedHashMap<?, ?>>) node.getValue();
 				String line="";
-				
+
 				for(LinkedHashMap<?,?> nodeData : datagames){
-					
+
 					for(Map.Entry<?, ?> values :nodeData.entrySet()){
 
 						if(values.getKey().equals("id")){
-							System.out.println("----------------------");
 							System.out.println(line);
-							line=(String) values.getValue();
-							
+							line=(String) values.getValue()+"|";
+
 							continue;
 						}
 
@@ -95,6 +93,7 @@ public class DatabaseSportUpdater implements Runnable{
 
 							LinkedHashMap<?,?> dataHome = (LinkedHashMap<?,?>) values.getValue();
 							line+=dataHome.get("name")+"|";
+							line+=dataHome.get("id")+"|";
 							continue;
 						}
 
@@ -102,6 +101,7 @@ public class DatabaseSportUpdater implements Runnable{
 
 							LinkedHashMap<?,?> dataHome = (LinkedHashMap<?,?>) values.getValue();
 							line+=dataHome.get("name")+"|";
+							line+=dataHome.get("id")+"|";
 						}
 					}
 				}
@@ -112,7 +112,17 @@ public class DatabaseSportUpdater implements Runnable{
 	@Override
 	public void run() {
 		try {
-			updateSportsNBA();
+
+			Date d = new Date();
+			d.setTime(d.getTime() - 86400000);
+			String dateDeVeille = new SimpleDateFormat("yyyy/MM/dd").format(d);
+			String urlDateDeVeille = NBA_SCHEDULE.replace("date", dateDeVeille);
+			updateSportsNBA(urlDateDeVeille);
+
+			
+			String dateDuJour = new SimpleDateFormat("yyyy/MM/dd").format(new Date());
+			String urlDateDuJour = NBA_SCHEDULE.replace("date", dateDuJour);
+			updateSportsNBA(urlDateDuJour);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
