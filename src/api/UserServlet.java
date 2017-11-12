@@ -151,7 +151,6 @@ public class UserServlet extends Endpoint {
 	}
 
 
-
 	@Override
 	public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -159,58 +158,43 @@ public class UserServlet extends Endpoint {
 
 		try
 		{
-
-			//PUT : api/users/{id}/bets/{id}
-			if(url.matches(USER_THIS_BET_URL))
-			{
-				BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
-				String data = br.readLine();
-				
-				if(data.split("=")[0].equals("accept")){
-					int id_bet = URLParser.getParameterOfURL(url,3);
-					
-					if(data.split("=")[1].equals("true")){
-						
-						acceptBet(request, response, id_bet);
-					
-					}else if(data.split("=")[1].equals("false")){
-						
-						refuseBet(request, response, id_bet);
-					
-					}else
-						response.sendError(422,"le paramètre accept est mal rempli.");
-					
-				}else
-					response.sendError(422,"le paramètre accept n'est pas transmis.");
-				
-			}else
-				response.sendError(422, "paramètre dans l'url manquant");
-
+			
 			if(url==null || url.isEmpty())
 			{
 				//POST : api/users
-
 				createUser(request, response);
 				return;
 			}
-			else
+			//PUT : api/users/{id}/bets/{id}
+			else if(url.matches(USER_THIS_BET_URL))
 			{
-				//POST : api/users/{id}/bets
-				if(url.matches(USER_BETS_URL))
-				{
-					if(request.getParameter("accept").equals("true")){
-						int id_bet = URLParser.getParameterOfURL(url,3);
+				BufferedReader br = new BufferedReader(new InputStreamReader(request.getInputStream()));
+				String data = br.readLine();			
+				if(data.split("=")[0].equals("accept")){
+					int id_bet = URLParser.getParameterOfURL(url,3);
+					if(data.split("=")[1].equals("true")){
 						acceptBet(request, response, id_bet);
-					}else{
-						response.sendError(422,"le paramètre accept est faux.");
-					}
+					}else if(data.split("=")[1].equals("false")){
+						refuseBet(request, response, id_bet);
+					}else
+						response.sendError(422,"le paramètre accept est mal rempli.");	
+				}else
+					response.sendError(422,"le paramètre accept n'est pas transmis.");
+			}
+			//POST : api/users/{id}/bets
+			else if(url.matches(USER_BETS_URL))
+			{
+				if(request.getParameter("accept").equals("true")){
+					int id_bet = URLParser.getParameterOfURL(url,3);
+					acceptBet(request, response, id_bet);
+				}else{
+					response.sendError(422,"le paramètre accept est faux.");
 				}
 			}
-
-
+			else
+				response.sendError(422, "paramètre dans l'url manquant");
 		}catch(Exception e)
 		{
-			
 			response.sendError(500,e.getMessage());
 		}
 
@@ -219,30 +203,10 @@ public class UserServlet extends Endpoint {
 	private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		Account user = JSONConverter.deserialize(request.getInputStream(),Account.class);
-		System.out.println(user);
-
-			/*if(!EntityHandler.accountService.getAccountWithPseudo(request.getParameter("pseudo")).isEmpty()){
-				response.sendError(422, "pseudo déja utilisé");
-			}
-			else if(request.getParameter("pseudo").length()>20){
-				response.sendError(422, "pseudo trop long (moins de 20 caractères)");
-
-			}
-			else if(request.getParameter("mail").length()>50) {
-				response.sendError(422, "mail trop long (moins de 50 caractères)");
-			}
-			else if(request.getParameter("adress").length()>50) {
-				response.sendError(422, "adress trop long (moins de 50 caractères)");
-			}
-			else if(request.getParameter("city").length()>50) {
-				response.sendError(422, "city trop long (moins de 50 caractères)");
-			}
-			else {*/
-			user.setIdUser(null);
-		
-			EntityHandler.accountService.persist(user);
-			response.setStatus(HttpServletResponse.SC_SEE_OTHER);
-			response.setHeader("Location", "http://localhost:8080/DAR/api/users/"+user.getIdUser());
+		user.setIdUser(null);
+		EntityHandler.accountService.persist(user);
+		response.setStatus(HttpServletResponse.SC_SEE_OTHER);
+		response.setHeader("Location", "http://localhost:8080/DAR/api/users/"+user.getIdUser());
 	}
 
 	private void createBet(HttpServletRequest request, HttpServletResponse response) throws IOException
