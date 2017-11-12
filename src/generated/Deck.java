@@ -24,7 +24,6 @@ public class Deck implements java.io.Serializable {
 	private Integer idDeck;
 	private String name;
 	
-	@JsonIgnore
 	private Set<Card> cards = new HashSet(0);
 
 	public Deck() {

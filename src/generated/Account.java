@@ -1,6 +1,7 @@
 package generated;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 // default package
@@ -61,7 +62,7 @@ public class Account implements java.io.Serializable {
 	}
 
 	public Account(String pseudo, String password, String mail, Integer zipCode, String city, String adress,
-			Set<Bet> betsForCreator, Set<Bet> betsForOpponent, Set<Inventory> invetories) {
+			Set<Bet> betsForCreator, Set<Bet> betsForOpponent, Set<Inventory> inventories) {
 		this.pseudo = pseudo;
 		this.password = password;
 		this.mail = mail;
@@ -167,40 +168,32 @@ public class Account implements java.io.Serializable {
 	}
 	
 	@Transient
-	public List<JsonNode> getDecks()
-	{
-		//A refaire sans passer par des node
-		//utiliser Deck.setCards ?
-		
-		LinkedHashMap<Deck,List<Card>> decks = new LinkedHashMap<Deck,List<Card>>();
+	public Collection<Deck> getDecks()
+	{		
+		LinkedHashMap<Integer,Deck> decks = new LinkedHashMap<Integer,Deck>();
 		
 		for(Inventory inv : inventories)
 		{
 			Card c = inv.getCard();
+			Deck d = c.getDeck();
 			
-			System.out.println(c);
+			//System.out.println(c);
 			
-			if(decks.containsKey(c.getDeck()))
+			if(decks.containsKey(d.getIdDeck()))
 			{
-				decks.get(c.getDeck()).add(c);
+				decks.get(d.getIdDeck()).getCards().add(c);
 			}
 			else
 			{				
-				List<Card> cards = new ArrayList<Card>();
-				cards.add(inv.getCard());
-				decks.put(c.getDeck(),cards);
+				Set<Card> cards = new HashSet(0);
+				cards.add(c);
+				Deck newDeck = new Deck(d.getName(),cards);
+				newDeck.setIdDeck(d.getIdDeck());
+				decks.put(d.getIdDeck(),newDeck);
 			}
 		}
 		
-		List<JsonNode> list = new LinkedList<JsonNode>();
-		
-		for(Map.Entry<?, ?> entry :decks.entrySet()){
-			HashMap<String,Object> map = new HashMap<String,Object>();
-			map.put("cards",entry.getValue());
-			list.add(JSONConverter.convertKeepJSONFormat(entry.getKey(),map));
-		}
-		
-		return list;
+		return decks.values();
 	}
 
 	@Override
