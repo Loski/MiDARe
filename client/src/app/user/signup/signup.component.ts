@@ -14,7 +14,7 @@ export class SignupComponent implements OnInit {
   user: User;
 
   ngOnInit() {
-    this.user = new User(0, "", "", "", 0, "", "");
+    this.user = new User(0, "", "", "", null, "", "", "");
   }
 
   onSubmitCreateAccount() {

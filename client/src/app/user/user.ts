@@ -6,7 +6,7 @@ export namespace accountFields {
   export type zipCode = number | null;
   export type city = string | null;
   export type adress = string | null;
-
+  export type token = string;
 }
 
 export interface Account {
@@ -17,6 +17,7 @@ export interface Account {
   zipCode: accountFields.zipCode;
   city: accountFields.city;
   adress: accountFields.adress;
+  token: accountFields.token;
 }
 
 
@@ -28,8 +29,10 @@ export class User implements Account {
   zipCode: number;
   city: string;
   adress: string;
+  token: string;
 
-  constructor(idUser: number, pseudo: string, password: string, mail: string, zipCode: number, city: string, adress: string) {
+
+  constructor(idUser: number, pseudo: string, password: string, mail: string, zipCode: number, city: string, adress: string, token:string) {
     this.id = idUser;
     this.pseudo = pseudo;
     this.password = password;
@@ -37,5 +40,6 @@ export class User implements Account {
     this.zipCode = zipCode;
     this.city = city;
     this.adress = adress;
+    this.token = token;
   }
 }

@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit {
   user: User;
 
   ngOnInit() {
-    this.user = new User(0, "Milou", "", "", 0, "" , "");
+    this.user = new User(0, "", "", "", null, "" , "", "");
   }
 
   onSubmitLogin() {
