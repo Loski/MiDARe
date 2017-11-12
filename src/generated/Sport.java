@@ -39,6 +39,10 @@ public class Sport implements java.io.Serializable {
 		this.teams = teams;
 	}
 
+	public Sport(String nom) {
+		this.nameSport = nom;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 

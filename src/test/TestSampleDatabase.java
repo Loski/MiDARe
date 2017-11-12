@@ -1,18 +1,15 @@
 package test;
 
-import java.util.HashSet;
-
 import api.EntityHandler;
-import generated.Account;
-import generated.Card;
-import generated.Deck;
-import generated.Inventory;
-import generated.InventoryId;
+import generated.*;
 import tools.SHA256;
 
 public class TestSampleDatabase {
 
 	public static void main(String[] args) {
+		
+		try
+		{
 		Account acc = new Account("pseudoTest",SHA256.sha256("pass"), "mon_mail",999, "ma_ville","mon_adresse");
 		EntityHandler.accountService.persist(acc);
 		Deck d = new Deck("Fatalax Trading Card");
@@ -24,7 +21,20 @@ public class TestSampleDatabase {
 		Inventory inv = new Inventory(invId, acc, c, 1000);
 		EntityHandler.inventoryService.persist(inv);
 		
+		Sport sport = new Sport("Pétanque");
+		EntityHandler.sportService.persist(sport);
+		Team team1 = new Team(sport,"Team Cancer");
+		Team team2 = new Team(sport,"Team PLS");
+		EntityHandler.teamService.persist(team1);
+		EntityHandler.teamService.persist(team2);
+		Encounter enc = new Encounter(sport, team1, team2, 0, 0); //Rajouter state + date
+		EntityHandler.encounterService.persist(enc);
+		
 		//TO BE CONTINUED
+		}catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
 	}
 
 }

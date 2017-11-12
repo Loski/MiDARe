@@ -31,9 +31,12 @@ public class EncounterHome {
 	public void persist(Encounter transientInstance) {
 		log.debug("persisting Encounter instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
+			entityManager.getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
+			entityManager.getTransaction().rollback();
 			log.error("persist failed", re);
 			throw re;
 		}
