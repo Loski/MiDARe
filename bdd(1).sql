@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS Encounter(
 	id_team_2 INT NOT NULL,
 	score_team_1 INT NOT NULL,
 	score_team_2 INT NOT NULL,
-	state_encounter ENUM('SCHEDULE','CLOSE'),
+	state_encounter ENUM('scheduled','closed'),
 	date_encounter DATETIME,
 	FOREIGN KEY (id_sport) REFERENCES Sport(id_sport),
 	FOREIGN KEY (id_team_1) REFERENCES Team(id_team),
