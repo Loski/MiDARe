@@ -46,8 +46,9 @@ public class Team implements java.io.Serializable {
 	public Team() {
 	}
 
-	public Team(Sport sport) {
+	public Team(Sport sport, String name) {
 		this.sport = sport;
+		this.nameTeam=name;
 	}
 
 	public Team(Sport sport, String nameTeam, Set encountersForIdTeam1, Set encountersForIdTeam2) {
@@ -79,7 +80,7 @@ public class Team implements java.io.Serializable {
 		this.sport = sport;
 	}
 
-	@Column(name = "name_team", length = 70)
+	@Column(name = "name_team", length = 70, nullable = false)
 	public String getNameTeam() {
 		return this.nameTeam;
 	}

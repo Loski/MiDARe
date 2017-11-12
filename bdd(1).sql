@@ -51,7 +51,7 @@ CREATE TABLE IF NOT EXISTS Team (
 	id_team INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	id_team_api CHAR(50) NOT NULL,
 	id_sport INT NOT NULL,
-	name_team CHAR(70),
+	name_team CHAR(70) NOT NULL,
 	FOREIGN KEY (id_sport) REFERENCES Sport(id_sport)
 );
 

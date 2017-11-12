@@ -31,9 +31,12 @@ public class SportHome {
 	public void persist(Sport transientInstance) {
 		log.debug("persisting Sport instance");
 		try {
+			entityManager.getTransaction().begin();
 			entityManager.persist(transientInstance);
+			entityManager.getTransaction().commit();
 			log.debug("persist successful");
 		} catch (RuntimeException re) {
+			entityManager.getTransaction().rollback();
 			log.error("persist failed", re);
 			throw re;
 		}

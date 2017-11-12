@@ -59,6 +59,12 @@ public class Card implements java.io.Serializable {
 		this.deck = deck;
 	}
 
+	public Card(Deck deck, String cardName, String cardDescription) {
+		this.cardName = cardName;
+		this.cardDescription = cardDescription;
+		this.deck=deck;
+	}
+
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
 

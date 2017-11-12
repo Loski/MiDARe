@@ -9,11 +9,13 @@ import generated.BetHome;
 import generated.CardHome;
 import generated.DeckHome;
 import generated.EncounterHome;
+import generated.InventoryHome;
 import generated.SportHome;
 import generated.TeamHome;
 
 public class EntityHandler {
 
+	
 	public static EntityManagerFactory emf = Persistence.createEntityManagerFactory("Manager");
 	public static EntityManager em = emf.createEntityManager();
 	public static AccountHome accountService = new AccountHome(em);
@@ -23,6 +25,7 @@ public class EntityHandler {
 	public static EncounterHome encounterService = new EncounterHome(em);
 	public static CardHome cardService = new CardHome(em);
 	public static DeckHome deckService = new DeckHome(em);
+	public static InventoryHome inventoryService = new InventoryHome(em);
 	
 	/*Singleton ?*/
 	
