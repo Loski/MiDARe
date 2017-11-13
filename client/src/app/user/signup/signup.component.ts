@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   user: User;
 
   ngOnInit() {
-    this.user = new User(0, "", "", "", null, "", "", "");
+    this.user = new User(0, "", "", "", null, "", "", null, "");
   }
 
   setCookie() {
@@ -23,6 +23,7 @@ export class SignupComponent implements OnInit {
     this.cookieService.set('token', "" + this.user.token);
     console.log(this.cookieService.get('token'));
   }
+  
   onSubmitCreateAccount() {
     this.userService.addUser(this.user).subscribe(
       user => this.user = user,
@@ -30,6 +31,4 @@ export class SignupComponent implements OnInit {
       () => this.setCookie()
     );
   }
-
-
 }

@@ -1,16 +1,17 @@
 <!-- Login form -->
 <form (ngSubmit)="onSubmitLogin()">
   <p class="h5 text-center mb-4">Sign in</p>
+  
   <div class="md-form">
     <i class="fa fa-envelope prefix grey-text"></i>
-    <input type="text" [(ngModel)]="user.pseudo" name="pseudo" id="defaultForm-email" class="form-control" mdbActive>
-    <label for="defaultForm-email">Your email</label>
+    <input type="text" required [(ngModel)]="user.pseudo" name="pseudo" id="defaultForm-email" class="form-control" mdbActive>
+    <label for="defaultForm-email">&nbsp;&nbsp;Your email</label>
   </div>
 
   <div class="md-form">
     <i class="fa fa-lock prefix grey-text"></i>
-    <input type="password" [(ngModel)]="user.password" name="password" id="defaultForm-pass" class="form-control" mdbActive>
-    <label for="defaultForm-pass">Your password</label>
+    <input type="password" required [(ngModel)]="user.password" name="password" id="defaultForm-pass" class="form-control" mdbActive>
+    <label for="defaultForm-pass">&nbsp;&nbsp;Your password</label>
   </div>
 
   <div class="text-center">

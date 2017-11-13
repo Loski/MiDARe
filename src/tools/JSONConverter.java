@@ -40,17 +40,17 @@ public abstract class JSONConverter {
 			return null;
 		
 		try {
-		BufferedReader br = new BufferedReader(new  InputStreamReader(stream));
-	    String json = "";
-	    if(br != null){
-	        json = br.readLine();
-	    }
+			BufferedReader br = new BufferedReader(new  InputStreamReader(stream));
+		    String json = "";
+		    if(br != null){
+		        json = br.readLine();
+		    }
 
-	    ObjectMapper mapper = new ObjectMapper();
-	    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-	    mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-
-	    return mapper.readValue(json, genericClass);
+		    ObjectMapper mapper = new ObjectMapper();
+		    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		    mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
+		    return mapper.readValue(json, genericClass);
+		    
 		}catch(Exception e)
 		{
 			e.printStackTrace();

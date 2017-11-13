@@ -1,6 +1,5 @@
 import {Card} from './card/card'
 
-
 export namespace deckFields {
   export type idDeck = number;
   export type name = string;
@@ -13,7 +12,6 @@ export interface DeckInterface {
   cards: deckFields.cards;
 }
 
- 
 export class Deck implements DeckInterface {
   idDeck: number;
   name: string;

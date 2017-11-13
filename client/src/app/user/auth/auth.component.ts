@@ -10,11 +10,12 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./auth.component.css']
 })
 export class AuthComponent implements OnInit {
+
   constructor(private cookieService: CookieService, private userService: UserService) { }
   user: User;
 
   ngOnInit() {
-    this.user = new User(0, "", "", "", null, "" , "", "");
+    this.user = new User(0, "", "", "", null, "", "", null, "");
   }
 
   setCookie() {

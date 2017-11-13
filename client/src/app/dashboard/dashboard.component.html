@@ -1,6 +1,14 @@
-<div class="row mt-4 pt-4">
-  <div class="col">
-    <app-user-detail [user]="user"></app-user-detail>
-    <app-deck></app-deck>
+<h1>{{user?.pseudo}}</h1>
+
+<hr class="mt-4">
+<h2>Détails du compte</h2>
+<app-user-detail [user]="user"></app-user-detail>
+<hr class="mt-4">
+<h2>Liste des cartes</h2>
+<div *ngIf="{{user.decks}} == undefined">Vous n'avez pas de cartes</div>
+
+<div ng-if="user.decks != null">
+  <div ng-	For="let deck of user.decks">
+    <app-deck [deck]="deck"></app-deck>
   </div>
 </div>

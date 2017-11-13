@@ -1,3 +1,5 @@
+import {Deck} from '../deck/deck'
+
 export namespace accountFields {
   export type idUser = number;
   export type pseudo = string;
@@ -6,6 +8,7 @@ export namespace accountFields {
   export type zipCode = number | null;
   export type city = string | null;
   export type adress = string | null;
+  export type decks = Deck[];
   export type token = string;
 }
 
@@ -17,6 +20,7 @@ export interface Account {
   zipCode: accountFields.zipCode;
   city: accountFields.city;
   adress: accountFields.adress;
+  decks: accountFields.decks
   token: accountFields.token;
 }
 
@@ -29,10 +33,11 @@ export class User implements Account {
   zipCode: number;
   city: string;
   adress: string;
+  decks: Deck[];
   token: string;
 
 
-  constructor(idUser: number, pseudo: string, password: string, mail: string, zipCode: number, city: string, adress: string, token:string) {
+  constructor(idUser: number, pseudo: string, password: string, mail: string, zipCode: number, city: string, adress: string, decks: Deck[], token:string) {
     this.id = idUser;
     this.pseudo = pseudo;
     this.password = password;
@@ -40,6 +45,7 @@ export class User implements Account {
     this.zipCode = zipCode;
     this.city = city;
     this.adress = adress;
+    this.decks = decks;
     this.token = token;
   }
 }
