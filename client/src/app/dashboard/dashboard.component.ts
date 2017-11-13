@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { Observable } from "rxjs/Rx"
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 import { UserService } from '../user/user.service';
@@ -11,6 +12,7 @@ import { User } from '../user/user';
 })
 export class DashboardComponent implements OnInit {
   user: User;
+  
   constructor(
     private route: ActivatedRoute,
     private userService: UserService,

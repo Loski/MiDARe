@@ -2,13 +2,10 @@
 
 <hr class="mt-4">
 <h2>Détails du compte</h2>
+<div *ngIf="user">
 <app-user-detail [user]="user"></app-user-detail>
+</div>
 <hr class="mt-4">
 <h2>Liste des cartes</h2>
-<div *ngIf="{{user.decks}} == undefined">Vous n'avez pas de cartes</div>
+<div *ngIf="user?.decks.length == 0">Vous n'avez pas de cartes</div>
 
-<div ng-if="user.decks != null">
-  <div ng-	For="let deck of user.decks">
-    <app-deck [deck]="deck"></app-deck>
-  </div>
-</div>
