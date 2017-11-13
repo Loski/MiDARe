@@ -9,3 +9,6 @@
 <h2>Liste des cartes</h2>
 <div *ngIf="user?.decks.length == 0">Vous n'avez pas de cartes</div>
 
+<div *ngFor="let deck of user?.decks">
+	<app-deck [deck]="deck"></app-deck>
+</div>
