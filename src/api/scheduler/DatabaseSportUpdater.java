@@ -149,6 +149,8 @@ public class DatabaseSportUpdater implements Runnable{
 							team1=null;
 							team2=null;
 							state_encounter="";
+							score_team_1=0;
+							score_team_2=0;
 							
 						}
 					}
