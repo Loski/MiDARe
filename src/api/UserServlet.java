@@ -171,6 +171,7 @@ public class UserServlet extends Endpoint {
 			{
 				int id = URLParser.getParameterOfURL(url,1);
 				modifyUser(request, response, id);
+				return;
 			}
 			//PUT : api/users/{id}/bets/{id}
 			else if(url.matches(USER_THIS_BET_URL))
@@ -198,12 +199,13 @@ public class UserServlet extends Endpoint {
 					response.sendError(422,"le paramètre accept est faux.");
 				}
 			}
-			else
-				response.sendError(422, "paramètre dans l'url manquant");
 		}catch(Exception e)
 		{
+			e.printStackTrace();
 			response.sendError(500,e.getMessage());
 		}
+		
+		response.sendError(404);
 
 	}
 	
@@ -297,16 +299,23 @@ public class UserServlet extends Endpoint {
 			sendJSON(response, JSONConverter.convert(user, map));
 	}
 	
-	private void modifyUser(HttpServletRequest request, HttpServletResponse response, int id) throws IOException
+	private void modifyUser(HttpServletRequest request, HttpServletResponse response, int id) throws Exception
 	{
+		System.out.println("Modify User");
 		Account user = JSONConverter.deserialize(request.getInputStream(),Account.class);
 		user.setIdUser(id);
-		String pass = SHA256.sha256(user.getPassword());
 		
 		Account userBefore = EntityHandler.accountService.findById(id);
 		
-		if(!pass.equals(userBefore.getPassword()))
+		if(userBefore==null)
 		{
+			response.sendError(404);
+			return;
+		}
+		
+		if(user.getPassword()!=null)
+		{
+			String pass = SHA256.sha256(user.getPassword());
 			user.setPassword(pass);
 		}
 		else
@@ -315,6 +324,8 @@ public class UserServlet extends Endpoint {
 		}
 		
 		EntityHandler.accountService.merge(user);
+		
+		sendJSON(response, JSONConverter.convert(user));
 	}
 
 	private void createBet(HttpServletRequest request, HttpServletResponse response) throws IOException
