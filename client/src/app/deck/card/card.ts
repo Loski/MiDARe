@@ -7,7 +7,7 @@ export namespace cardFields {
 }
 
 export interface CardInterface {
-  id: cardFields.idCard;
+  idCard: cardFields.idCard;
   cardName: cardFields.cardName;
   cardDescription: cardFields.cardDescription;
   url: cardFields.url;
@@ -19,12 +19,12 @@ export interface CardInterface {
 export class Card implements CardInterface {
   number: number;
   urlbig: string;
-  id: number;
+  idCard: number;
   cardName: string;
   cardDescription: string;
   url: string;
-  constructor(id: number, name: string, description: string, URL: string, urlBig:string, number:number) {
-    this.id = id;
+  constructor(idCard: number, name: string, description: string, URL: string, urlBig:string, number:number) {
+    this.idCard = id;
     this.cardName = name;
     this.cardDescription = description;
     this.url = URL;

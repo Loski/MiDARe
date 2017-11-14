@@ -9,6 +9,16 @@
 <h2>Liste des cartes</h2>
 <div *ngIf="user?.decks.length == 0">Vous n'avez pas de cartes</div>
 
-<div *ngFor="let deck of user?.decks">
+
+<div  *ngFor="let deck of user?.decks">
+	<hr class="mt-4">
+	<h2>Deck {{ deck.idDeck }}</h2>
+	<div class="row">
+  		<div class="col-sm-2">Image</div>
+  		<div class="col-sm-1">Id</div>
+  		<div class="col-sm-2">Name</div>
+  		<div class="col-sm-1">Quantity</div>
+  		<div class="col-sm-6">Description</div>
+	</div>
 	<app-deck [deck]="deck"></app-deck>
 </div>
