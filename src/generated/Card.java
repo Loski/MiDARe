@@ -152,13 +152,13 @@ public class Card implements java.io.Serializable {
 	{
 		String id = "";
 		
-		if(this.idCard<100)
+		if(this.number<100)
 			id+="0";
 		
-		if(this.idCard<10)
+		if(this.number<10)
 			id+="0";
 		
-		id+=this.idCard;
+		id+=this.number;
 		
 		return URL.replace("{id}", id);
 	}
@@ -168,13 +168,13 @@ public class Card implements java.io.Serializable {
 	{
 		String id = "";
 		
-		if(this.idCard<100)
+		if(this.number<100)
 			id+="0";
 		
-		if(this.idCard<10)
+		if(this.number<10)
 			id+="0";
 		
-		id+=this.idCard;
+		id+=this.number;
 		
 		return BIG_URL.replace("{id}", id);
 	}
