@@ -45,10 +45,12 @@ public abstract class JSONConverter {
 		    if(br != null){
 		        json = br.readLine();
 		    }
+		    
+		    if(json==null)
+		    	return null;
 
 		    ObjectMapper mapper = new ObjectMapper();
 		    mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		    mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		    return mapper.readValue(json, genericClass);
 		    
 		}catch(Exception e)
