@@ -275,7 +275,7 @@ public class UserServlet extends Endpoint {
 
 	private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		Account user = JSONConverter.deserialize(request.getInputStream(),Account.class);
+		Account user = JSONConverter.deserialize(request.getInputStream(), Account.class);
 
 			/*if(!EntityHandler.accountService.getAccountWithPseudo(request.getParameter("pseudo")).isEmpty()){
 				response.sendError(422, "pseudo déja utilisé");
