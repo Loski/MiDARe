@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS Deck
 
 CREATE TABLE IF NOT EXISTS Card(
 	id_card INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	id_deck INT,
+	id_deck INT NOT NULL,
 	number INT DEFAULT 0,
 	card_name CHAR(40) NOT NULL,
 	card_description TEXT,
@@ -31,8 +31,8 @@ CREATE TABLE IF NOT EXISTS Card(
 
 CREATE TABLE IF NOT EXISTS Inventory
 (
-	id_user INT,
-	id_card INT,
+	id_user INT NOT NULL,
+	id_card INT NOT NULL,
 	quantity INT DEFAULT 1,
 	PRIMARY KEY (id_user,id_card),
 	FOREIGN KEY (id_user) REFERENCES Account(id_user),

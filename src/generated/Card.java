@@ -91,7 +91,7 @@ public class Card implements java.io.Serializable {
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_deck")
+	@JoinColumn(name = "id_deck", nullable = false)
 	public Deck getDeck() {
 		return this.deck;
 	}
