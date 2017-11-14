@@ -98,4 +98,13 @@ public class CardHome {
 			return 0;
 		}
 	}
+
+	public void refresh(Card card) {
+		try {
+			this.entityManager.refresh(card);
+		} catch (RuntimeException re) {
+			log.error("refresh failed", re);
+			throw re;
+		}
+	}
 }

@@ -321,6 +321,8 @@ public class UserServlet extends Endpoint {
 				Inventory inv = new Inventory(invID, user, card, 1);
 				
 				EntityHandler.inventoryService.persist(inv);
+				
+				EntityHandler.cardService.refresh(card);
 			}
 
 			EntityHandler.accountService.refresh(user);

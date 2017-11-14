@@ -208,6 +208,11 @@ public class Account implements java.io.Serializable {
 		
 		System.out.println("SIZE:"+decks.size());
 		
+		if(decks.values()==null)
+		{
+			return new LinkedList<Deck>();
+		}
+		
 		return decks.values();
 	}
 

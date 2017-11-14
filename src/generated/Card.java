@@ -3,6 +3,8 @@ package generated;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -136,7 +138,7 @@ public class Card implements java.io.Serializable {
 		this.number = number;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade=CascadeType.REFRESH)
 	public Set<Inventory> getInventories() {
 		return this.inventories;
 	}
