@@ -13,7 +13,6 @@ CREATE TABLE IF NOT EXISTS Account(
 	adress CHAR(50)
 );
 
-
 CREATE TABLE IF NOT EXISTS Deck
 (
 	id_deck INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
@@ -22,17 +21,17 @@ CREATE TABLE IF NOT EXISTS Deck
 
 CREATE TABLE IF NOT EXISTS Card(
 	id_card INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	id_deck INT NOT NULL,
+	id_deck INT,
 	number INT DEFAULT 0,
 	card_name CHAR(40) NOT NULL,
-	card_description TEXT,
+	card_description VARCHAR(500),
 	FOREIGN KEY (id_deck) REFERENCES Deck(id_deck)
 );
 
 CREATE TABLE IF NOT EXISTS Inventory
 (
-	id_user INT NOT NULL,
-	id_card INT NOT NULL,
+	id_user INT,
+	id_card INT,
 	quantity INT DEFAULT 1,
 	PRIMARY KEY (id_user,id_card),
 	FOREIGN KEY (id_user) REFERENCES Account(id_user),
@@ -92,7 +91,6 @@ CREATE TABLE IF NOT EXISTS Bet(
 	CHECK (id_card_creator!=null || service_creator!=null)
 );
 
-INSERT INTO deck VALUES (1,"FFXIV");
 
 /*
 CREATE OR REPLACE FUNCTION checkSport()

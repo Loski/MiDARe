@@ -1,5 +1,5 @@
-<div *ngIf="deck!=undefined">
-  <div class="d-flex flex-row" *ngFor="let card of deck.cards">
-    <app-card [card]="card"></app-card>
+<div *ngIf="deck!=undefined" class="d-flex flex-row align-items-center">
+  <div *ngFor="let card of deck.cards">
+    <app-card class="p-2 justify-content-between d-flex" [card]="card"></app-card>
   </div>
 </div>

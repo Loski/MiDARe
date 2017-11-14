@@ -3,32 +3,32 @@ export namespace cardFields {
   export type cardName = string;
   export type cardDescription = string;
   export type url = string;
-  export type urlBig = string;
+  export type urlbig = string;
 }
 
 export interface CardInterface {
   id: cardFields.idCard;
   cardName: cardFields.cardName;
-  description: cardFields.cardDescription;
+  cardDescription: cardFields.cardDescription;
   url: cardFields.url;
-  urlBig: cardFields.urlBig;
+  urlbig: cardFields.urlbig;
   number: number;
 }
 
 
 export class Card implements CardInterface {
   number: number;
-  urlBig: string;
+  urlbig: string;
   id: number;
   cardName: string;
-  description: string;
+  cardDescription: string;
   url: string;
   constructor(id: number, name: string, description: string, URL: string, urlBig:string, number:number) {
     this.id = id;
     this.cardName = name;
-    this.description = description;
+    this.cardDescription = description;
     this.url = URL;
-    this.urlBig = urlBig;
+    this.urlbig = urlBig;
     this.number = number;
   }
 }
