@@ -63,7 +63,7 @@ public class Bet implements java.io.Serializable {
 		this.idBet = idBet;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_creator", nullable = true)
 	public Account getCreator() {
 		return this.creator;
@@ -73,7 +73,7 @@ public class Bet implements java.io.Serializable {
 		this.creator = account;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_opponent", nullable = false)
 	public Account getOpponent() {
 		return this.opponent;
@@ -83,7 +83,7 @@ public class Bet implements java.io.Serializable {
 		this.opponent = account;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_encounter", nullable = false)
 	public Encounter getEncounter() {
 		return this.encounter;
@@ -120,7 +120,7 @@ public class Bet implements java.io.Serializable {
 		this.serviceOpponent = serviceOpponent;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_card_opponent")
 	public Card getOpponentCard() {
 		return this.opponentCard;
@@ -130,7 +130,7 @@ public class Bet implements java.io.Serializable {
 		this.opponentCard = card;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_card_creator")
 	public Card getCreatorCard() {
 		return this.creatorCard;

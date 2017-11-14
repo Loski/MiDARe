@@ -64,7 +64,7 @@ public class Sport implements java.io.Serializable {
 		this.nameSport = nameSport;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "sport")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sport")
 	public Set<Encounter> getEncounters() {
 		return this.encounters;
 	}
@@ -73,7 +73,7 @@ public class Sport implements java.io.Serializable {
 		this.encounters = encounters;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "sport")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "sport")
 	public Set<Team> getTeams() {
 		return this.teams;
 	}

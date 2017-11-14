@@ -59,7 +59,7 @@ public class Deck implements java.io.Serializable {
 		this.name = name;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "deck")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "deck")
 	public Set<Card> getCards() {
 		return this.cards;
 	}

@@ -72,7 +72,7 @@ public class Team implements java.io.Serializable {
 		this.idTeam = idTeam;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_sport", nullable = false)
 	public Sport getSport() {
 		return this.sport;
@@ -91,7 +91,7 @@ public class Team implements java.io.Serializable {
 		this.nameTeam = nameTeam;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "teamByIdTeam1")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teamByIdTeam1")
 	public Set<Encounter> getEncountersForIdTeam1() {
 		return this.encountersForIdTeam1;
 	}
@@ -100,7 +100,7 @@ public class Team implements java.io.Serializable {
 		this.encountersForIdTeam1 = encountersForIdTeam1;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "teamByIdTeam2")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "teamByIdTeam2")
 	public Set<Encounter> getEncountersForIdTeam2() {
 		return this.encountersForIdTeam2;
 	}

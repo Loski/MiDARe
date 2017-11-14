@@ -86,7 +86,7 @@ public class Card implements java.io.Serializable {
 		this.cardName = cardName;
 	}
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_deck")
 	public Deck getDeck() {
 		return this.deck;
@@ -105,7 +105,7 @@ public class Card implements java.io.Serializable {
 		this.cardDescription = cardDescription;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "creatorCard")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creatorCard")
 	public Set<Bet> getBetsForIdCardCreator() {
 		return this.betsForIdCardCreator;
 	}
@@ -114,7 +114,7 @@ public class Card implements java.io.Serializable {
 		this.betsForIdCardCreator = betsForIdCardCreator;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "opponentCard")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "opponentCard")
 	public Set<Bet> getBetsForIdCardOppenent() {
 		return this.betsForIdCardOppenent;
 	}
@@ -134,7 +134,7 @@ public class Card implements java.io.Serializable {
 		this.number = number;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "card")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "card")
 	public Set<Inventory> getInventories() {
 		return this.inventories;
 	}
