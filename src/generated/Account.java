@@ -27,6 +27,7 @@ import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -38,6 +39,7 @@ import tools.JSONConverter;
  */
 @Entity
 @Table(name = "account", catalog = "sanglier", uniqueConstraints = @UniqueConstraint(columnNames = "pseudo"))
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Account implements java.io.Serializable {
 
 	private Integer idUser;

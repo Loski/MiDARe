@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
@@ -24,6 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
  */
 @Entity
 @Table(name = "card", catalog = "sanglier")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Card implements java.io.Serializable {
 
 	public static final String URL = "http://ffxivtriad.com/assets/images/cards/{id}_t.png";
@@ -96,7 +98,7 @@ public class Card implements java.io.Serializable {
 		this.deck = deck;
 	}
 
-	@Column(name = "card_description", length = 500)
+	@Column(name = "card_description", length = 500, columnDefinition = "TEXT")
 	public String getCardDescription() {
 		return this.cardDescription;
 	}

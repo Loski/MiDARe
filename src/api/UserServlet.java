@@ -315,7 +315,7 @@ public class UserServlet extends Endpoint {
 				 
 				already_have.add(index);
 				
-				Card card = EntityHandler.cardService.findById(i);
+				Card card = EntityHandler.cardService.findById(index);
 				
 				InventoryId invID = new InventoryId(user.getIdUser(),card.getIdCard());
 				Inventory inv = new Inventory(invID, user, card, 1);
