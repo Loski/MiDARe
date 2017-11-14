@@ -13,6 +13,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -51,7 +53,7 @@ public class Account implements java.io.Serializable {
 	@JsonIgnore
 	private Set<Bet> betsForOpponent = new HashSet<Bet>(0);
 	@JsonIgnore
-	private Set<Inventory> inventories = new HashSet(0);
+	private Set<Inventory> inventories = new HashSet<Inventory>(0);
 
 	public Account() {
 	}
@@ -167,7 +169,7 @@ public class Account implements java.io.Serializable {
 		this.betsForOpponent = bets;
 	}
 	
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "account")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "account", cascade=CascadeType.REFRESH)
 	public Set<Inventory> getInventories() {
 		return this.inventories;
 	}
@@ -201,6 +203,8 @@ public class Account implements java.io.Serializable {
 				decks.put(d.getIdDeck(),newDeck);
 			}
 		}
+		
+		System.out.println("SIZE:"+decks.size());
 		
 		return decks.values();
 	}

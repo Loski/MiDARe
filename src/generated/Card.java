@@ -96,7 +96,7 @@ public class Card implements java.io.Serializable {
 		this.deck = deck;
 	}
 
-	@Column(name = "card_description", length = 150)
+	@Column(name = "card_description", length = 500)
 	public String getCardDescription() {
 		return this.cardDescription;
 	}

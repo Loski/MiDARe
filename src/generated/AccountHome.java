@@ -110,4 +110,13 @@ public class AccountHome {
 			throw re;
 		}
 	}
+
+	public void refresh(Account user) {
+		try {
+			this.entityManager.refresh(user);
+		} catch (RuntimeException re) {
+			log.error("refresh failed", re);
+			throw re;
+		}
+	}
 }

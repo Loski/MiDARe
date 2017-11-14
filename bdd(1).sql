@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS Card(
 	id_deck INT,
 	number INT DEFAULT 0,
 	card_name CHAR(40) NOT NULL,
-	card_description CHAR(150),
+	card_description VARCHAR(500),
 	FOREIGN KEY (id_deck) REFERENCES Deck(id_deck)
 );
 

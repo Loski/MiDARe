@@ -87,4 +87,15 @@ public class CardHome {
 			throw re;
 		}
 	}
+	
+	public int getNumberOfCards()
+	{
+		try
+		{
+			return this.getAll().size();
+		}catch(Exception e)
+		{
+			return 0;
+		}
+	}
 }

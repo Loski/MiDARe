@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -19,8 +21,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import generated.Account;
 import generated.AccountHome;
 import generated.Bet;
+import generated.Card;
 import generated.Encounter;
-
+import generated.Inventory;
+import generated.InventoryId;
 import tools.JSONConverter;
 import tools.JWT;
 import tools.SHA256;
@@ -292,10 +296,35 @@ public class UserServlet extends Endpoint {
 			else {*/
 			user.setIdUser(null);
 			user.setPassword(SHA256.sha256(user.getPassword()));
+			
 			EntityHandler.accountService.persist(user);
 			String token = JWT.createJWT(user.getIdUser().toString(), 10000);
 			Map<String, Object> map = new HashMap<String,Object>();
 			map.put("token", token);
+			
+			int nbCard = EntityHandler.cardService.getNumberOfCards();
+			
+			List<Integer> already_have = new LinkedList<Integer>(); 
+			for(int i=1;i<=5;i++)
+			{
+				int index = -1;
+				do 
+				{
+					index = (int)(Math.random() * nbCard);
+				}while(already_have.contains(index));
+				 
+				already_have.add(index);
+				
+				Card card = EntityHandler.cardService.findById(i);
+				
+				InventoryId invID = new InventoryId(user.getIdUser(),card.getIdCard());
+				Inventory inv = new Inventory(invID, user, card, 1);
+				
+				EntityHandler.inventoryService.persist(inv);
+			}
+
+			EntityHandler.accountService.refresh(user);
+			
 			sendJSON(response, JSONConverter.convert(user, map));
 	}
 	
