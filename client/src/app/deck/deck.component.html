@@ -1,5 +1,5 @@
 <div *ngIf="deck!=undefined">
-  <div *ngFor="let card of deck.cards" class="form-row">
+  <div class="d-flex flex-row" *ngFor="let card of deck.cards">
     <app-card [card]="card"></app-card>
   </div>
 </div>

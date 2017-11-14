@@ -11,7 +11,7 @@ import { User } from '../user/user';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  @Input() user: User;
+  user: User;
   
   constructor(
     private route: ActivatedRoute,
@@ -22,14 +22,12 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUser();
-    console.log(this.user);
   }
 
   getUser(): void {
     const id = +this.route.snapshot.paramMap.get('id');
     this.userService.getUser(id)
       .subscribe(user => this.user = user);
-    console.log(this.user);
   }
 
 }

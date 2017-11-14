@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS Card(
 	id_deck INT,
 	number INT DEFAULT 0,
 	card_name CHAR(40) NOT NULL,
-	card_description VARCHAR(500),
+	card_description text,
 	FOREIGN KEY (id_deck) REFERENCES Deck(id_deck)
 );
 
@@ -92,7 +92,6 @@ CREATE TABLE IF NOT EXISTS Bet(
 	CHECK (id_card_creator!=null || service_creator!=null)
 );
 
-INSERT INTO deck VALUES (1,"FFXIV");
 
 /*
 CREATE OR REPLACE FUNCTION checkSport()
