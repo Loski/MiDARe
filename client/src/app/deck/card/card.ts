@@ -24,7 +24,7 @@ export class Card implements CardInterface {
   cardDescription: string;
   url: string;
   constructor(idCard: number, name: string, description: string, URL: string, urlBig:string, number:number) {
-    this.idCard = id;
+    this.idCard = idCard;
     this.cardName = name;
     this.cardDescription = description;
     this.url = URL;

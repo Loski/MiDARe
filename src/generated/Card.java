@@ -138,7 +138,7 @@ public class Card implements java.io.Serializable {
 		this.number = number;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade=CascadeType.REFRESH)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "card", cascade= CascadeType.REMOVE)
 	public Set<Inventory> getInventories() {
 		return this.inventories;
 	}

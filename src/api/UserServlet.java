@@ -203,13 +203,14 @@ public class UserServlet extends Endpoint {
 					response.sendError(422,"le paramètre accept est faux.");
 				}
 			}
+			
+			response.sendError(404);
+			
 		}catch(Exception e)
 		{
 			e.printStackTrace();
 			response.sendError(500,e.getMessage());
 		}
-		
-		response.sendError(404);
 
 	}
 	
@@ -243,13 +244,13 @@ public class UserServlet extends Endpoint {
 				}
 			}
 
+			response.sendError(404);
+			
 		}catch(Exception e)
 		{
 			response.sendError(500,e.getMessage());
 		}
 		
-		response.sendError(404);
-
 	}
 
 	private void deleteUser(HttpServletRequest request, HttpServletResponse response, int id) throws Exception {
@@ -275,7 +276,7 @@ public class UserServlet extends Endpoint {
 
 	private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		Account user = JSONConverter.deserialize(request.getInputStream(),Account.class);
+		Account user = JSONConverter.deserialize(request.getInputStream(), Account.class);
 
 			/*if(!EntityHandler.accountService.getAccountWithPseudo(request.getParameter("pseudo")).isEmpty()){
 				response.sendError(422, "pseudo déja utilisé");
@@ -356,7 +357,9 @@ public class UserServlet extends Endpoint {
 		
 		EntityHandler.accountService.merge(user);
 		
-		sendJSON(response, JSONConverter.convert(user));
+		EntityHandler.accountService.refresh(userBefore);
+		
+		sendJSON(response, JSONConverter.convert(userBefore));
 	}
 
 	private void createBet(HttpServletRequest request, HttpServletResponse response) throws IOException

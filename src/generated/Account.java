@@ -153,7 +153,7 @@ public class Account implements java.io.Serializable {
 		this.adress = adress;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "creator", cascade= CascadeType.REMOVE)
 	public Set<Bet> getBetsForCreator() {
 		return this.betsForCreator;
 	}
@@ -171,7 +171,7 @@ public class Account implements java.io.Serializable {
 		this.betsForOpponent = bets;
 	}
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade=CascadeType.REFRESH)
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade= CascadeType.REMOVE)
 	public Set<Inventory> getInventories() {
 		return this.inventories;
 	}
