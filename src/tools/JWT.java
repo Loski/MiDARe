@@ -37,7 +37,7 @@ public class JWT {
 	    return builder.compact();
 	}
 	
-	public static boolean checkJWT(String jwt) {
+	public static boolean checkJWT(String jwt, int id) {
 		try {
 		    Claims claims = Jwts.parser()         
 		       .setSigningKey(DatatypeConverter.parseBase64Binary(base64Key))
@@ -47,7 +47,7 @@ public class JWT {
 		    {
 			    Date now = new Date(System.currentTimeMillis());
 			    
-			    if(claims.getExpiration().after(now))
+			    if(claims.getExpiration().after(now) || Integer.parseInt(claims.getId()) != id)
 			    	return false;
 			    else
 			    	return true;
