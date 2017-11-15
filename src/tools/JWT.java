@@ -37,19 +37,23 @@ public class JWT {
 	    return builder.compact();
 	}
 	
-	public static String parseJWT(String jwt) {
+	public static boolean checkJWT(String jwt) {
 		try {
 		    Claims claims = Jwts.parser()         
 		       .setSigningKey(DatatypeConverter.parseBase64Binary(base64Key))
 		       .parseClaimsJws(jwt).getBody();
 		    
-		    String s = ("ID: " + claims.getId() + " Expiration: " + claims.getExpiration());
-		    
-		    return s;
+		    if(claims.getId() != null && claims.getExpiration() != null)
+		    {
+			    Date now = new Date(System.currentTimeMillis());
+			    
+			    if(claims.getExpiration().after(now))
+			    	return false;
+			    else
+			    	return true;
+		    }
 		}
-		catch(Exception e) {System.out.println(e);}
-		
-	    return null;
-
+		catch(Exception e) {System.out.println(e); return false;}
+		return false;
 	}
 }

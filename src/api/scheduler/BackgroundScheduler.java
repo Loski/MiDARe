@@ -16,7 +16,7 @@ public class BackgroundScheduler implements ServletContextListener {
     public void contextInitialized(ServletContextEvent event) {
 
         scheduler = Executors.newSingleThreadScheduledExecutor();
-        scheduler.scheduleAtFixedRate(new DatabaseTriadCardUpdater(), 0, 15, TimeUnit.DAYS);
+        //scheduler.scheduleAtFixedRate(new DatabaseTriadCardUpdater(), 0, 15, TimeUnit.DAYS);
         //scheduler.scheduleAtFixedRate(new DatabaseSportUpdater(), 0, 15, TimeUnit.MINUTES);
 
     }

@@ -14,9 +14,9 @@ const httpOptions = {
 @Injectable()
 export class UserService {
 
-  private usersURL = 'http://178.62.38.160:8080/MiDARe/api/users';  // URL to web api
-  private authURL = 'http://178.62.38.160:8080/MiDARe/auth';  // URL to auth
-  
+  private usersURL = 'http://localhost:8080/DAR/api/users';  // URL to web api
+  private authURL = 'http://localhost:8080/DAR/auth';  // URL to auth
+ 
   constructor(
     private http: HttpClient
   ) { }
