@@ -91,7 +91,8 @@ CREATE TABLE IF NOT EXISTS Bet(
 	CHECK (id_card_creator!=null || service_creator!=null)
 );
 
-
+INSERT INTO sport VALUES (1,"foot");
+INSERT INTO deck VALUES (1,"FFXIV");
 /*
 CREATE OR REPLACE FUNCTION checkSport()
 RETURNS boolean

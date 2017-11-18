@@ -15,7 +15,7 @@ import generated.EncounterHome;
 import tools.JSONConverter;
 import tools.URLParser;
 
-@WebServlet("/encounters/*")
+@WebServlet("/api/encounters/*")
 public class EncounterServlet extends Endpoint{
 
 	private static final long serialVersionUID = 1L;

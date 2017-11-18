@@ -73,7 +73,7 @@ public class DatabaseTriadCardUpdater implements Runnable{
 			Card c = new Card();
 			
 			c.setNumber((Integer)node.get("number"));
-			c.setCardDescription((String) node.get("description"));
+		//	c.setCardDescription((String) node.get("description"));
 			c.setCardName((String) node.get("realName_fr"));
 			c.setDeck(EntityHandler.deckService.findById(1));
 			

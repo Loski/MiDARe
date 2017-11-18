@@ -1,3 +1,5 @@
-<div *ngFor="let card of deck.cards" class="row">
-	<app-card class="p-2 justify-content-between d-flex" [card]="card"></app-card>
+<div class="row">
+  <div *ngFor="let card of deck.cards">
+    <app-card [card]="card"></app-card>
+  </div>
 </div>

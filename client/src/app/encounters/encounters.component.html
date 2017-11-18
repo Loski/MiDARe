@@ -1,0 +1,8 @@
+<div>
+  <div class="card card-body" *ngFor="let encounter of encountersList">
+    <span class="float-left">Le {{encounter.dateEncounter | date:'dd/MM/yyyy à hh:mm'}}</span>
+    {{encounter.teamByIdTeam1.nameTeam}}
+    {{encounter.scoreTeam1}} - {{encounter.scoreTeam2}}
+   {{encounter.teamByIdTeam2.nameTeam}}
+  </div>
+</div>

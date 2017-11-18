@@ -18,6 +18,10 @@ import { DeckComponent } from './deck/deck.component';
 import { SignupComponent } from './user/signup/signup.component';
 import { DeckService } from "./deck/deck.service";
 import { CardService } from "./deck/card/card.service";
+import { EncountersComponent } from './encounters/encounters.component';
+import {EncountersService} from './encounters/encounters.service';
+import { BetsComponent } from './bets/bets.component';
+
 
 
 @NgModule({
@@ -31,6 +35,8 @@ import { CardService } from "./deck/card/card.service";
     CardComponent,
     DeckComponent,
     SignupComponent,
+    EncountersComponent,
+    BetsComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,6 +48,7 @@ import { CardService } from "./deck/card/card.service";
   schemas: [NO_ERRORS_SCHEMA],
   providers: [
     UserService,
+    EncountersService,
     DeckService,
     CardService,
     CookieService 
