@@ -21,7 +21,7 @@ import { CardService } from "./deck/card/card.service";
 import { EncountersComponent } from './encounters/encounters.component';
 import {EncountersService} from './encounters/encounters.service';
 import { BetsComponent } from './bets/bets.component';
-
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -43,7 +43,10 @@ import { BetsComponent } from './bets/bets.component';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAyvwNEhqa8o-CXQl1pfV_wAbdGlQRLn-c'
+    })
   ],
   schemas: [NO_ERRORS_SCHEMA],
   providers: [

@@ -1,9 +1,13 @@
 <h1>{{user?.pseudo}}</h1>
 
 <hr class="mt-4">
-<h2>Détails du compte</h2>
+<h2>Localisation du joueur</h2>
 <div *ngIf="user">
 <app-user-detail [user]="user"></app-user-detail>
+<agm-map [latitude]="lat" [longitude]="lng">
+  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+</agm-map>
+
 </div>
 <hr class="mt-4">
 <h2>Liste des cartes</h2>
@@ -12,6 +16,5 @@
 
 <div  *ngFor="let deck of user?.decks">
 	<hr class="mt-4">
-	<h2>Deck {{ deck.name }}</h2>
 	<app-deck [deck]="deck"></app-deck>
 </div>
