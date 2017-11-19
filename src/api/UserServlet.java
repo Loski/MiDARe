@@ -47,6 +47,7 @@ public class UserServlet extends Endpoint {
 
 
 		String url = URLParser.parseOnToken(request.getPathInfo(),0);
+		String token = URLParser.parseOnToken(request.getPathInfo(),1);
 		System.out.println("my url is:" + url);
 
 		try
@@ -162,7 +163,8 @@ public class UserServlet extends Endpoint {
 	public void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String url = URLParser.parseOnToken(request.getPathInfo(),0);
-
+		String token = URLParser.parseOnToken(request.getPathInfo(),1);
+		
 		try
 		{	
 			if(url==null || url.isEmpty())
@@ -174,7 +176,7 @@ public class UserServlet extends Endpoint {
 			else if(url.matches(USER_URL))
 			{
 				int id = URLParser.getParameterOfURL(url,1);
-				modifyUser(request, response, id);
+				modifyUser(request, response, id,token);
 				return;
 			}
 			//PUT : api/users/{id}/bets/{id}
@@ -218,7 +220,8 @@ public class UserServlet extends Endpoint {
 	public void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		String url = URLParser.parseOnToken(request.getPathInfo(),0);
-
+		String token = URLParser.parseOnToken(request.getPathInfo(),1);
+		
 		try
 		{
 			if(url==null || url.isEmpty())
@@ -233,10 +236,8 @@ public class UserServlet extends Endpoint {
 				//DELETE : api/users/{id}/
 				if(url.matches(USER_URL))
 				{
-					//if(user existe + si j'ai les droits)
-
 					int id = URLParser.getParameterOfURL(url,1);
-					deleteUser(request, response, id);
+					deleteUser(request, response, id,token);
 					return;
 
 				}else if(url.matches(USER_THIS_BET_URL)){
@@ -253,7 +254,7 @@ public class UserServlet extends Endpoint {
 		
 	}
 
-	private void deleteUser(HttpServletRequest request, HttpServletResponse response, int id) throws Exception {
+	private void deleteUser(HttpServletRequest request, HttpServletResponse response, int id,String token) throws Exception {
 		
 		if(id <0)
 		{
@@ -270,8 +271,14 @@ public class UserServlet extends Endpoint {
 			return;
 		}
 		
-		EntityHandler.accountService.remove(user);
-
+		if(JWT.checkJWT(token, id))
+		{
+			EntityHandler.accountService.remove(user);
+		}
+		else
+		{
+			response.sendError(403);
+		}
 	}
 
 	private void createUser(HttpServletRequest request, HttpServletResponse response) throws IOException
@@ -331,35 +338,42 @@ public class UserServlet extends Endpoint {
 			sendJSON(response, JSONConverter.convert(user, map));
 	}
 	
-	private void modifyUser(HttpServletRequest request, HttpServletResponse response, int id) throws Exception
+	private void modifyUser(HttpServletRequest request, HttpServletResponse response, int id,String token) throws Exception
 	{
 		System.out.println("Modify User");
 		Account user = JSONConverter.deserialize(request.getInputStream(),Account.class);
 		user.setIdUser(id);
 		
-		Account userBefore = EntityHandler.accountService.findById(id);
-		
-		if(userBefore==null)
+		if(JWT.checkJWT(token, id))
 		{
-			response.sendError(404);
-			return;
-		}
-		
-		if(user.getPassword()!=null)
-		{
-			String pass = SHA256.sha256(user.getPassword());
-			user.setPassword(pass);
+			Account userBefore = EntityHandler.accountService.findById(id);
+			
+			if(userBefore==null)
+			{
+				response.sendError(404);
+				return;
+			}
+			
+			if(user.getPassword()!=null)
+			{
+				String pass = SHA256.sha256(user.getPassword());
+				user.setPassword(pass);
+			}
+			else
+			{
+				user.setPassword(userBefore.getPassword());
+			}
+			
+			EntityHandler.accountService.merge(user);
+			
+			EntityHandler.accountService.refresh(userBefore);
+			
+			sendJSON(response, JSONConverter.convert(userBefore));
 		}
 		else
 		{
-			user.setPassword(userBefore.getPassword());
+			response.sendError(403);
 		}
-		
-		EntityHandler.accountService.merge(user);
-		
-		EntityHandler.accountService.refresh(userBefore);
-		
-		sendJSON(response, JSONConverter.convert(userBefore));
 	}
 
 	private void createBet(HttpServletRequest request, HttpServletResponse response) throws IOException
