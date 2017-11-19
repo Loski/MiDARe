@@ -13,7 +13,7 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 })
 export class DashboardComponent implements OnInit {
   user: User;
-  results: string[];
+  results: any[];
   lat: number = 51.678418;
   lng: number = 7.809007;
   
@@ -38,7 +38,7 @@ export class DashboardComponent implements OnInit {
   infoUser(user)
   {
   	this.user = user;
-  	this.getLocation());
+  	this.getLocation();
   }
   
   infoLocation(data):void{
@@ -50,6 +50,5 @@ export class DashboardComponent implements OnInit {
 	getLocation():void {
 		this.http.get('https://maps.googleapis.com/maps/api/geocode/json?address='+this.user.city+'&key=AIzaSyD35gECOo2q6bowKrjlIMjgMSgMNxEUkDk').subscribe(data => this.infoLocation(data));
 	}
-  }
 
 }
