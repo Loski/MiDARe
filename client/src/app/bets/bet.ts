@@ -22,19 +22,20 @@ export interface betInterface {
   state_bet: betFields.state_bet;
 }
 
-export class Bet {
-    constructor(idBet: betFields.idBet,
-                id_encounter: betFields.id_encounter,
-                id_service_1: betFields.id_service_1,
-                id_service_2: betFields.id_service_2,
-                id_user_1: betFields.id_user_1,
-                id_user_2: betFields.id_user_2,
-                state_bet: betFields.state_bet) {
-      idBet = idBet;
-      id_encounter = id_encounter;
-      id_service_1 = id_service_1;
-      id_service_2 = id_service_2;
-      id_user_1 = id_user_1;
-      id_user_2 = id_user_2;
-      state_bet = state_bet;
+export class Bet  {
+  constructor(idBet: betFields.idBet,
+    id_encounter: betFields.id_encounter,
+    id_service_1: betFields.id_service_1,
+    id_service_2: betFields.id_service_2,
+    id_user_1: betFields.id_user_1,
+    id_user_2: betFields.id_user_2,
+    state_bet: betFields.state_bet) {
+    idBet = idBet;
+    id_encounter = id_encounter;
+    id_service_1 = id_service_1;
+    id_service_2 = id_service_2;
+    id_user_1 = id_user_1;
+    id_user_2 = id_user_2;
+    state_bet = state_bet;
+  }
 }
