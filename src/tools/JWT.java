@@ -38,6 +38,9 @@ public class JWT {
 	}
 	
 	public static boolean checkJWT(String jwt, int id) {
+		if(jwt==null || jwt.isEmpty())
+			return false;
+		
 		try {
 		    Claims claims = Jwts.parser()         
 		       .setSigningKey(DatatypeConverter.parseBase64Binary(base64Key))
